@@ -1,7 +1,22 @@
 /* COMMON CSS */
+:root {
+    --primary-color: rgb(30,30,46);
+    --secondary-color: #27293d;
+    --font-color: rgba(255,255,255,.8);
+    --border-color: #3a4568;
+    --input-font-color: rgba(255, 255, 255, 0.699);
+}
+
 html, 
 body
-{font-family: "Manrope-Medium", Arial, Helvetica; font-weight: 300; font-size: 16px; text-rendering: optimizeLegibility;}
+{
+    font-family: "Manrope-Medium", Arial, Helvetica; 
+    color: var(--font-color); 
+    font-weight: 300; 
+    font-size: 16px; 
+    text-rendering: optimizeLegibility; 
+    background-color: var(--primary-color);
+}
 
 input[type="date"],
 input[type="text"],
@@ -11,14 +26,65 @@ input[type="email"],
 input[type="checkbox"],
 textarea,
 select {
-    font-family: "Manrope-Medium", Arial, Helvetica; font-weight: 300; font-size: 14px !important; text-rendering: optimizeLegibility;
+    font-family: "Manrope-Medium", Arial, Helvetica;  
+    color: var(--font-color); 
+    font-weight: 300; 
+    font-size: 14px !important; 
+    text-rendering: optimizeLegibility;
 }
 
-/* TYPO */
+.auth-form {
+    position: absolute; 
+    left: 35%; 
+    top: 30vh; 
+    width: 30%; 
+}
+
+/* Override box shadows of boostrap */
+textarea:focus, 
+textarea.form-control:focus, 
+input.form-control:focus, 
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=number]:focus, 
+[type=text].form-control:focus, 
+[type=password].form-control:focus, 
+[type=email].form-control:focus, 
+[type=tel].form-control:focus, 
+[contenteditable].form-control:focus {
+  box-shadow: none;
+}
+
+.form-control,
+.form-control:focus {
+    height: calc(1.5em + .75rem + 15px);
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+.form-control:focus {
+    color: var(--input-font-color); 
+    border-image-slice: 1;
+    border-width: 1px;
+    border-image-source: linear-gradient(to right,#3358f4,#1d8cf8);
+}
+
+.gradient-background {
+    background: linear-gradient(0deg,#3358f4 0,#1d8cf8 100%);
+}
+
+.btn-primary {
+    height: 48px;
+    border: none;
+    color: var(--font-color);
+}
+
+/* TYPOS */
 @font-face {
     font-family: 'Manrope-Medium';
     src: url('../assets/fonts/Manrope-Medium.woff2') format('woff2'),
-        url('../assets/fonts/Manrope-Medium.woff') format('woff');
+         url('../assets/fonts/Manrope-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
