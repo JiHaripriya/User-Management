@@ -7,6 +7,7 @@ import { PasswordComponent } from './authentication-layout/password/password.com
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,8 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UsernameComponent,
     PasswordComponent,
     NewPasswordComponent,
+    NewPasswordComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
