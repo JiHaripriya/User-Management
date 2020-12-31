@@ -17,7 +17,6 @@ export class PasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordForm = new FormGroup({
-      // At least one uppercase letter, one lowercase letter, one number and one special character
       password: new FormControl(null, [
         Validators.required,
         Validators.minLength(8),
