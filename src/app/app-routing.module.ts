@@ -7,16 +7,17 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path: 'login', children: [
+    path: 'login',
+    children: [
       { path: '', component: UsernameComponent, pathMatch: 'full' },
-      { path: 'password', component: PasswordComponent }
-    ]
+      { path: 'password', component: PasswordComponent },
+    ],
   },
-  { path: 'setPassword', component: NewPasswordComponent}
+  { path: 'setPassword', component: NewPasswordComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

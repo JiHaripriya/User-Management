@@ -10,10 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UsernameComponent implements OnInit {
   usernameForm: FormGroup;
 
-  constructor(
-    private router: Router, 
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.usernameForm = new FormGroup({
@@ -25,6 +22,9 @@ export class UsernameComponent implements OnInit {
     // logic to check whether email is valid
 
     // Navigate to next page by passing email as param
-    this.router.navigate(['password'], { relativeTo: this.route, queryParams:{username: this.usernameForm.value.email} });
+    this.router.navigate(['password'], {
+      relativeTo: this.route,
+      queryParams: { username: this.usernameForm.value.email },
+    });
   }
 }
