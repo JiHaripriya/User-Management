@@ -6,6 +6,7 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
