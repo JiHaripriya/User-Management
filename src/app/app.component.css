@@ -33,13 +33,6 @@ select {
     text-rendering: optimizeLegibility;
 }
 
-.auth-form {
-    position: absolute; 
-    left: 35%; 
-    top: 30vh; 
-    width: 30%; 
-}
-
 /* Override box shadows of boostrap */
 textarea:focus, 
 textarea.form-control:focus, 
@@ -56,13 +49,23 @@ input[type=number]:focus,
   box-shadow: none;
 }
 
+/* FORM STYLING */ 
+.auth-form {
+    position: absolute; 
+    left: 35%; 
+    top: 26vh; 
+    width: 30%; 
+}
+
 .form-control,
 .form-control:focus {
     height: calc(1.5em + .75rem + 15px);
     background-color: var(--secondary-color);
     border: 1px solid var(--border-color);
 }
-
+.border-bottom {
+    border-bottom: 1px solid var(--border-color) !important;
+}
 .form-control:focus {
     color: var(--input-font-color); 
     border-image-slice: 1;
@@ -75,7 +78,7 @@ input[type=number]:focus,
 }
 
 .btn-primary {
-    height: 48px;
+    height: 45px;
     border: none;
     color: var(--font-color);
 }
