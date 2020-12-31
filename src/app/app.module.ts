@@ -6,7 +6,6 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -14,8 +13,7 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     UsernameComponent,
     PasswordComponent,
-    NewPasswordComponent,
-    HeaderComponent
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
