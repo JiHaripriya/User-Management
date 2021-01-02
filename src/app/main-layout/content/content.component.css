@@ -1,0 +1,9 @@
+tr,
+th {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.table td,
+.table th {
+  border-color: rgba(255, 255, 255, 0.1);
+}
