@@ -7,6 +7,11 @@ import { PasswordComponent } from './authentication-layout/password/password.com
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { HeaderComponent } from './main-layout/header/header.component';
+import { ContentComponent } from './main-layout/content/content.component';
+import { SidebarComponent } from './main-layout/sidebar/sidebar.component';
+import { FooterComponent } from './main-layout/footer/footer.component';
 
 
 @NgModule({
@@ -14,7 +19,12 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     UsernameComponent,
     PasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    MainLayoutComponent,
+    HeaderComponent,
+    ContentComponent,
+    SidebarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
