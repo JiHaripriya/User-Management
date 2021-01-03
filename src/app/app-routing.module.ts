@@ -3,9 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { UsernameComponent } from './authentication-layout/username/username.component';
-import { FooterComponent } from './main-layout/footer/footer.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
-import { SidebarComponent } from './main-layout/sidebar/sidebar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

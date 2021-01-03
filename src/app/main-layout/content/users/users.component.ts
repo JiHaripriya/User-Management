@@ -3,11 +3,11 @@ import { UserDetails } from 'src/app/shared/user-details.model';
 import { UserDetailsService } from 'src/app/shared/user-details.service';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class ContentComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   userDetails: UserDetails[];
   constructor(private userDetailsApi: UserDetailsService) { }
