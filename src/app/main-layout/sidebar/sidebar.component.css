@@ -1,0 +1,13 @@
+.sidebar-wrapper {
+  height: 550px;
+  box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.6);
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 20px 40px;
+  background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
+  transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+}
+
+p {
+  color: rgba(255, 255, 255) !important;
+}
