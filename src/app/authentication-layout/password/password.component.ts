@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from 'src/app/shared/services/api.service';
+import { ParticleService } from 'src/app/shared/services/particle.service';
 
 @Component({
   selector: 'app-password',
@@ -12,13 +13,22 @@ import { AuthResponseData, AuthService } from 'src/app/shared/services/api.servi
 export class PasswordComponent implements OnInit {
   passwordForm: FormGroup;
 
+  width: number = 100;
+  height: number = 100;
+  myStyle: Object = {};
+  myParams: object = {};
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public particleService: ParticleService
   ) {}
 
   ngOnInit(): void {
+    this.myParams = this.particleService.getParticleParams();
+    this.myStyle = this.particleService.getParticleParams();
+    
     this.passwordForm = new FormGroup({
       password: new FormControl(null, [
         Validators.required,

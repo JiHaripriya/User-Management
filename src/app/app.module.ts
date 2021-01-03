@@ -15,6 +15,7 @@ import { FooterComponent } from './main-layout/footer/footer.component';
 import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    ParticlesModule
   ],
   providers: [],
   bootstrap: [AppComponent],
