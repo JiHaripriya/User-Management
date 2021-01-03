@@ -9,5 +9,9 @@
 }
 
 p {
-  color: rgba(255, 255, 255) !important;
+  color: var(--font-color) !important;
+}
+
+.nav-link {
+  color: var(--font-color) !important;
 }

@@ -35,6 +35,7 @@ export class PasswordComponent implements OnInit {
       password = this.passwordForm.value.password;
 
     let authObs: Observable<AuthResponseData>;
+    
     // logic to check whether password matches the user --> pass email and password to api
     authObs = this.authService.login(userEmail, password);
 
@@ -43,7 +44,7 @@ export class PasswordComponent implements OnInit {
         // fetch user details from user-db.json
 
         // navigate to dashboard if authenticated
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/home/dashboard');
       },
       (errorMessage) => {
         alert(errorMessage);

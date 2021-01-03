@@ -26,7 +26,7 @@ export class UsernameComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.usernameForm.value.email);
+
     // logic to check whether email is valid
     let authObs: Observable<AuthResponseData>;
     authObs = this.authService.emailVerification(this.usernameForm.value.email);
