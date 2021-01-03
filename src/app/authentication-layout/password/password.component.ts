@@ -41,13 +41,12 @@ export class PasswordComponent implements OnInit {
     authObs.subscribe(
       (resData) => {
         // fetch user details from user-db.json
-        
+
         // navigate to dashboard if authenticated
         this.router.navigateByUrl('/dashboard');
-        console.log(resData);
       },
       (errorMessage) => {
-        console.log(errorMessage);
+        alert(errorMessage);
       }
     );
   }

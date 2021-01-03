@@ -3,24 +3,27 @@
   <table class="table tablesorter" id="">
     <thead class="text-primary">
       <tr>
-        <th>Name</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Email</th>
-        <th>Blank</th>
-        <th class="text-center">Blank</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Sidharth S</td>
-        <td>sidharths@qburst.com</td>
-        <td>####</td>
-        <td class="text-center">####</td>
-      </tr>
-      <tr>
-        <td>Haripriya J</td>
-        <td>haripriya@qburst.com</td>
-        <td>####</td>
-        <td class="text-center">####</td>
+      <!-- User id is essential for editing their details -->
+      <tr *ngFor="let eachUser of userDetails; let i = index">
+        <td>{{ eachUser.first_name }}</td>
+        <td>{{ eachUser.last_name }}</td>
+        <td>{{ eachUser.email }}</td>
+        <td
+          [ngClass]="{
+            'text-success': eachUser.status == 'active',
+            'text-warning': eachUser.status == 'pending',
+            'text-danger': eachUser.status == 'inactive'
+          }"
+        >
+          {{ eachUser.status }}
+        </td>
       </tr>
     </tbody>
   </table>
