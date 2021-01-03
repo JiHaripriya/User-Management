@@ -43,6 +43,7 @@ export class PasswordComponent implements OnInit {
         // fetch user details from user-db.json
         
         // navigate to dashboard if authenticated
+        this.router.navigateByUrl('/dashboard');
         console.log(resData);
       },
       (errorMessage) => {
