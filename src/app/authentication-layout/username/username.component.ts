@@ -10,12 +10,14 @@ import { AuthService, AuthResponseData } from 'src/app/shared/api.service';
   styleUrls: ['./username.component.css'],
 })
 export class UsernameComponent implements OnInit {
-  
   usernameForm: FormGroup;
   userDetail;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {}
-
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.usernameForm = new FormGroup({
@@ -24,27 +26,24 @@ export class UsernameComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.usernameForm.value.email);
     // logic to check whether email is valid
-
-    // Navigate to next page by passing email as param
-    this.router.navigate(['password'], {
-      relativeTo: this.route,
-      queryParams: { username: this.usernameForm.value.email },
-    });
-  }
-  
-  onSignUp() {
     let authObs: Observable<AuthResponseData>;
-    authObs = this.authService.signup('sid@gmail.com', 'password');
+    authObs = this.authService.emailVerification(this.usernameForm.value.email);
 
     authObs.subscribe(
-      resData => {
+      (resData) => {
         console.log(resData);
       },
-      errorMessage => {
-        console.log(errorMessage);
+      (errorMessage) => {
+        if (errorMessage == 'This password is not correct.') {
+          // Navigate to next page by passing email as param
+          this.router.navigate(['password'], {
+            relativeTo: this.route,
+            queryParams: { username: this.usernameForm.value.email },
+          });
+        }
       }
     );
   }
-
 }
