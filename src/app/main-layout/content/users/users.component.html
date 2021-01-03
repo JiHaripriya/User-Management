@@ -1,5 +1,7 @@
-<p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
-<div class="table-responsive">
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="table-responsive" *ngIf="!loading">
+  <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
   <table class="table tablesorter" id="">
     <thead class="text-primary">
       <tr>

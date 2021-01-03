@@ -1,12 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { UserDetails } from './user-details.model';
+import { Subject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { UserDetails } from '../models/user-details.model';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserDetailsService {
+
+  isLoaded = new Subject<boolean>();
+  
   constructor(private http: HttpClient) {}
 
   fetchUserDetails() {
@@ -15,7 +20,9 @@ export class UserDetailsService {
         'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json'
       )
       .pipe(
-        map((responseData) => {
+        take(1),
+        map(
+          (responseData) => {
           const userDetailsArray: UserDetails[] = [];
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {

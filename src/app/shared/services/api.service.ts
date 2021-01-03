@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
-import { User } from './user.model';
+import { User } from '../models/user.model';
 
 export interface AuthResponseData {
   idToken: string;
@@ -23,7 +23,7 @@ export class AuthService {
   signup(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
         {
           email: email,
           password: password,
@@ -46,7 +46,7 @@ export class AuthService {
   emailVerification(email: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
         {
           email: email,
           password: 'password',
@@ -70,7 +70,7 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
         {
           email: email,
           password: password,

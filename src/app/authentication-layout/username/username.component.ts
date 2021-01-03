@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService, AuthResponseData } from 'src/app/shared/api.service';
+import { AuthService, AuthResponseData } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-username',

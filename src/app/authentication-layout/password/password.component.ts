@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthResponseData, AuthService } from 'src/app/shared/api.service';
+import { AuthResponseData, AuthService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-password',
