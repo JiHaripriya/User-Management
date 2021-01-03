@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { exhaustMap, map, take } from 'rxjs/operators';
+import { AuthService } from './api.service';
 import { UserDetails } from './user-details.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserDetailsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   fetchUserDetails() {
     return this.http
@@ -26,4 +27,5 @@ export class UserDetailsService {
         })
       );
   }
+
 }
