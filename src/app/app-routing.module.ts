@@ -6,6 +6,7 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,10 +18,15 @@ const routes: Routes = [
     ],
   },
   { path: 'setPassword', component: NewPasswordComponent },
-  { path: 'home', component: MainLayoutComponent, children: [
-    { path: 'dashboard', component: DashboardComponent},
-    { path: 'users', component: UsersComponent}
-  ] },
+  {
+    path: 'home',
+    component: MainLayoutComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'users', component: UsersComponent },
+    ],
+  },
 ];
 
 @NgModule({

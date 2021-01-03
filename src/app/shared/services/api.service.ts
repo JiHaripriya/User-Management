@@ -20,6 +20,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  isAuthenticated(): boolean {
+    const token = JSON.parse(localStorage.getItem('userDetails'))?.token;
+    // Check whether the token is expired and return
+    // true or false
+    if (token) return true;
+    else return false;
+  }
+
   signup(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(

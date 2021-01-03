@@ -17,8 +17,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading = true;
-    this.userDetailsApi.fetchUserDetails();
-    this.userDetailsSubscription = this.userDetailsApi.fetchUserDetails().subscribe(
+    this.userDetailsApi.fetchUserList();
+    this.userDetailsSubscription = this.userDetailsApi.fetchUserList().subscribe(
       data => {
         this.userDetails = data;
         this.loading = false;
