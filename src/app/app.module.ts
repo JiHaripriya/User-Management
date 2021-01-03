@@ -14,6 +14,7 @@ import { SidebarComponent } from './main-layout/sidebar/sidebar.component';
 import { FooterComponent } from './main-layout/footer/footer.component';
 import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
 import { UsersComponent } from './main-layout/content/users/users.component';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { UsersComponent } from './main-layout/content/users/users.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    ParticlesModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

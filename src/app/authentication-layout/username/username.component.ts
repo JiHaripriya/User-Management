@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService, AuthResponseData } from 'src/app/shared/api.service';
+import { ParticleService } from 'src/app/shared/particle.service';
 
 @Component({
   selector: 'app-username',
@@ -12,17 +13,27 @@ import { AuthService, AuthResponseData } from 'src/app/shared/api.service';
 export class UsernameComponent implements OnInit {
   usernameForm: FormGroup;
   userDetail;
+  width: number = 100;
+  height: number = 100;
+  myStyle: Object = {};
+  myParams: object = {};
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    public particleService: ParticleService
+  ) { }
 
   ngOnInit(): void {
+
+    this.myParams = this.particleService.getParticleParams();
+    this.myStyle = this.particleService.getParticleStyle();
+
     this.usernameForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
     });
+
   }
 
   onSubmit() {
