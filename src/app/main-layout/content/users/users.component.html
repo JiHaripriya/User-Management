@@ -2,10 +2,10 @@
 
 <div class="table-responsive" *ngIf="!loading">
   <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
-  <a 
+  <a *ngIf="role === 'admin'"
     ><img
       src="../assets/images/add-user.png"
-      style="height: 20px; margin: 10px"
+      style="height: 25px; margin: 10px"
   /></a>
   <table class="table tablesorter" id="">
     <thead class="text-primary">
@@ -24,7 +24,8 @@
         <td>{{ eachUser.first_name }}</td>
         <td>{{ eachUser.last_name }}</td>
         <td>{{ eachUser.email }}</td>
-        <td *ngIf="role === 'admin'"
+        <td
+          *ngIf="role === 'admin'"
           [ngClass]="{
             'text-success': eachUser.status == 'active',
             'text-warning': eachUser.status == 'pending',
@@ -35,6 +36,7 @@
         </td>
         <td>
           <img
+            *ngIf="role === 'admin'"
             src="../assets/images/icons8-edit-50.png"
             alt=""
             srcset=""
@@ -43,6 +45,7 @@
         </td>
         <td>
           <img
+            *ngIf="role === 'admin'"
             src="../assets/images/icons8-delete-bin-60.png"
             alt=""
             srcset=""

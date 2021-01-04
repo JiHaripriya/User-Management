@@ -7,6 +7,7 @@ import {
   AuthService,
 } from 'src/app/shared/services/api.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
+import { RoleGuardService } from 'src/app/shared/services/role-guard.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
 @Component({
@@ -29,7 +30,8 @@ export class PasswordComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private userDetailsApi: UserDetailsService
+    private userDetailsApi: UserDetailsService,
+    private roleService: RoleGuardService
   ) {}
 
   ngOnInit(): void {
