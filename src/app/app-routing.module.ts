@@ -7,14 +7,15 @@ import { DashboardComponent } from './main-layout/content/dashboard/dashboard.co
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
+import { EmailResolverService } from './shared/services/email-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
     children: [
-      { path: '', component: UsernameComponent, pathMatch: 'full' },
-      { path: 'password', component: PasswordComponent },
+      { path: '', component: UsernameComponent, pathMatch: 'full'},
+      { path: 'password', component: PasswordComponent, resolve: {status: EmailResolverService} },
     ],
   },
   { path: 'setPassword', component: NewPasswordComponent },

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService, AuthResponseData } from 'src/app/shared/services/api.service';
+import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class UsernameComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
-    public particleService: ParticleService
+    public particleService: ParticleService,
+    private emailService: EmailResolverService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +50,9 @@ export class UsernameComponent implements OnInit {
       },
       (errorMessage) => {
         if (errorMessage == 'This password is not correct.') {
+
+          this.emailService.emailEnterStatus.next(true);
+        
           // Navigate to next page by passing email as param
           this.router.navigate(['password'], {
             relativeTo: this.route,

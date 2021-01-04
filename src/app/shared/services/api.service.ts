@@ -22,8 +22,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = JSON.parse(localStorage.getItem('userDetails'))?.token;
-    // Check whether the token is expired and return
-    // true or false
+    // Check whether the token is expired and return true or false
     if (token) return true;
     else return false;
   }
