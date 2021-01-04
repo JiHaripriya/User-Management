@@ -2,7 +2,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{ formTitle }} User</h4>
     <button
       type="button"
       class="close"
@@ -13,44 +13,43 @@
       <span aria-hidden="true" style="color: rgb(250, 234, 210)">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <form>
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
       <div class="form-group">
         <div class="row">
           <label for="">First Name</label>
-          <input type="text" class="form-control" />
+          <input type="text" formControlName="firstName" class="form-control" />
         </div>
         <div class="row">
           <label for="">Last Name</label>
-          <input type="text" class="form-control" />
+          <input type="text" formControlName="lastName" class="form-control" />
         </div>
         <div class="row">
           <label for="">Email</label>
-          <input type="email" class="form-control" />
+          <input type="email" formControlName="email" class="form-control" />
         </div>
         <div class="row">
           <label for="">Status</label>
-          <select class="form-control">
-            <option value="none">Select status</option>
+          <select formControlName="status" class="form-control">
+            <option value="select">Select status</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn" (click)="modal.close('Save click')">
-      Save
-    </button>
-  </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn">Save</button>
+    </div>
+  </form>
 </ng-template>
 
 <!-- -------------------------------------------------------------------------------------------------- -->
 
 <div class="table-responsive" *ngIf="!loading">
   <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
-  <a (click)="open(content)"
+  <a (click)="onAdd(content)"
     ><img
       src="../assets/images/add-user.png"
       style="height: 20px; margin: 10px"
@@ -82,12 +81,14 @@
           {{ eachUser.status }}
         </td>
         <td>
-          <img
-            src="../assets/images/icons8-edit-50.png"
-            alt=""
-            srcset=""
-            style="height: 25px"
-          />
+          <a (click)="onEdit(content, i)">
+            <img
+              src="../assets/images/icons8-edit-50.png"
+              alt=""
+              srcset=""
+              style="height: 25px"
+            />
+          </a>
         </td>
         <td>
           <img

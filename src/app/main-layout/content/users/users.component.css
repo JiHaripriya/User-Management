@@ -25,6 +25,7 @@ th {
 
 .modal-footer {
   border-top: 1px solid #dee2e638;
+  justify-content: space-evenly;
 }
 
 .modal-body {
