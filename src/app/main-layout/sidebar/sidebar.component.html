@@ -1,16 +1,24 @@
-<div class="sidebar" style="position: relative; top: 0; height: 100vh">
-  <p style="color: aliceblue; margin: 0; padding: 20px 30px; font-size: large">
-    User Management System
-  </p>
-  <div class="sidebar-wrapper">
-    <ul class="nav" style="display: block">
-      <!-- Router link redirection to specific tab -->
-      <li class="nav-item active">
-        <a routerLink="dashboard" class="nav-link" routerLinkActive="active">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a routerLink="users" class="nav-link">Users</a>
-      </li>
-    </ul>
-  </div>
+<div class="sidebar-wrapper">
+  <ul class="nav" style="display: block">
+    <!-- Router link redirection to specific tab -->
+    <li class="nav-item active">
+      <a
+        routerLink="dashboard"
+        class="nav-link"
+        routerLinkActive="active"
+        (click)="setTitle('Dashboard')"
+        style="cursor: pointer;"
+        >Dashboard</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="users"
+        class="nav-link"
+        (click)="setTitle('Users')"
+        style="cursor: pointer;"
+        >Users</a
+      >
+    </li>
+  </ul>
 </div>

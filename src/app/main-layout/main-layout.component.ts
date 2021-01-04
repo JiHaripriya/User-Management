@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/services/api.service';
 
 
 @Component({
@@ -9,13 +8,9 @@ import { AuthService } from '../shared/services/api.service';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onLogout() {
-    this.authService.logout();
   }
 
 }

@@ -1,11 +1,17 @@
 .sidebar-wrapper {
-  height: 550px;
-  box-shadow: 0 0 45px 0 rgba(0, 0, 0, 0.6);
-  margin-top: 20px;
+  height: calc(100vh - 90px);
+  width: 230px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: block;
+  box-shadow: 0 0 45px 0 rgba(0,0,0,.6);
+  margin-top: 78px;
+  margin-left: 20px;
   border-radius: 5px;
-  padding: 20px 40px;
+  transition: .5s cubic-bezier(.685,.0473,.346,1);
   background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
-  transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
 }
 
 p {

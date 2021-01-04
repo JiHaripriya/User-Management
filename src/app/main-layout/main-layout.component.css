@@ -7,6 +7,7 @@ body {
 }
 
 .wrapper {
+  border-top: 2.5px solid #1d8cf8;
   display: flex;
   width: 100%;
 }
@@ -31,16 +32,16 @@ body {
   background-color: #27293d !important;
 }
 
-.bg-body {
-  background-color: #1e1e2f !important;
-  margin-left: 16.66%;
-  height: 1000px;
-}
-
 h1 {
   font-size: 150%;
 }
 
 .w-40 {
   width: 40% !important;
+}
+
+.content {
+  margin: 78px 30px 30px 280px;
+  min-height: calc(100vh - 90px);
+  width: 100%;
 }

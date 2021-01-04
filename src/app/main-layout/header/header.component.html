@@ -1,1 +1,17 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <div class="row w-75">
+        <div class="navbar-brand pl-5" style="position: fixed; top: 15px">
+          {{ title }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="p-1 mr-5" style="cursor: pointer" style="margin-left: 85%">Profile</div>
+        <div class="p-1" style="cursor: pointer" (click)="onLogout()">
+          Logout
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

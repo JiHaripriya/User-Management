@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/api.service';
+import { HomePageService } from 'src/app/shared/services/home-page.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  title: string = 'Dashboard';
+  constructor(private authService: AuthService, private homeServices: HomePageService) { }
 
   ngOnInit(): void {
+    this.homeServices.passTitle.subscribe(
+      title => this.title = title
+    )
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 
 }
