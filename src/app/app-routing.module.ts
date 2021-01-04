@@ -8,11 +8,13 @@ import { UsersComponent } from './main-layout/content/users/users.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { EmailResolverService } from './shared/services/email-resolver.service';
+import { LoginGuardService } from './shared/services/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'login',
+    canActivate: [LoginGuardService],
     children: [
       { path: '', component: UsernameComponent, pathMatch: 'full'},
       { path: 'password', component: PasswordComponent, resolve: {status: EmailResolverService} },
