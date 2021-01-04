@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
@@ -15,7 +17,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   userDetailsSubscription: Subscription;
   loading = false;
   role: string;
-  constructor(private userDetailsApi: UserDetailsService, private route: ActivatedRoute) { }
+  constructor(private userDetailsApi: UserDetailsService, private route: ActivatedRoute, private modalService: NgbModal) { }
+  addUserForm: FormGroup;
+  formTitle = '';
+
 
   ngOnInit(): void {
     this.role = this.route.snapshot.data['role'];  
@@ -24,10 +29,40 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userDetailsApi.fetchUserList();
     this.userDetailsSubscription = this.userDetailsApi.fetchUserList().subscribe(
       data => {
-        this.userDetails = data;
+        this.userDetails = JSON.parse(JSON.stringify(data));
         this.loading = false;
       }
     )
+
+    this.addUserForm = new FormGroup({
+      'firstName': new FormControl(null, Validators.required),
+      'lastName': new FormControl(null, Validators.required),
+      'email': new FormControl(null, Validators.required),
+      'status': new FormControl('select', Validators.required)
+    })
+
+  }
+
+  onAdd(content) {
+    this.formTitle = 'Add';
+    this.modalService.open(content);
+  }
+
+  onEdit(content, index) {
+    this.formTitle = 'Edit';
+    this.addUserForm.setValue({
+      'firstName': this.userDetails[index].first_name,
+      'lastName': this.userDetails[index].last_name,
+      'email': this.userDetails[index].email,
+      'status': this.userDetails[index].status,
+    })
+    console.log(index);
+    this.modalService.open(content);
+  }
+
+  onSubmit() {
+    console.log(this.addUserForm.value);
+    this.modalService.dismissAll()
   }
 
   ngOnDestroy() {

@@ -17,6 +17,7 @@ import { UsersComponent } from './main-layout/content/users/users.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    ParticlesModule
+    ParticlesModule,
+    NgbModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],

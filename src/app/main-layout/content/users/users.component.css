@@ -7,3 +7,54 @@ th {
 .table th {
   border-color: rgba(255, 255, 255, 0.1);
 }
+
+.form-control,
+.form-control:focus {
+  height: calc(0.5em + 0.85rem + 15px);
+}
+
+.modal-body,
+.modal-header,
+.modal-footer {
+  background-color: #1e1e2f;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e638;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e638;
+  justify-content: space-evenly;
+}
+
+.modal-body {
+  padding: 10px 29px;
+}
+
+.modal-content {
+  border-radius: 10px;
+  background-color: #1e1e2f !important;
+}
+
+.btn {
+  background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
+  color: rgb(255, 255, 255);
+}
+
+.form-group {
+  padding-top: 10px;
+}
+
+.row {
+  padding: 10px;
+}
+
+h4 {
+  padding-left: 7px;
+}
+
+.close:focus {
+  outline: transparent !important;
+  border: transparent !important;
+}
