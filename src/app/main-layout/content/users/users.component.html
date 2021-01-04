@@ -8,7 +8,7 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Email</th>
-        <th>Status</th>
+        <th *ngIf="role === 'admin'">Status</th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
         <td>{{ eachUser.first_name }}</td>
         <td>{{ eachUser.last_name }}</td>
         <td>{{ eachUser.email }}</td>
-        <td
+        <td *ngIf="role === 'admin'"
           [ngClass]="{
             'text-success': eachUser.status == 'active',
             'text-warning': eachUser.status == 'pending',

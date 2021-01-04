@@ -9,6 +9,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { EmailResolverService } from './shared/services/email-resolver.service';
 import { LoginGuardService } from './shared/services/login-guard.service';
+import { RoleGuardService } from './shared/services/role-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,14 +21,14 @@ const routes: Routes = [
       { path: 'password', component: PasswordComponent, resolve: {status: EmailResolverService} },
     ],
   },
-  { path: 'setPassword', component: NewPasswordComponent },
+  { path: 'setPassword', canActivate: [LoginGuardService], component: NewPasswordComponent },
   {
     path: 'home',
     component: MainLayoutComponent,
     canActivate: [AuthGuardService],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'users', component: UsersComponent },
+      { path: 'dashboard', component: DashboardComponent, resolve: {role: RoleGuardService} },
+      { path: 'users', component: UsersComponent, resolve: {role: RoleGuardService} },
     ],
   },
 ];
