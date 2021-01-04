@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { exhaustMap, take } from "rxjs/operators";
 import { AuthService } from "./api.service";
 
+
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 

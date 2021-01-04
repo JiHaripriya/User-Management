@@ -66,7 +66,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
       (resData) => {
         // fetch user details from user-db.json FOR USER ROLE
         this.userDetailsApi
-          .fetchUserDetails(resData.idToken, userEmail)
+          .fetchUserDetails(userEmail)
           .subscribe((res) => {
             localStorage.setItem(
               'userDetails',
