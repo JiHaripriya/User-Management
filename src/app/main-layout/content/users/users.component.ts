@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
@@ -17,10 +17,11 @@ export class UsersComponent implements OnInit, OnDestroy {
   userDetailsSubscription: Subscription;
   loading = false;
   role: string;
-  constructor(private userDetailsApi: UserDetailsService, private route: ActivatedRoute, private modalService: NgbModal) { }
   addUserForm: FormGroup;
   formTitle = '';
+  isPending = false;
 
+  constructor(private userDetailsApi: UserDetailsService, private route: ActivatedRoute, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.role = this.route.snapshot.data['role'];  
@@ -29,27 +30,32 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userDetailsApi.fetchUserList();
     this.userDetailsSubscription = this.userDetailsApi.fetchUserList().subscribe(
       data => {
-        this.userDetails = JSON.parse(JSON.stringify(data));
+        this.userDetails = data;
         this.loading = false;
       }
     )
 
     this.addUserForm = new FormGroup({
-      'firstName': new FormControl(null, Validators.required),
-      'lastName': new FormControl(null, Validators.required),
-      'email': new FormControl(null, Validators.required),
-      'status': new FormControl('select', Validators.required)
+      'firstName': new FormControl(null, [Validators.required, Validators.pattern(new RegExp('[a-zA-Z]+', "g"))]),
+      'lastName': new FormControl(null, [Validators.required, Validators.pattern(new RegExp('[a-zA-Z]+', "g"))]),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'status': new FormControl(null) // status is not mandatory as we are reusing the form
     })
 
   }
 
   onAdd(content) {
     this.formTitle = 'Add';
+    this.addUserForm.reset();
     this.modalService.open(content);
   }
 
   onEdit(content, index) {
     this.formTitle = 'Edit';
+
+    // If the user's status is pending, we need to enable editing of other form values
+    this.isPending = this.userDetails[index].status === 'pending' ? true : false;
+
     this.addUserForm.setValue({
       'firstName': this.userDetails[index].first_name,
       'lastName': this.userDetails[index].last_name,
@@ -61,7 +67,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.addUserForm.value);
+    // New user's status is appended as pending by default
+    const userDetails =  this.formTitle === 'Add' ? Object.assign(this.addUserForm.value, {status: 'pending'}): this.addUserForm.value;
+    console.log(userDetails);
     this.modalService.dismissAll()
   }
 

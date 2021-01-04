@@ -32,11 +32,6 @@ th {
   padding: 10px 29px;
 }
 
-.modal-content {
-  border-radius: 10px;
-  background-color: #1e1e2f !important;
-}
-
 .btn {
   background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
   color: rgb(255, 255, 255);
