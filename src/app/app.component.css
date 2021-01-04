@@ -48,6 +48,11 @@ input[type="number"]:focus,
   box-shadow: none;
 }
 
+.modal-open {
+  overflow: auto;
+  padding-right: 0 !important;
+}
+
 /* FORM STYLING */
 .auth-form {
   position: absolute;

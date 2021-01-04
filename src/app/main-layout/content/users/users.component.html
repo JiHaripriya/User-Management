@@ -1,8 +1,56 @@
 <app-loader *ngIf="loading"></app-loader>
 
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+      style="background-clip: padding-box"
+    >
+      <span aria-hidden="true" style="color: rgb(250, 234, 210)">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="row">
+          <label for="">First Name</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="row">
+          <label for="">Last Name</label>
+          <input type="text" class="form-control" />
+        </div>
+        <div class="row">
+          <label for="">Email</label>
+          <input type="email" class="form-control" />
+        </div>
+        <div class="row">
+          <label for="">Status</label>
+          <select class="form-control">
+            <option value="none">Select status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="modal.close('Save click')">
+      Save
+    </button>
+  </div>
+</ng-template>
+
+<!-- -------------------------------------------------------------------------------------------------- -->
+
 <div class="table-responsive" *ngIf="!loading">
   <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
-  <a
+  <a (click)="open(content)"
     ><img
       src="../assets/images/add-user.png"
       style="height: 20px; margin: 10px"
