@@ -26,7 +26,7 @@ export class UserDetailsService {
               userDetailsArray.push({ ...responseData[key] });
             }
           }
-          return userDetailsArray;
+          return userDetailsArray.filter(user => user.role !== 'admin');
         })
       );
   }
