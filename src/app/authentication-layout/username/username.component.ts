@@ -14,7 +14,6 @@ import { ParticleService } from 'src/app/shared/services/particle.service';
 export class UsernameComponent implements OnInit {
   usernameForm: FormGroup;
   userDetail;
-
   width: number = 100;
   height: number = 100;
   myStyle: Object = {};
@@ -36,6 +35,7 @@ export class UsernameComponent implements OnInit {
     this.usernameForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
     });
+
   }
 
   onSubmit() {

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { UsernameComponent } from './authentication-layout/username/username.component';
@@ -16,6 +16,7 @@ import { DashboardComponent } from './main-layout/content/dashboard/dashboard.co
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
+import { AuthInterceptorService } from './shared/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { ParticlesModule } from 'angular-particle';
     FormsModule,
     ParticlesModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

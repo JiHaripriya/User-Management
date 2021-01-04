@@ -6,7 +6,6 @@ import {
   AuthResponseData,
   AuthService,
 } from 'src/app/shared/services/api.service';
-import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
@@ -30,8 +29,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private userDetailsApi: UserDetailsService,
-    private emailService: EmailResolverService
+    private userDetailsApi: UserDetailsService
   ) {}
 
   ngOnInit(): void {

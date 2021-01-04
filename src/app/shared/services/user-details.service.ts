@@ -33,7 +33,9 @@ export class UserDetailsService {
 
   fetchUserDetails(token: string, email: string) {
     return this.http
-      .get(`https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json?auth=${token}&orderBy="email"&equalTo="${email}"`)
+      .get(
+        `https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json?auth=${token}&orderBy="email"&equalTo="${email}"`
+      )
       .pipe(
         take(1),
         map((responseData) => {
