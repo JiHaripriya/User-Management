@@ -2,6 +2,11 @@
 
 <div class="table-responsive" *ngIf="!loading">
   <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
+  <a 
+    ><img
+      src="../assets/images/add-user.png"
+      style="height: 20px; margin: 10px"
+  /></a>
   <table class="table tablesorter" id="">
     <thead class="text-primary">
       <tr>
@@ -9,6 +14,8 @@
         <th>Last Name</th>
         <th>Email</th>
         <th *ngIf="role === 'admin'">Status</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +32,22 @@
           }"
         >
           {{ eachUser.status }}
+        </td>
+        <td>
+          <img
+            src="../assets/images/icons8-edit-50.png"
+            alt=""
+            srcset=""
+            style="height: 25px"
+          />
+        </td>
+        <td>
+          <img
+            src="../assets/images/icons8-delete-bin-60.png"
+            alt=""
+            srcset=""
+            style="height: 25px"
+          />
         </td>
       </tr>
     </tbody>
