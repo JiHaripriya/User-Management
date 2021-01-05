@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/shared/services/api.service';
 export class UsersComponent implements OnInit, OnDestroy {
   userDetails: UserDetails[];
   userDetailsSubscription: Subscription;
+  reloadSubscription: Subscription;
   loading = false;
   role: string;
   addUserForm: FormGroup;
@@ -29,11 +30,19 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
+      (status) => {
+        if (status === true) {
+          this.ngOnInit();
+        }
+        this.reloadSubscription.unsubscribe();
+      }
+    );
+
     this.role = this.route.snapshot.data['role'];
 
     this.loading = true;
 
-    this.userDetailsApi.fetchUserList();
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
       .subscribe((data) => {
@@ -94,10 +103,13 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.authService.signup(userDetails.email);
       this.userDetailsApi.addUser(userDetails);
     }
+    // Logic to update edited details
+
     this.modalService.dismissAll();
   }
 
   ngOnDestroy() {
-    // this.userDetailsSubscription.unsubscribe();
+    this.userDetailsSubscription.unsubscribe();
+    this.reloadSubscription.unsubscribe();
   }
 }

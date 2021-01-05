@@ -9,6 +9,7 @@ import { UserDetails } from '../models/user-details.model';
 })
 export class UserDetailsService {
   isLoaded = new Subject<boolean>();
+  reloadComponent = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +19,10 @@ export class UserDetailsService {
         'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json',
         userData
       )
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        console.log(res);
+        this.reloadComponent.next(true);
+      });
   }
 
   fetchUserList() {
