@@ -1,0 +1,15 @@
+.navbar {
+    padding: 10px 30px 10px 15px;
+    height: 66px;
+    width: 100%;
+    z-index: 100;
+    background: var(--primary-color);
+}
+
+.navbar.navbar-absolute {
+    position: absolute;
+    z-index: 100;
+}
+.navbar-wrapper {
+    width: inherit;
+}

@@ -1,3 +1,32 @@
-<div class="col bg-warning" style="position:absolute; left: 30%; top: 25vh; width: 40%;height: 40vh;">
-    <p>GET USER NAME FORM</p>
+<particles
+  [style]="myStyle"
+  [width]="width"
+  [height]="height"
+  [params]="myParams"
+></particles>
+
+<div
+  class="col auth-form shadow rounded"
+  style="background: var(--secondary-color)"
+>
+  <form class="col p-5" [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+    <div class="row pb-1 border-bottom"><h4>Login</h4></div>
+    <div class="row pt-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Email"
+        formControlName="email"
+      />
+    </div>
+    <div class="row pt-4">
+      <button
+        class="btn btn-primary w-100 gradient-background"
+        [disabled]="!usernameForm.valid"
+        [ngClass]="{ 'disabled-button': !usernameForm.valid }"
+      >
+        Next
+      </button>
+    </div>
+  </form>
 </div>
