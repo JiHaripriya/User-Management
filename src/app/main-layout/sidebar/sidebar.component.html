@@ -1,5 +1,13 @@
 <div class="sidebar-wrapper">
-  <ul class="nav" style="display: block">
+  <div class="row" style="margin: 5px 20px; align-items: center">
+    <img
+      src="../assets/images/icons8-user-folder-64.png"
+      style="height: 50px; padding: 5px"
+    />
+    <h6>User Manager</h6>
+  </div>
+  <hr />
+  <ul class="nav" style="display: block; padding-left: 30px">
     <!-- Router link redirection to specific tab -->
     <li class="nav-item active">
       <a
@@ -7,7 +15,7 @@
         class="nav-link"
         routerLinkActive="active"
         (click)="setTitle('Dashboard')"
-        style="cursor: pointer;"
+        style="cursor: pointer"
         >Dashboard</a
       >
     </li>
@@ -15,8 +23,9 @@
       <a
         routerLink="users"
         class="nav-link"
+        routerLinkActive="active"
         (click)="setTitle('Users')"
-        style="cursor: pointer;"
+        style="cursor: pointer"
         >Users</a
       >
     </li>
