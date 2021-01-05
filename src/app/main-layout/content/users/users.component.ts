@@ -53,11 +53,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.addUserForm = new FormGroup({
       first_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
+        Validators.pattern('[a-zA-Z]+'),
       ]),
       last_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
+        Validators.pattern('[a-zA-Z]+'),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       status: new FormControl(null),
