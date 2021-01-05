@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.role = this.route.snapshot.data['role'];
 
     this.loading = true;
+    
     this.userDetailsApi.fetchUserList();
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
