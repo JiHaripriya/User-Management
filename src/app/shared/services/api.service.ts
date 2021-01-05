@@ -28,27 +28,17 @@ export class AuthService {
     else return false;
   }
 
-  signup(email: string, password: string) {
+  signup(email: string) {
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
         {
           email: email,
-          password: password,
+          password: 'password',
           returnSecureToken: true,
         }
       )
-      .pipe(
-        catchError(this.handleError),
-        tap((resData) => {
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
-        })
-      );
+      .subscribe((res) => console.log(res));
   }
 
   emailVerification(email: string) {

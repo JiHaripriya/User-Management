@@ -12,6 +12,15 @@ export class UserDetailsService {
 
   constructor(private http: HttpClient) {}
 
+  addUser(userData: UserDetails) {
+    this.http
+      .post(
+        'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json',
+        userData
+      )
+      .subscribe((res) => console.log(res));
+  }
+
   fetchUserList() {
     return this.http
       .get(
@@ -26,7 +35,7 @@ export class UserDetailsService {
               userDetailsArray.push({ ...responseData[key] });
             }
           }
-          return userDetailsArray.filter(user => user.role !== 'admin');
+          return userDetailsArray.filter((user) => user.role !== 'admin');
         })
       );
   }

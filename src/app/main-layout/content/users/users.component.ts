@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { AuthService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-users',
@@ -23,14 +24,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private userDetailsApi: UserDetailsService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.role = this.route.snapshot.data['role'];
 
     this.loading = true;
-    
+
     this.userDetailsApi.fetchUserList();
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
@@ -40,16 +42,16 @@ export class UsersComponent implements OnInit, OnDestroy {
       });
 
     this.addUserForm = new FormGroup({
-      firstName: new FormControl(null, [
+      first_name: new FormControl(null, [
         Validators.required,
         Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
       ]),
-      lastName: new FormControl(null, [
+      last_name: new FormControl(null, [
         Validators.required,
         Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      status: new FormControl(null), // status is not mandatory as we are reusing the form
+      status: new FormControl(null),
     });
   }
 
@@ -67,12 +69,12 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userDetails[index].status === 'pending' ? true : false;
 
     this.addUserForm.setValue({
-      firstName: this.userDetails[index].first_name,
-      lastName: this.userDetails[index].last_name,
+      first_name: this.userDetails[index].first_name,
+      last_name: this.userDetails[index].last_name,
       email: this.userDetails[index].email,
       status: this.userDetails[index].status,
     });
-    console.log(index);
+
     this.modalService.open(content);
   }
 
@@ -80,9 +82,18 @@ export class UsersComponent implements OnInit, OnDestroy {
     // New user's status is appended as pending by default
     const userDetails =
       this.formTitle === 'Add'
-        ? Object.assign(this.addUserForm.value, { status: 'pending' })
+        ? Object.assign(this.addUserForm.value, {
+            status: 'pending',
+            role: 'user',
+            token: '',
+          })
         : this.addUserForm.value;
-    console.log(userDetails);
+
+    // New user
+    if (this.formTitle === 'Add') {
+      this.authService.signup(userDetails.email);
+      this.userDetailsApi.addUser(userDetails);
+    }
     this.modalService.dismissAll();
   }
 
