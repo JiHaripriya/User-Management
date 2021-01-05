@@ -5,7 +5,7 @@
   <a *ngIf="role === 'admin'" (click)="onAdd(content)"
     ><img
       src="../assets/images/add-user.png"
-      style="height: 25px; margin: 10px;cursor:pointer;"
+      style="height: 25px; margin: 10px; cursor: pointer"
   /></a>
   <table class="table tablesorter" id="">
     <thead class="text-primary">
@@ -41,16 +41,17 @@
             src="../assets/images/icons8-edit-50.png"
             alt=""
             srcset=""
-            style="height: 25px;cursor:pointer;"
+            style="height: 25px; cursor: pointer"
           />
         </td>
         <td>
           <img
             *ngIf="role === 'admin'"
+            (click)="onDelete(delete, i)"
             src="../assets/images/icons8-delete-bin-60.png"
             alt=""
             srcset=""
-            style="height: 25px;cursor:pointer;"
+            style="height: 25px; cursor: pointer"
           />
         </td>
       </tr>
@@ -76,7 +77,11 @@
       <div class="form-group">
         <div class="row">
           <label for="">First Name</label>
-          <input type="text" formControlName="first_name" class="form-control" />
+          <input
+            type="text"
+            formControlName="first_name"
+            class="form-control"
+          />
         </div>
         <div class="row">
           <label for="">Last Name</label>
@@ -100,6 +105,34 @@
       <button type="submit" class="btn" [disabled]="!addUserForm.valid">
         {{ formTitle === "Add" ? "Create User" : "Update User" }}
       </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+      style="background-clip: padding-box"
+    >
+      <span aria-hidden="true" style="color: rgb(250, 234, 210)">&times;</span>
+    </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row">
+          <p>Confirm Delete?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn">Delete</button>
     </div>
   </form>
 </ng-template>
