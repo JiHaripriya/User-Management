@@ -16,7 +16,7 @@
 
 .dropdown-menu {
     background-color: var(--primary-color) !important;
-    min-width: 12rem !important;
+    min-width: 11rem !important;
     border: none !important;
 }
 
