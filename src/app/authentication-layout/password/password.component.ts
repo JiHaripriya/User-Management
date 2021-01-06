@@ -37,8 +37,8 @@ export class PasswordComponent implements OnInit, OnDestroy {
   hasEnteredEmail: boolean;
   emailSubscription: Subscription;
 
-  width: number = 100;
-  height: number = 100;
+  width: number = 90;
+  height: number = 90;
   myStyle: Object = {};
   myParams: object = {};
 
