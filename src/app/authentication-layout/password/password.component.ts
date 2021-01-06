@@ -8,11 +8,22 @@ import {
 } from 'src/app/shared/services/api.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
-
+import { trigger, transition, style, query, group, animateChild, animate, keyframes } from '@angular/animations';
 @Component({
   selector: 'app-password',
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('300ms ease-in', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-in', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class PasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
@@ -30,7 +41,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public particleService: ParticleService,
     private userDetailsApi: UserDetailsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
