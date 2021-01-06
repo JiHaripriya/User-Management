@@ -1,7 +1,7 @@
 <app-loader *ngIf="loading"></app-loader>
 
 <div class="table-responsive pl-3 pr-3 pt-2" *ngIf="!loading">
-  <p style="color: antiquewhite; margin: 20px 10px">USER DETAILS</p>
+  <p style="margin: 20px 10px;">USER DETAILS</p>
   <a *ngIf="role === 'admin'" (click)="onAdd(content)"
     ><img
       src="../assets/images/add-user.png"
@@ -21,8 +21,8 @@
     <tbody>
       <!-- User id is essential for editing their details -->
       <tr *ngFor="let eachUser of userDetails; let i = index">
-        <td>{{ eachUser.first_name }}</td>
-        <td>{{ eachUser.last_name }}</td>
+        <td>{{ eachUser.first_name | titlecase }}</td>
+        <td>{{ eachUser.last_name | titlecase }}</td>
         <td>{{ eachUser.email }}</td>
         <td
           *ngIf="role === 'admin'"
@@ -32,7 +32,7 @@
             'text-danger': eachUser.status == 'inactive'
           }"
         >
-          {{ eachUser.status }}
+          {{ eachUser.status | titlecase }}
         </td>
         <td>
           <img
@@ -111,7 +111,7 @@
 
 <ng-template #delete let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Delete User</h4>
+    <h4 class="modal-title" id="modal-basic-title">Confirm Delete?</h4>
     <button
       type="button"
       class="close"
@@ -126,7 +126,7 @@
     <div class="modal-body">
       <div class="form-group">
         <div class="row">
-          <p>Confirm Delete?</p>
+          <p>Do you want to delete this user account? This action cannot be undone.</p>
         </div>
       </div>
     </div>

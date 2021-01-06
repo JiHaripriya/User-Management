@@ -6,10 +6,26 @@
           {{ title }}
         </div>
       </div>
-      <div class="row">
-        <div class="p-1 mr-5" style="cursor: pointer" style="margin-left: 80%;">Profile</div>
-        <div class="p-1" style="cursor: pointer;" (click)="onLogout()">
-          Logout
+      <div style="cursor: pointer; margin-left: 88%" class="mt-2">
+        <div ngbDropdown class="d-flex justify-content-between">
+          <div ngbDropdownToggle style="padding: 9px;">
+            <span class="text-small">Hi, {{ firstName | titlecase }}</span>
+            <img
+              src="../../../assets/images/profile.png"
+              alt=""
+              class="ml-3 mr-3"
+              style="border-radius: 50%; height: 33px; width: 33px"
+            />
+          </div>
+          <div ngbDropdownMenu>
+            <div
+              style="cursor: pointer"
+              (click)="onLogout()"
+              ngbDropdownItem
+            >
+              Logout
+            </div>
+          </div>
         </div>
       </div>
     </div>

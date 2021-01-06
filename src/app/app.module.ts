@@ -18,6 +18,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     FormsModule,
     ParticlesModule,
-    NgbModule
+    NgbModule,
+    CommonModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
