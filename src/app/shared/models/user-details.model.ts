@@ -7,5 +7,6 @@ export class UserDetails {
         public status: string,
         private token?: string,
         private password?: string,
+        public user_id?: number
     ) { }
 }

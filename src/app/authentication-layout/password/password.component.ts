@@ -12,7 +12,7 @@ import {
 import {
   AuthResponseData,
   AuthService,
-} from 'src/app/shared/services/api.service';
+} from 'src/app/shared/services/auth-service.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 

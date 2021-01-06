@@ -42,8 +42,8 @@ p {
   height: 8px;
   width: 8px;
   position: absolute;
-  left: 10px;
-  bottom: 16px;
+  left: 4px;
+  bottom: 25px;
   align-self: center;
   background-color: var(--font-color);
 }

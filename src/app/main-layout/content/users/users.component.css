@@ -8,6 +8,10 @@ th {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+.table thead th {
+  border-bottom: none !important;
+}
+
 .form-control,
 .form-control:focus {
   height: calc(0.5em + 0.85rem + 15px);
