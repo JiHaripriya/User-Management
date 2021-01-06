@@ -32,14 +32,18 @@ export class DetailsFormComponent implements OnInit {
       }
     });
 
+    this.formService.openEditUserForm.subscribe((userData) => {
+      this.onEdit(this.detailsForm, userData);
+    });
+
     this.addUserForm = new FormGroup({
       first_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[a-zA-Z]+'),
+        Validators.pattern('[a-zA-Z ]+'),
       ]),
       last_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[a-zA-Z]+'),
+        Validators.pattern('[a-zA-Z ]+'),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       status: new FormControl(null),
@@ -52,18 +56,17 @@ export class DetailsFormComponent implements OnInit {
     this.modalService.open(content);
   }
 
-  private onEdit(content, index) {
+  private onEdit(content, userDetails) {
     this.formTitle = 'Edit';
 
     // If the user's status is pending, we need to enable editing of other form values
-    this.isPending =
-      this.userDetails[index].status === 'pending' ? true : false;
+    this.isPending = userDetails.status === 'pending' ? true : false;
 
     this.addUserForm.setValue({
-      first_name: this.userDetails[index].first_name,
-      last_name: this.userDetails[index].last_name,
-      email: this.userDetails[index].email,
-      status: this.userDetails[index].status,
+      first_name: userDetails.first_name,
+      last_name: userDetails.last_name,
+      email: userDetails.email,
+      status: userDetails.status,
     });
 
     this.modalService.open(content);
@@ -84,8 +87,10 @@ export class DetailsFormComponent implements OnInit {
     if (this.formTitle === 'Add') {
       this.authService.signup(userDetails.email);
       this.userDetailsApi.addUser(userDetails);
+    } else {
+      // Logic to update edited details
+      console.log(this.addUserForm.value);
     }
-    // Logic to update edited details
 
     this.modalService.dismissAll();
   }

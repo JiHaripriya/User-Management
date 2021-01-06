@@ -12,23 +12,20 @@ import { FormServiceService } from 'src/app/shared/services/form-service.service
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  
   userDetails: UserDetails[];
   userDetailsSubscription: Subscription;
   reloadSubscription: Subscription;
   loading = false;
   role: string;
-  
-  
 
   constructor(
     private userDetailsApi: UserDetailsService,
     private route: ActivatedRoute,
     private formService: FormServiceService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
@@ -57,13 +54,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onEdit(index) {
-    // this.formService.openAddUserForm.next({status: true, formType: 'edit-user'});
+    this.formService.openEditUserForm.next(this.userDetails[index]);
   }
 
   onDelete(index) {
-    this.formService.deleteFormParameters.next({index: index});
+    this.formService.deleteFormParameters.next({ index: index });
   }
-
 
   ngOnDestroy() {
     this.userDetailsSubscription.unsubscribe();
