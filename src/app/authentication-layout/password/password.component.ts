@@ -2,12 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 import {
   AuthResponseData,
@@ -15,6 +10,7 @@ import {
 } from 'src/app/shared/services/auth-service.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 
 @Component({
   selector: 'app-password',
@@ -44,10 +40,12 @@ export class PasswordComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private userDetailsApi: UserDetailsService
+    private userDetailsApi: UserDetailsService,
+    private notifs: GeneralNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -83,22 +81,38 @@ export class PasswordComponent implements OnInit, OnDestroy {
       (resData) => {
         // fetch user details from user-db.json FOR USER ROLE
         this.userDetailsApi.fetchUserDetails(userEmail).subscribe((res) => {
-          localStorage.setItem(
-            'userDetails',
-            JSON.stringify(
-              Object.assign(JSON.parse(JSON.stringify(res)), {
-                token: resData.idToken,
-              })
-            )
-          );
-          // navigate to dashboard if authenticated
-          this.router.navigateByUrl('/home/dashboard');
+          // if the user is active or pending redirect
+          if (res.status === 'pending') {
+            this.notifs.contactAdminNotification('Verify your email first!');
+          } else if (res.status === 'inactive') {
+            this.notifs.contactAdminNotification(
+              'You have been inactive for a while. Contact Admin immediately.'
+            );
+          } else {
+            localStorage.setItem(
+              'userDetails',
+              JSON.stringify(
+                Object.assign(JSON.parse(JSON.stringify(res)), {
+                  token: resData.idToken,
+                })
+              )
+            );
+            // navigate to dashboard if authenticated
+            this.router.navigateByUrl('/home/dashboard');
+          }
         });
       },
       (errorMessage) => {
-        alert(errorMessage);
+        this.router.navigate(['../../contactAdmin'], {
+          relativeTo: this.route,
+          queryParams: { errorMessage: errorMessage },
+        });
       }
     );
+  }
+
+  notifyUser() {
+    this.notifs.contactAdminNotification('An email will be sent to you soon!');
   }
 
   ngOnDestroy() {

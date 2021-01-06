@@ -8,12 +8,8 @@ import {
 } from 'src/app/shared/services/auth-service.service';
 import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 @Component({
   selector: 'app-username',
   templateUrl: './username.component.html',
@@ -44,7 +40,8 @@ export class UsernameComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private emailService: EmailResolverService
+    private emailService: EmailResolverService,
+    private notifs: GeneralNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +73,8 @@ export class UsernameComponent implements OnInit {
               queryParams: { username: this.usernameForm.value.email },
             });
           }, 320);
+        } else {
+          this.notifs.contactAdminNotification(errorMessage);
         }
       }
     );
