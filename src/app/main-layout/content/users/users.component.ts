@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
-import { AuthService } from 'src/app/shared/services/api.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-users',
