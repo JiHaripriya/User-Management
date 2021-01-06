@@ -6,7 +6,8 @@ import { Subject } from 'rxjs';
 })
 export class FormServiceService {
 
+  openAddUserForm = new Subject<boolean>();
   deleteFormParameters = new Subject<{index: number}>();
-  
+
   constructor() { }
 }
