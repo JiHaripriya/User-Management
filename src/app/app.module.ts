@@ -20,6 +20,8 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetailsFormComponent } from './common/details-form/details-form.component';
+import { DeleteFormComponent } from './common/delete-form/delete-form.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FooterComponent,
     DashboardComponent,
     UsersComponent,
-    LoaderComponent
+    LoaderComponent,
+    DetailsFormComponent,
+    DeleteFormComponent
   ],
   imports: [
     BrowserModule,

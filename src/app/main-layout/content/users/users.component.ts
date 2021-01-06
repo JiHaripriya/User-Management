@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 import { AuthService } from 'src/app/shared/services/auth-service.service';
+import { FormServiceService } from 'src/app/shared/services/form-service.service';
 
 @Component({
   selector: 'app-users',
@@ -26,7 +27,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     private userDetailsApi: UserDetailsService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private authService: AuthService
+    private authService: AuthService,
+    private formService: FormServiceService
   ) { }
 
   ngOnInit(): void {
@@ -108,8 +110,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.modalService.dismissAll();
   }
 
-  onDelete(del, index) {
-    this.modalService.open(del);
+  onDelete(index) {
+    this.formService.deleteFormParameters.next({index: index});
+    console.log({index: index})
   }
 
 

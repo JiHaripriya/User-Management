@@ -47,7 +47,7 @@
         <td>
           <img
             *ngIf="role === 'admin'"
-            (click)="onDelete(delete, i)"
+            (click)="onDelete(i)"
             src="../assets/images/icons8-delete-bin-60.png"
             alt=""
             srcset=""
@@ -109,7 +109,7 @@
   </form>
 </ng-template>
 
-<ng-template #delete let-modal>
+<!-- <ng-template #delete let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Confirm Delete?</h4>
     <button
@@ -135,4 +135,4 @@
       <button type="submit" class="btn">Delete</button>
     </div>
   </form>
-</ng-template>
+</ng-template> -->

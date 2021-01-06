@@ -1,0 +1,30 @@
+<ng-template #delete let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm Delete?</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+      style="background-clip: padding-box"
+    >
+      <span aria-hidden="true" style="color: rgb(250, 234, 210)">&times;</span>
+    </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row">
+          <p>
+            Do you want to delete this user account? This action cannot be
+            undone.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn">Delete</button>
+    </div>
+  </form>
+</ng-template>
