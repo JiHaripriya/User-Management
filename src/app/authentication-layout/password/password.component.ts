@@ -2,8 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { fader } from 'src/app/route-animation';
-import { trigger, transition, style, query, group, animateChild, animate, keyframes } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+} from '@angular/animations';
 
 import {
   AuthResponseData,
@@ -20,13 +24,13 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
     trigger('slideInOut', [
       transition(':enter', [
         style({ transform: 'translateX(100%)' }),
-        animate('400ms ease-in', style({ transform: 'translateX(0%)' }))
+        animate('300ms ease-in', style({ transform: 'translateX(0%)' })),
       ]),
       transition(':leave', [
-        animate('400ms ease-in', style({ transform: 'translateX(100%)' }))
-      ])
-    ])
-  ]
+        animate('300ms ease-in', style({ transform: 'translateX(-100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class PasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
@@ -44,10 +48,9 @@ export class PasswordComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public particleService: ParticleService,
     private userDetailsApi: UserDetailsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     // Redirect if the user has not entered email
     this.emailSubscription = this.activatedRoute.data.subscribe((data) => {
       if (data['status'] === false) this.router.navigateByUrl('/login');
@@ -79,20 +82,18 @@ export class PasswordComponent implements OnInit, OnDestroy {
     authObs.subscribe(
       (resData) => {
         // fetch user details from user-db.json FOR USER ROLE
-        this.userDetailsApi
-          .fetchUserDetails(userEmail)
-          .subscribe((res) => {
-            localStorage.setItem(
-              'userDetails',
-              JSON.stringify(
-                Object.assign(JSON.parse(JSON.stringify(res)), {
-                  token: resData.idToken,
-                })
-              )
-            );
-            // navigate to dashboard if authenticated
-            this.router.navigateByUrl('/home/dashboard');
-          });
+        this.userDetailsApi.fetchUserDetails(userEmail).subscribe((res) => {
+          localStorage.setItem(
+            'userDetails',
+            JSON.stringify(
+              Object.assign(JSON.parse(JSON.stringify(res)), {
+                token: resData.idToken,
+              })
+            )
+          );
+          // navigate to dashboard if authenticated
+          this.router.navigateByUrl('/home/dashboard');
+        });
       },
       (errorMessage) => {
         alert(errorMessage);
