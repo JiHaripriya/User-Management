@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
@@ -53,11 +53,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.addUserForm = new FormGroup({
       first_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
+        Validators.pattern('[a-zA-Z]+'),
       ]),
       last_name: new FormControl(null, [
         Validators.required,
-        Validators.pattern(new RegExp('[a-zA-Z]+', 'g')),
+        Validators.pattern('[a-zA-Z]+'),
       ]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       status: new FormControl(null),
@@ -92,10 +92,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     const userDetails =
       this.formTitle === 'Add'
         ? Object.assign(this.addUserForm.value, {
-            status: 'pending',
-            role: 'user',
-            token: '',
-          })
+          status: 'pending',
+          role: 'user',
+          token: '',
+        })
         : this.addUserForm.value;
 
     // New user
@@ -107,6 +107,11 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     this.modalService.dismissAll();
   }
+
+  onDelete(del, index) {
+    this.modalService.open(del);
+  }
+
 
   ngOnDestroy() {
     this.userDetailsSubscription.unsubscribe();

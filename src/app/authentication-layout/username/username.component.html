@@ -8,6 +8,8 @@
 <div
   class="col auth-form shadow rounded"
   style="background: var(--secondary-color)"
+  *ngIf="visible"
+  [@slideInOut]
 >
   <form class="col p-5" [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
     <div class="row pb-1 border-bottom"><h4>Login</h4></div>
