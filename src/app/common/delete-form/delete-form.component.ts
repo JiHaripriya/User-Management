@@ -1,5 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
 
 @Component({
@@ -7,10 +14,10 @@ import { FormServiceService } from 'src/app/shared/services/form-service.service
   templateUrl: './delete-form.component.html',
   styleUrls: ['./delete-form.component.css'],
 })
-export class DeleteFormComponent implements OnInit {
-
+export class DeleteFormComponent implements OnInit, OnDestroy {
   @ViewChild('delete') deleteModal: ElementRef;
   index: number;
+  subscription: Subscription;
 
   constructor(
     private modalService: NgbModal,
@@ -18,10 +25,16 @@ export class DeleteFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formService.deleteFormParameters.subscribe((params) => {
-      console.log(params)
-      this.modalService.open(this.deleteModal);
-      this.index = params.index; // user to be deleted
-    });
+    this.subscription = this.formService.deleteFormParameters.subscribe(
+      (params) => {
+        console.log(params);
+        this.modalService.open(this.deleteModal);
+        this.index = params.index; // user to be deleted
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
