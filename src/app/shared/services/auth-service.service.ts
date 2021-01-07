@@ -41,6 +41,7 @@ export class AuthService {
       .subscribe((res) => console.log(res));
   }
 
+  // GET request to /user/check with email in body
   emailVerification(email: string) {
     return this.http
       .post<AuthResponseData>(

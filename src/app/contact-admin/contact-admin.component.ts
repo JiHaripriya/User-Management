@@ -10,10 +10,13 @@ export class ContactAdminComponent implements OnInit {
 
   message: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.message = this.route.snapshot.queryParams['errorMessage'];
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, 3000);
   }
 
 }
