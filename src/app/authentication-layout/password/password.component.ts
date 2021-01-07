@@ -32,6 +32,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
   hasEnteredEmail: boolean;
   emailSubscription: Subscription;
+  message = "";
 
   width: number = 90;
   height: number = 90;
@@ -101,16 +102,15 @@ export class PasswordComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/home/dashboard');
           }
         });
-      },
+      },// wrong password
       (errorMessage) => {
-        this.router.navigate(['../../contactAdmin'], {
-          relativeTo: this.route,
-          queryParams: { errorMessage: errorMessage },
-        });
+        this.passwordForm.setErrors({ invalidPassword: true });
+        this.message = errorMessage;
       }
     );
   }
 
+  // Forgot password
   notifyUser() {
     this.notifs.contactAdminNotification('An email will be sent to you soon!');
   }

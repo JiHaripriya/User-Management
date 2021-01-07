@@ -9,7 +9,7 @@ import {
 import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
+
 @Component({
   selector: 'app-username',
   templateUrl: './username.component.html',
@@ -34,14 +34,14 @@ export class UsernameComponent implements OnInit {
   myStyle: Object = {};
   myParams: object = {};
   visible = true;
+  message = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private emailService: EmailResolverService,
-    private notifs: GeneralNotificationsService
+    private emailService: EmailResolverService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +74,9 @@ export class UsernameComponent implements OnInit {
             });
           }, 320);
         } else {
-          this.notifs.contactAdminNotification(errorMessage);
+          // Email doesnot exist
+          this.usernameForm.setErrors({ invalidEmail: true });
+          this.message = errorMessage;
         }
       }
     );

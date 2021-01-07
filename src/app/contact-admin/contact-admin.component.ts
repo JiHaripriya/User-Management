@@ -16,7 +16,7 @@ export class ContactAdminComponent implements OnInit {
     this.message = this.route.snapshot.queryParams['errorMessage'];
     setTimeout(() => {
       this.router.navigate(['/login']);
-    }, 3000);
+    }, 4000);
   }
 
 }

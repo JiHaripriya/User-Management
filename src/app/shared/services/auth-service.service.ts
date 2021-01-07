@@ -65,7 +65,7 @@ export class AuthService {
       );
   }
 
-  // Password page
+  // Password page  POST request to /user/login
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
