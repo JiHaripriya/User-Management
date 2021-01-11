@@ -1,28 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
-import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-
-export interface AuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
+import { UserDetails } from '../models/user-details.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  user = new BehaviorSubject<UserDetails>(null);
 
   constructor(private http: HttpClient, private route: Router) {}
 
   isAuthenticated(): boolean {
-    const token = JSON.parse(localStorage.getItem('userDetails'))?.token;
+    const token = JSON.parse(localStorage.getItem('userData'))?.token;
     // Check whether the token is expired and return true or false
     if (token) return true;
     else return false;
@@ -30,7 +21,7 @@ export class AuthService {
 
   signup(email: string) {
     return this.http
-      .post<AuthResponseData>(
+      .post<any>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
         {
           email: email,
@@ -41,7 +32,6 @@ export class AuthService {
       .subscribe((res) => console.log(res));
   }
 
-  // GET request to /user/check with email in body
   emailVerification(email: string) {
     return this.http.post<any>(
       'http://user-dashboard.qburst.build:3002/user/check',
@@ -54,66 +44,73 @@ export class AuthService {
   // Password page  POST request to /user/login
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true,
-        }
-      )
+      .post<any>('http://user-dashboard.qburst.build:3002/user/login', {
+        email: email,
+        password: password,
+      })
       .pipe(
-        catchError(this.handleError),
+        // catchError(this.handleError),
         tap((resData) => {
           this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
+            resData.data.loggedUser.firstname,
+            resData.data.loggedUser.lastname,
+            resData.data.loggedUser.email,
+            resData.data.role,
+            resData.data.loggedUser.status,
+            resData.data.loggedUser.token,
+            resData.data.id
           );
         })
       );
   }
 
   autoLogin() {
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('userData'));
-
-    if (!userData) {
-      return;
-    }
-
-    const loadedUser = new User(
-      userData.email,
-      userData.id,
-      userData._token,
-      new Date(userData._tokenExpirationDate)
-    );
-
-    if (loadedUser.token) {
-      this.user.next(loadedUser);
-    }
+    // const userData: {
+    //   email: string;
+    //   id: string;
+    //   _token: string;
+    //   _tokenExpirationDate: string;
+    // } = JSON.parse(localStorage.getItem('userData'));
+    // if (!userData) {
+    //   return;
+    // }
+    // const loadedUser = new User(
+    //   userData.email,
+    //   userData.id,
+    //   userData._token,
+    //   new Date(userData._tokenExpirationDate)
+    // );
+    // if (loadedUser.token) {
+    //   this.user.next(loadedUser);
+    // }
   }
 
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
-    localStorage.removeItem('userDetails');
+    // localStorage.removeItem('userDetails');
     this.route.navigate(['/login']);
   }
 
   private handleAuthentication(
+    firstname: string,
+    lastname: string,
     email: string,
-    userId: string,
+    role: string,
+    status: string,
     token: string,
-    expiresIn: number
+    id: number
   ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate);
+    // const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new UserDetails(
+      firstname,
+      lastname,
+      email,
+      role,
+      status,
+      token,
+      id
+    );
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
   }
@@ -123,7 +120,7 @@ export class AuthService {
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
-    switch (errorRes.error.error.message) {
+    switch (errorRes.error.error) {
       case 'EMAIL_EXISTS':
         errorMessage = 'This email exists already';
         break;

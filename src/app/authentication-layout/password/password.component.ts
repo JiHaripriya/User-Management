@@ -4,12 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 
-import {
-  AuthResponseData,
-  AuthService,
-} from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
-import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 
 @Component({
@@ -32,7 +28,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
   hasEnteredEmail: boolean;
   emailSubscription: Subscription;
-  message = "";
+  message = '';
 
   width: number = 90;
   height: number = 90;
@@ -41,11 +37,9 @@ export class PasswordComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private userDetailsApi: UserDetailsService,
     private notifs: GeneralNotificationsService
   ) {}
 
@@ -65,47 +59,36 @@ export class PasswordComponent implements OnInit, OnDestroy {
         Validators.maxLength(25),
       ]),
     });
-
-    this.authService.user.subscribe((res) => console.log(res));
   }
 
   onSubmit() {
     const userEmail = this.activatedRoute.snapshot.queryParams['username'],
       password = this.passwordForm.value.password;
 
-    let authObs: Observable<AuthResponseData>;
+    let authObs: Observable<any>;
 
     // logic to check whether password matches the user --> pass email and password to api
     authObs = this.authService.login(userEmail, password);
 
     authObs.subscribe(
       (resData) => {
-        // fetch user details from user-db.json FOR USER ROLE
-        this.userDetailsApi.fetchUserDetails(userEmail).subscribe((res) => {
-          // if the user is active or pending redirect
-          if (res.status === 'pending') {
-            this.notifs.contactAdminNotification('Verify your email first!');
-          } else if (res.status === 'inactive') {
-            this.notifs.contactAdminNotification(
-              'You have been inactive for a while. Contact Admin immediately.'
-            );
-          } else {
-            localStorage.setItem(
-              'userDetails',
-              JSON.stringify(
-                Object.assign(JSON.parse(JSON.stringify(res)), {
-                  token: resData.idToken,
-                })
-              )
-            );
-            // navigate to dashboard if authenticated
-            this.router.navigateByUrl('/home/dashboard');
-          }
-        });
-      },// wrong password
+        // if the user is active or pending redirect
+        if (resData.status === 'pending') {
+          this.notifs.contactAdminNotification('Verify your email first!');
+          this.authService.logout();
+        } else if (resData.status === 'inactive') {
+          this.notifs.contactAdminNotification(
+            'You have been inactive for a while. Contact Admin immediately.'
+          );
+          this.authService.logout();
+        } else {
+          // navigate to dashboard if authenticated
+          this.router.navigateByUrl('/home/dashboard');
+        }
+      }, // wrong password
       (errorMessage) => {
         this.passwordForm.setErrors({ invalidPassword: true });
-        this.message = errorMessage;
+        this.message = errorMessage.error.message;
       }
     );
   }

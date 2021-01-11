@@ -37,11 +37,11 @@ export class DetailsFormComponent implements OnInit {
     });
 
     this.addUserForm = new FormGroup({
-      first_name: new FormControl(null, [
+      firstname: new FormControl(null, [
         Validators.required,
         Validators.pattern('[a-zA-Z ]+'),
       ]),
-      last_name: new FormControl(null, [
+      lastname: new FormControl(null, [
         Validators.required,
         Validators.pattern('[a-zA-Z ]+'),
       ]),
@@ -63,8 +63,8 @@ export class DetailsFormComponent implements OnInit {
     this.isPending = userDetails.status === 'pending' ? true : false;
 
     this.addUserForm.setValue({
-      first_name: userDetails.first_name,
-      last_name: userDetails.last_name,
+      firstname: userDetails.firstname,
+      lastname: userDetails.lastname,
       email: userDetails.email,
       status: userDetails.status,
     });

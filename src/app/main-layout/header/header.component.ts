@@ -9,7 +9,7 @@ import { HomePageService } from 'src/app/shared/services/home-page.service';
 })
 export class HeaderComponent implements OnInit {
   title: string = 'Dashboard';
-  firstName: string;
+  firstname: string;
   constructor(
     private authService: AuthService,
     private homeServices: HomePageService
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeServices.passTitle.subscribe((title) => (this.title = title));
-    this.firstName = JSON.parse(localStorage.getItem('userDetails')).first_name;
+    this.firstname = JSON.parse(localStorage.getItem('userDetails')).firstname;
   }
 
   onLogout() {

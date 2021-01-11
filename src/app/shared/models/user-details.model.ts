@@ -1,12 +1,11 @@
 export class UserDetails {
     constructor(
-        public first_name: string,
-        public last_name: string,
+        public firstname: string,
+        public lastname: string,
         public email: string,
         public role: string,
         public status: string,
-        private token?: string,
-        private password?: string,
-        public user_id?: number
+        public token: string,
+        public id: number
     ) { }
 }

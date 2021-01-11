@@ -21,8 +21,8 @@
     <tbody>
       <!-- User id is essential for editing their details -->
       <tr *ngFor="let eachUser of userDetails; let i = index">
-        <td>{{ eachUser.first_name | titlecase }}</td>
-        <td>{{ eachUser.last_name | titlecase }}</td>
+        <td>{{ eachUser.firstname | titlecase }}</td>
+        <td>{{ eachUser.lastname | titlecase }}</td>
         <td>{{ eachUser.email }}</td>
         <td
           *ngIf="role === 'admin'"
