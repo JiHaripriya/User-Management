@@ -19,19 +19,6 @@ export class AuthService {
     else return false;
   }
 
-  signup(email: string) {
-    return this.http
-      .post<any>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: 'password',
-          returnSecureToken: true,
-        }
-      )
-      .subscribe((res) => console.log(res));
-  }
-
   emailVerification(email: string) {
     return this.http.post<any>(
       'http://user-dashboard.qburst.build:3002/user/check',
@@ -41,7 +28,6 @@ export class AuthService {
     );
   }
 
-  // Password page  POST request to /user/login
   login(email: string, password: string) {
     return this.http
       .post<any>('http://user-dashboard.qburst.build:3002/user/login', {
@@ -119,24 +105,5 @@ export class AuthService {
     );
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
-    }
-    switch (errorRes.error.error) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist.';
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.';
-        break;
-    }
-    return throwError(errorMessage);
   }
 }

@@ -76,7 +76,7 @@ export class DetailsFormComponent implements OnInit {
 
   private capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
-  }  
+  }
 
   onSubmit() {
     // New user's status is appended as pending by default
@@ -85,13 +85,12 @@ export class DetailsFormComponent implements OnInit {
         ? Object.assign(this.addUserForm.value, {
             status: 'pending',
             role: 'user',
-            link: 'http://localhost:4200/setPassword'
+            link: 'http://localhost:4200/setPassword',
           })
         : this.addUserForm.value;
 
     // New user
     if (this.formTitle === 'Add') {
-      this.authService.signup(userDetails.email);
       this.userDetailsApi.addUser(userDetails);
     } else {
       // Logic to update edited details
