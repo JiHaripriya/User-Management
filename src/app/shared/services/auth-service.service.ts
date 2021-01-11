@@ -43,26 +43,12 @@ export class AuthService {
 
   // GET request to /user/check with email in body
   emailVerification(email: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: 'password',
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError(this.handleError),
-        tap((resData) => {
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
-        })
-      );
+    return this.http.post<any>(
+      'http://user-dashboard.qburst.build:3002/user/check',
+      {
+        email: email,
+      }
+    );
   }
 
   // Password page  POST request to /user/login

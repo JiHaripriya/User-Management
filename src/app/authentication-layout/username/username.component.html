@@ -27,7 +27,7 @@
       *ngIf="usernameForm.hasError('invalidEmail')"
       style="font-size: small"
     >
-      {{ message }}
+      {{ message | titlecase }}
     </div>
     <div class="row pt-4">
       <button

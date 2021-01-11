@@ -55,29 +55,27 @@ export class UsernameComponent implements OnInit {
 
   onSubmit() {
     // logic to check whether email is valid
-    let authObs: Observable<AuthResponseData>;
+    let authObs: Observable<any>;
     authObs = this.authService.emailVerification(this.usernameForm.value.email);
 
     authObs.subscribe(
       (resData) => {
-        console.log(resData);
+        // success response {success: 200, message: "user exist"}
+        this.emailService.emailEnterStatus.next(true);
+        this.visible = false;
+        // Navigate to next page by passing email as param
+        setTimeout(() => {
+          this.router.navigate(['password'], {
+            relativeTo: this.route,
+            queryParams: { username: this.usernameForm.value.email },
+          });
+        }, 320);
       },
       (errorMessage) => {
-        if (errorMessage == 'This password is not correct.') {
-          this.emailService.emailEnterStatus.next(true);
-          this.visible = false;
-          // Navigate to next page by passing email as param
-          setTimeout(() => {
-            this.router.navigate(['password'], {
-              relativeTo: this.route,
-              queryParams: { username: this.usernameForm.value.email },
-            });
-          }, 320);
-        } else {
-          // Email doesnot exist
-          this.usernameForm.setErrors({ invalidEmail: true });
-          this.message = errorMessage;
-        }
+        // {error: 400, message: "email doesnt exist"}
+        // Email doesnot exist
+        this.usernameForm.setErrors({ invalidEmail: true });
+        this.message = errorMessage.error.message;
       }
     );
   }
