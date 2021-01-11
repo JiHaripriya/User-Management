@@ -92,3 +92,7 @@
 .profileForm .row {
   padding: 0px !important;
 }
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: var(--secondary-color);
+}

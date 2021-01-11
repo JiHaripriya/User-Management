@@ -87,6 +87,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
         }
       }, // wrong password
       (errorMessage) => {
+        console.log(errorMessage)
         this.passwordForm.setErrors({ invalidPassword: true });
         this.message = errorMessage.error.message;
       }

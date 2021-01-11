@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
@@ -11,10 +12,12 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
   templateUrl: './details-form.component.html',
   styleUrls: ['./details-form.component.css'],
 })
-export class DetailsFormComponent implements OnInit {
+export class DetailsFormComponent implements OnInit, OnDestroy {
   @ViewChild('content') detailsForm: ElementRef;
   userDetails: UserDetails[];
   addUserForm: FormGroup;
+  adduserSubscription: Subscription;
+  edituserSubscription: Subscription;
   formTitle = '';
   isPending = false;
   index: number;
@@ -27,16 +30,20 @@ export class DetailsFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formService.openAddUserForm.subscribe((status) => {
-      if (status) {
-        this.onAdd(this.detailsForm);
+    this.adduserSubscription = this.formService.openAddUserForm.subscribe(
+      (status) => {
+        if (status) {
+          this.onAdd(this.detailsForm);
+        }
       }
-    });
+    );
 
-    this.formService.openEditUserForm.subscribe((userData) => {
-      this.index = userData.selectedId;
-      this.onEdit(this.detailsForm, userData.data);
-    });
+    this.edituserSubscription = this.formService.openEditUserForm.subscribe(
+      (userData) => {
+        this.index = userData.selectedId;
+        this.onEdit(this.detailsForm, userData.data);
+      }
+    );
 
     this.addUserForm = new FormGroup({
       firstname: new FormControl(null, [
@@ -96,8 +103,12 @@ export class DetailsFormComponent implements OnInit {
       // Logic to update edited details
       this.userDetailsApi.updateUser(userDetails, this.index);
     }
-
-    this.userDetailsApi.reloadComponent.next(true);
     this.modalService.dismissAll();
   }
+
+  ngOnDestroy() {
+    this.adduserSubscription.unsubscribe();
+    this.edituserSubscription.unsubscribe();
+  }
+
 }

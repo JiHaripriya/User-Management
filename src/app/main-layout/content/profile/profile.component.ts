@@ -56,8 +56,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const updatedData = Object.assign(JSON.parse(localStorage.getItem('userData')), {email: this.profileForm.value.email});
-    localStorage.setItem('userData', updatedData);
-    this.userDetailsApi.updateOwnDetails(this.profileForm.value);
+    const updatedData = Object.assign(JSON.parse(localStorage.getItem('userData')), this.profileForm.value);
+    const {email, ...rest} = this.profileForm.value;
+    localStorage.setItem('userData', JSON.stringify(updatedData));
+    console.log(JSON.parse(localStorage.getItem('userData')))
+    this.userDetailsApi.updateOwnDetails(rest);
   }
 }

@@ -42,7 +42,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
       .subscribe((data) => {
-        console.log(data)
         this.userDetails = data.filter(
           (user) =>
             user.email !== JSON.parse(localStorage.getItem('userData')).email
