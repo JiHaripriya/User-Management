@@ -15,10 +15,7 @@ export class UserDetailsService {
 
   addUser(userData: UserDetails) {
     this.http
-      .post(
-        'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json',
-        userData
-      )
+      .post('http://user-dashboard.qburst.build:3002/user', userData)
       .subscribe((res) => {
         console.log(res);
         this.reloadComponent.next(true);
@@ -26,16 +23,23 @@ export class UserDetailsService {
   }
 
   fetchUserList() {
-    console.log("Req sent");
-    return this.http.get('http://user-dashboard.qburst.build:3002/user')
-    .pipe(
+    console.log('Req sent');
+    return this.http.get('http://user-dashboard.qburst.build:3002/user').pipe(
       take(1),
-      map((responseData: {[index:string]: any}) => {
-        console.log(responseData.data.filter((user) => user.Role.name !== 'admin'))
+      map((responseData: { [index: string]: any }) => {
         return responseData.data.filter((user) => user.Role.name !== 'admin');
       })
     );
   }
 
-  // fetchUserDetails(email: string or token: string) for ROLE FETCH 
+  deleteUser(id: number) {
+    console.log(id)
+    this.http
+    .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
+    .subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  // fetchUserDetails(email: string or token: string) for ROLE FETCH
 }

@@ -79,7 +79,7 @@ export class DetailsFormComponent implements OnInit {
         ? Object.assign(this.addUserForm.value, {
             status: 'pending',
             role: 'user',
-            token: '',
+            link: 'http://localhost:4200/setPassword'
           })
         : this.addUserForm.value;
 

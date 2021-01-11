@@ -8,6 +8,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
+import { UserDetailsService } from 'src/app/shared/services/user-details.service';
 
 @Component({
   selector: 'app-delete-form',
@@ -21,7 +22,8 @@ export class DeleteFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalService: NgbModal,
-    private formService: FormServiceService
+    private formService: FormServiceService,
+    private userDetailsApi: UserDetailsService
   ) {}
 
   ngOnInit(): void {
@@ -36,5 +38,11 @@ export class DeleteFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  deleteUser() {
+    this.userDetailsApi.deleteUser(this.index);
+    this.userDetailsApi.reloadComponent.next(true);
+    this.modalService.dismissAll();
   }
 }
