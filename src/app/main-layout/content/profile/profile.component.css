@@ -85,5 +85,10 @@
 }
 
 .card-footer {
+  padding-left: 0 !important;
     border-top: none !important;
+}
+
+.profileForm .row {
+  padding: 0px !important;
 }

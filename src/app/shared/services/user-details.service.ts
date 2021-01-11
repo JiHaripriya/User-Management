@@ -37,6 +37,7 @@ export class UserDetailsService {
       .put(`http://user-dashboard.qburst.build:3002/user/${id}`, userData)
       .subscribe((res) => {
         console.log(res);
+        this.reloadComponent.next(true);
       });
   }
 
@@ -54,6 +55,7 @@ export class UserDetailsService {
       .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
       .subscribe((res) => {
         console.log(res);
+        this.reloadComponent.next(true);
       });
   }
 
