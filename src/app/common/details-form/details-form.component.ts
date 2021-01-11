@@ -17,6 +17,7 @@ export class DetailsFormComponent implements OnInit {
   addUserForm: FormGroup;
   formTitle = '';
   isPending = false;
+  index: number;
 
   constructor(
     private modalService: NgbModal,
@@ -33,7 +34,8 @@ export class DetailsFormComponent implements OnInit {
     });
 
     this.formService.openEditUserForm.subscribe((userData) => {
-      this.onEdit(this.detailsForm, userData);
+      this.index = userData.selectedId;
+      this.onEdit(this.detailsForm, userData.data);
     });
 
     this.addUserForm = new FormGroup({
@@ -63,14 +65,18 @@ export class DetailsFormComponent implements OnInit {
     this.isPending = userDetails.status === 'pending' ? true : false;
 
     this.addUserForm.setValue({
-      firstname: userDetails.firstname,
-      lastname: userDetails.lastname,
+      firstname: this.capitalizeFirstLetter(userDetails.firstname),
+      lastname: this.capitalizeFirstLetter(userDetails.lastname),
       email: userDetails.email,
       status: userDetails.status,
     });
 
     this.modalService.open(content);
   }
+
+  private capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+  }  
 
   onSubmit() {
     // New user's status is appended as pending by default
@@ -89,9 +95,10 @@ export class DetailsFormComponent implements OnInit {
       this.userDetailsApi.addUser(userDetails);
     } else {
       // Logic to update edited details
-      console.log(this.addUserForm.value);
+      this.userDetailsApi.updateUser(userDetails, this.index);
     }
 
+    this.userDetailsApi.reloadComponent.next(true);
     this.modalService.dismissAll();
   }
 }

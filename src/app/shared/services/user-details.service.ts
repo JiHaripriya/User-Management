@@ -27,18 +27,37 @@ export class UserDetailsService {
     return this.http.get('http://user-dashboard.qburst.build:3002/user').pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
-        return responseData.data.filter((user) => user.Role.name !== 'admin');
+        return responseData.data.filter(
+          (user) =>
+            user.email !== JSON.parse(localStorage.getItem('userData')).email
+        );
       })
     );
   }
 
-  deleteUser(id: number) {
-    console.log(id)
+  updateUser(userData: UserDetails, id: number) {
     this.http
-    .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
-    .subscribe((res) => {
-      console.log(res);
-    });
+      .put(`http://user-dashboard.qburst.build:3002/user/${id}`, userData)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  updateOwnDetails(userData: UserDetails) {
+    this.http
+      .put(`http://user-dashboard.qburst.build:3002/user`, userData)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  deleteUser(id: number) {
+    console.log(id);
+    this.http
+      .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
+      .subscribe((res) => {
+        console.log(res);
+      });
   }
 
   // fetchUserDetails(email: string or token: string) for ROLE FETCH

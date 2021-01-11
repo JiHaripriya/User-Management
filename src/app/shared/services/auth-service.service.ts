@@ -90,9 +90,11 @@ export class AuthService {
   }
 
   logout() {
+    this.http.post('http://user-dashboard.qburst.build:3002/user/logout', {}).subscribe((res) => {
+      console.log(res)
+    });
     this.user.next(null);
     localStorage.removeItem('userData');
-    // localStorage.removeItem('userDetails');
     this.route.navigate(['/login']);
   }
 

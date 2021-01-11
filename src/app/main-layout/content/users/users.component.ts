@@ -36,8 +36,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
 
     this.role = this.route.snapshot.data['role'];
-    console.log(this.role);
-    
 
     this.loading = true;
 
@@ -55,7 +53,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onEdit(index) {
-    this.formService.openEditUserForm.next(this.userDetails[index]);
+    this.formService.openEditUserForm.next({data: this.userDetails.filter((user) => user.id == index)[0], selectedId: index});
   }
 
   onDelete(index) {
