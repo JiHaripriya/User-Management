@@ -42,6 +42,6 @@ h1 {
 
 .content {
   margin: 78px 30px 30px 280px;
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 100px);
   width: 100%;
 }

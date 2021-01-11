@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
   firstname: string;
   constructor(
     private authService: AuthService,
-    private homeServices: HomePageService
+    private homeServices: HomePageService,
+    private homePageServices: HomePageService
   ) {}
 
   ngOnInit(): void {
@@ -22,5 +23,10 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  setTitle(selectedOption: string) {
+    this.homePageServices.loadProfileStatus.next(true);
+    this.homePageServices.passTitle.next(selectedOption);
   }
 }

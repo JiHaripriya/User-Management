@@ -15,5 +15,6 @@ export class SidebarComponent implements OnInit {
 
   setTitle(selectedOption: string) {
     this.homePageServices.passTitle.next(selectedOption);
+    this.homePageServices.loadProfileStatus.next(false);
   }
 }

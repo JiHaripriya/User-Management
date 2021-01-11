@@ -27,10 +27,7 @@ export class UserDetailsService {
     return this.http.get('http://user-dashboard.qburst.build:3002/user').pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
-        return responseData.data.filter(
-          (user) =>
-            user.email !== JSON.parse(localStorage.getItem('userData')).email
-        );
+        return responseData.data
       })
     );
   }

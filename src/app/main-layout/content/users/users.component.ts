@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
       (status) => {
-        console.log('reload initiated')
+        console.log('reload initiated');
         if (status === true) {
           this.ngOnInit();
         }
@@ -42,7 +42,11 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
       .subscribe((data) => {
-        this.userDetails = data;
+        console.log(data)
+        this.userDetails = data.filter(
+          (user) =>
+            user.email !== JSON.parse(localStorage.getItem('userData')).email
+        );
         console.log(this.userDetails);
         this.loading = false;
       });
@@ -53,7 +57,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onEdit(index) {
-    this.formService.openEditUserForm.next({data: this.userDetails.filter((user) => user.id == index)[0], selectedId: index});
+    this.formService.openEditUserForm.next({
+      data: this.userDetails.filter((user) => user.id == index)[0],
+      selectedId: index,
+    });
   }
 
   onDelete(index) {

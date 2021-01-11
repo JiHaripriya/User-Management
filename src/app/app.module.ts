@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsFormComponent } from './common/details-form/details-form.component';
 import { DeleteFormComponent } from './common/delete-form/delete-form.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
+import { ProfileComponent } from './main-layout/content/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ContactAdminComponent } from './contact-admin/contact-admin.component';
     LoaderComponent,
     DetailsFormComponent,
     DeleteFormComponent,
-    ContactAdminComponent
+    ContactAdminComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

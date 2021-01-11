@@ -1,0 +1,68 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="col-md-6" *ngIf="!loading">
+  <div class="card card-user p-2">
+    <div class="card-body">
+      <p class="card-text"></p>
+
+      <div class="author">
+        <div class="block block-one"></div>
+        <div class="block block-two"></div>
+        <div class="block block-three"></div>
+        <div class="block block-four"></div>
+        <a
+          ><img
+            alt="..."
+            class="avatar"
+            src="../../../../assets/images/profile.png"
+          />
+          <h5 class="title">{{ userDetails.firstname + "\t" + userDetails.lastname | titlecase }}</h5></a
+        >
+        <p class="description">{{ userDetails.Role.name  | titlecase }}</p>
+      </div>
+
+      <form class="mt-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label> First Name </label
+              ><input
+                class="form-control"
+                placeholder="First Name"
+                type="text"
+                value="{{ userDetails.firstname | titlecase }}"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 pl-md-1">
+            <div class="form-group">
+              <label> Last Name </label
+              ><input
+                class="form-control"
+                placeholder="Last Name"
+                type="text"
+                value="{{ userDetails.lastname | titlecase }}"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputEmail1"> Email address </label
+              ><input
+                class="form-control"
+                placeholder="name@email.com"
+                type="email"
+                value="{{ userDetails.email }}"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer mb-3">
+      <button class="btn btn-fill btn-warning" type="submit">Save</button>
+    </div>
+  </div>
+</div>

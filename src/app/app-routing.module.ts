@@ -5,6 +5,7 @@ import { PasswordComponent } from './authentication-layout/password/password.com
 import { UsernameComponent } from './authentication-layout/username/username.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
+import { ProfileComponent } from './main-layout/content/profile/profile.component';
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
@@ -30,6 +31,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent, resolve: {role: RoleGuardService} },
       { path: 'users', component: UsersComponent, resolve: {role: RoleGuardService} },
+      { path: 'profile', component: ProfileComponent}
     ],
   },
   { path: 'contactAdmin', component: ContactAdminComponent}

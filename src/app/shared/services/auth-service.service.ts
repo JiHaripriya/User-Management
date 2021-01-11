@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
@@ -50,6 +50,17 @@ export class AuthService {
       );
   }
 
+  setOrForgotPassword(action: string, password: string, token: string) {
+    this.http.put('http://user-dashboard.qburst.build:3002/user/password', {
+      password: password
+    }, {
+      params: new HttpParams().set('action', action)
+        .set('token', token)
+    }).subscribe((res) => {
+      console.log(res)
+    });
+  }
+
   autoLogin() {
     const userData: {
       firstname: string,
@@ -81,7 +92,7 @@ export class AuthService {
     });
     this.user.next(null);
     localStorage.removeItem('userData');
-    this.route.navigate(['/login']);
+    this.route.navigateByUrl('/login');
   }
 
   private handleAuthentication(

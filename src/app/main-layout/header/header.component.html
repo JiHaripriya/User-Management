@@ -20,6 +20,15 @@
           <div ngbDropdownMenu>
             <div
               style="cursor: pointer"
+              routerLink="profile"
+              (click)="setTitle('User Profile')"
+              class="mb-2"
+              ngbDropdownItem
+            >
+              Profile
+            </div>
+            <div
+              style="cursor: pointer"
               (click)="onLogout()"
               ngbDropdownItem
             >
