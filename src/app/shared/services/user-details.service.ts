@@ -46,6 +46,7 @@ export class UserDetailsService {
       .put(`http://user-dashboard.qburst.build:3002/user`, userData)
       .subscribe((res) => {
         console.log(res);
+        this.reloadComponent.next(true);
       });
   }
 

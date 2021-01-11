@@ -1,6 +1,4 @@
-<app-loader *ngIf="loading"></app-loader>
-
-<div class="col-md-6 p-1 ml-5" *ngIf="!loading">
+<div class="col-md-6 p-1 ml-5">
   <div class="card card-user p-2">
     <div class="card-body">
       <p class="card-text"></p>
@@ -16,54 +14,73 @@
             class="avatar"
             src="../../../../assets/images/profile.png"
           />
-          <h5 class="title">{{ userDetails.firstname + "\t" + userDetails.lastname | titlecase }}</h5></a
+          <h5 class="title" *ngIf="!loading">
+            {{
+              userDetails?.firstname + "\t" + userDetails?.lastname | titlecase
+            }}
+          </h5></a
         >
-        <p class="description">{{ userDetails.Role.name  | titlecase }}</p>
+        <p class="description" *ngIf="!loading">{{ userDetails?.Role.name | titlecase }}</p>
       </div>
 
-      <form class="mt-4" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <app-loader
+        *ngIf="loading"
+        style="position: absolute; top: 40%; left: 40%; transform: scale(0.6);"
+      ></app-loader>
+
+      <form
+        class="mt-4 profileForm"
+        [formGroup]="profileForm"
+        (ngSubmit)="onSubmit()"
+        *ngIf="!loading"
+      >
         <div class="form-group">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col-md-6">
-                <label> First Name </label
-                ><input
-                  class="form-control"
-                  formControlName="firstname"
-                  placeholder="First Name"
-                  type="text"
-                  value="{{ userDetails.firstname | titlecase }}"
-                />
+              <label> First Name </label
+              ><input
+                class="form-control"
+                formControlName="firstname"
+                placeholder="First Name"
+                type="text"
+                value="{{ userDetails?.firstname | titlecase }}"
+              />
             </div>
             <div class="col-md-6 pl-md-1">
-                <label> Last Name </label
-                ><input
-                  formControlName="lastname"
-                  class="form-control"
-                  placeholder="Last Name"
-                  type="text"
-                  value="{{ userDetails.lastname | titlecase }}"
-                />
-              </div>
+              <label> Last Name </label
+              ><input
+                formControlName="lastname"
+                class="form-control"
+                placeholder="Last Name"
+                type="text"
+                value="{{ userDetails?.lastname | titlecase }}"
+              />
+            </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-12">
-                <label for="exampleInputEmail1"> Email address </label
-                ><input
-                  class="form-control"
-                  formControlName="email"
-                  placeholder="name@email.com"
-                  type="email"
-                  value="{{ userDetails.email }}"
-                  readonly
-                />
+              <label for="exampleInputEmail1"> Email address </label
+              ><input
+                class="form-control"
+                formControlName="email"
+                placeholder="name@email.com"
+                type="email"
+                value="{{ userDetails?.email }}"
+                readonly
+              />
             </div>
           </div>
         </div>
         <div class="card-footer mb-3">
-          <button class="btn btn-primary" type="submit" [disabled]="!profileForm.valid">Save</button>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!profileForm.valid"
+          >
+            Save
+          </button>
         </div>
       </form>
     </div>
-    
   </div>
 </div>
