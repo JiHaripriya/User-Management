@@ -65,24 +65,28 @@ export class AuthService {
   }
 
   autoLogin() {
-    // const userData: {
-    //   email: string;
-    //   id: string;
-    //   _token: string;
-    //   _tokenExpirationDate: string;
-    // } = JSON.parse(localStorage.getItem('userData'));
-    // if (!userData) {
-    //   return;
-    // }
-    // const loadedUser = new User(
-    //   userData.email,
-    //   userData.id,
-    //   userData._token,
-    //   new Date(userData._tokenExpirationDate)
-    // );
-    // if (loadedUser.token) {
-    //   this.user.next(loadedUser);
-    // }
+    const userData: {
+      firstname: string,
+      lastname: string,
+      email: string,
+      role: string,
+      status: string,
+      token: string
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new UserDetails(
+      userData.firstname,
+      userData.lastname,
+      userData.email,
+      userData.role,
+      userData.status,
+      userData.token
+    );
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
   }
 
   logout() {

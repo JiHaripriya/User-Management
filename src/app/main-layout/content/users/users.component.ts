@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
-import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
 
 @Component({
@@ -38,6 +35,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     );
 
     this.role = this.route.snapshot.data['role'];
+    console.log(this.role);
+    
 
     this.loading = true;
 
@@ -45,6 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       .fetchUserList()
       .subscribe((data) => {
         this.userDetails = data;
+        console.log(this.userDetails);
         this.loading = false;
       });
   }

@@ -7,7 +7,7 @@
       src="../assets/images/add-user.png"
       style="height: 25px; margin: 10px; cursor: pointer"
   /></a>
-  <table class="table tablesorter" id="">
+  <table class="table tablesorter" id="" *ngIf="userDetails.length > 0">
     <thead class="text-primary">
       <tr>
         <th>First Name</th>
@@ -37,7 +37,7 @@
         <td>
           <img
             *ngIf="role === 'admin'"
-            (click)="onEdit(i)"
+            (click)="onEdit(eachUser.id)"
             src="../assets/images/icons8-edit-50.png"
             alt=""
             srcset=""
@@ -47,7 +47,7 @@
         <td>
           <img
             *ngIf="role === 'admin'"
-            (click)="onDelete(i)"
+            (click)="onDelete(eachUser.id)"
             src="../assets/images/icons8-delete-bin-60.png"
             alt=""
             srcset=""

@@ -6,6 +6,6 @@ export class UserDetails {
         public role: string,
         public status: string,
         public token: string,
-        public id: number
+        public id?: number
     ) { }
 }

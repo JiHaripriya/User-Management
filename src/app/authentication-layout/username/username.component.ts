@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  AuthService,
-  any,
-} from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { trigger, transition, style, animate } from '@angular/animations';

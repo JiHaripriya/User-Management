@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.homeServices.passTitle.subscribe((title) => (this.title = title));
-    this.firstname = JSON.parse(localStorage.getItem('userDetails')).firstname;
+    this.firstname = JSON.parse(localStorage.getItem('userData')).firstname;
   }
 
   onLogout() {
