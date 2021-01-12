@@ -12,11 +12,6 @@ th {
   border-bottom: none !important;
 }
 
-.form-control,
-.form-control:focus {
-  height: calc(0.5em + 0.85rem + 15px);
-}
-
 .modal-body,
 .modal-header,
 .modal-footer {
@@ -39,14 +34,6 @@ th {
 .btn {
   background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
   color: rgb(255, 255, 255);
-}
-
-.form-group {
-  padding-top: 10px;
-}
-
-.row {
-  padding: 10px;
 }
 
 h4 {

@@ -29,7 +29,6 @@ export class DeleteFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.formService.deleteFormParameters.subscribe(
       (params) => {
-        console.log(params);
         this.modalService.open(this.deleteModal);
         this.index = params.index; // user to be deleted
       }

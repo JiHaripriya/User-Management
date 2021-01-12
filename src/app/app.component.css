@@ -57,16 +57,16 @@ input[type="number"]:focus,
 .auth-form {
   position: absolute;
   left: 35%;
-  top: 26vh;
-  width: 30%;
+  top: 26vh !important;
+  width: 30% !important;
 }
 
 .form-control,
 .form-control:focus {
-  color: var(--input-font-color);
-  height: calc(1.5em + 0.75rem + 15px);
-  background-color: var(--secondary-color);
-  border: 1px solid var(--border-color);
+  color: var(--input-font-color) !important;
+  height: calc(1.5em + 0.75rem + 15px) !important;
+  background-color: var(--secondary-color) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 .border-bottom {

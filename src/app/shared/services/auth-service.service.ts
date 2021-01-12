@@ -57,7 +57,7 @@ export class AuthService {
       params: new HttpParams().set('action', action)
         .set('token', token)
     }).subscribe((res) => {
-      console.log(res)
+      console.log("Password set");
     });
   }
 
@@ -88,7 +88,7 @@ export class AuthService {
 
   logout() {
     this.http.post('http://user-dashboard.qburst.build:3002/user/logout', {}).subscribe((res) => {
-      console.log(res)
+      console.log("Logged out");
     });
     this.user.next(null);
     localStorage.removeItem('userData');

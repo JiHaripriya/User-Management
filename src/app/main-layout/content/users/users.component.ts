@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
       (status) => {
-        console.log('reload initiated');
         if (status === true) {
           this.ngOnInit();
         }
@@ -46,7 +45,6 @@ export class UsersComponent implements OnInit, OnDestroy {
           (user) =>
             user.email !== JSON.parse(localStorage.getItem('userData')).email
         );
-        console.log(this.userDetails);
         this.loading = false;
       });
   }

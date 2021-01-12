@@ -75,19 +75,17 @@ export class PasswordComponent implements OnInit, OnDestroy {
         // if the user is active or pending redirect
         if (resData.status === 'pending') {
           this.notifs.contactAdminNotification('Verify your email first!');
-          this.authService.logout();
         } else if (resData.status === 'inactive') {
           this.notifs.contactAdminNotification(
             'You have been inactive for a while. Contact Admin immediately.'
           );
-          this.authService.logout();
         } else {
           // navigate to dashboard if authenticated
           this.router.navigateByUrl('/home/dashboard');
         }
       }, // wrong password
       (errorMessage) => {
-        console.log(errorMessage)
+        console.log(errorMessage);        
         this.passwordForm.setErrors({ invalidPassword: true });
         this.message = errorMessage.error.message;
       }

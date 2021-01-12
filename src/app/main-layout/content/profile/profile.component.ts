@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.reloadSubscription = this.userDetailsApi.reloadComponent.subscribe(
       (status) => {
-        console.log('reload initiated');
         if (status === true) {
           this.ngOnInit();
         }

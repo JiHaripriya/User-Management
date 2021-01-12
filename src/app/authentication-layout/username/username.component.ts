@@ -57,20 +57,28 @@ export class UsernameComponent implements OnInit {
 
     authObs.subscribe(
       (resData) => {
-        // success response {success: 200, message: "user exist"}
-        this.emailService.emailEnterStatus.next(true);
-        this.visible = false;
-        // Navigate to next page by passing email as param
-        setTimeout(() => {
-          this.router.navigate(['password'], {
-            relativeTo: this.route,
-            queryParams: { username: this.usernameForm.value.email },
-          });
-        }, 320);
+        // Active users
+        if(resData.data !== "pending") {
+          // success response {success: 200, message: "user exist"}
+          this.emailService.emailEnterStatus.next(true);
+          this.visible = false;
+          // Navigate to next page by passing email as param
+          setTimeout(() => {
+            this.router.navigate(['password'], {
+              relativeTo: this.route,
+              queryParams: { username: this.usernameForm.value.email },
+            });
+          }, 320);
+        }
+        else {
+          // Email doesnot exist or user is inactive
+          this.usernameForm.setErrors({ invalidEmail: true });
+          this.message = "User email not verified";
+        }
+        
       },
       (errorMessage) => {
-        // {error: 400, message: "email doesnt exist"}
-        // Email doesnot exist
+        // Email doesnot exist or user is inactive
         this.usernameForm.setErrors({ invalidEmail: true });
         this.message = errorMessage.error.message;
       }

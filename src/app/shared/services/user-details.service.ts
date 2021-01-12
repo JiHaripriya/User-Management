@@ -17,13 +17,12 @@ export class UserDetailsService {
     this.http
       .post('http://user-dashboard.qburst.build:3002/user', userData)
       .subscribe((res) => {
-        console.log(res);
+        console.log("New user added!");
         this.reloadComponent.next(true);
       });
   }
 
   fetchUserList() {
-    console.log('Req sent');
     return this.http.get('http://user-dashboard.qburst.build:3002/user').pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
@@ -36,7 +35,7 @@ export class UserDetailsService {
     this.http
       .put(`http://user-dashboard.qburst.build:3002/user/${id}`, userData)
       .subscribe((res) => {
-        console.log(res);
+        console.log("Details updated!");
         this.reloadComponent.next(true);
       });
   }
@@ -45,17 +44,16 @@ export class UserDetailsService {
     this.http
       .put(`http://user-dashboard.qburst.build:3002/user`, userData)
       .subscribe((res) => {
-        console.log(res);
+        console.log("Details updated!");
         this.reloadComponent.next(true);
       });
   }
 
   deleteUser(id: number) {
-    console.log(id);
     this.http
       .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
       .subscribe((res) => {
-        console.log(res);
+        console.log("User deleted");
         this.reloadComponent.next(true);
       });
   }
