@@ -28,7 +28,7 @@
         </div>
         <div class="row">
           <label for="">Email</label>
-          <input type="email" formControlName="email" class="form-control" />
+          <input type="email" formControlName="email" class="form-control" readonly style="cursor: not-allowed;"/>
         </div>
         <div class="row" *ngIf="formTitle !== 'Add' && !isPending">
           <label for="">Status</label>

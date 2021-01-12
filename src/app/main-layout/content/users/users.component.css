@@ -1,3 +1,7 @@
+h4 {
+  padding-left: 7px;
+}
+
 tr,
 th {
   color: rgba(255, 255, 255, 0.7) !important;
@@ -34,10 +38,6 @@ th {
 .btn {
   background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
   color: rgb(255, 255, 255);
-}
-
-h4 {
-  padding-left: 7px;
 }
 
 .close:focus {
