@@ -33,8 +33,4 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     this.authService.logout();
   }
-
-  setTitle() {
-    this.homePageServices.loadProfileStatus.next(true);
-  }
 }
