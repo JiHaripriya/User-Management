@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { HomePageService } from 'src/app/shared/services/home-page.service';
 
@@ -12,12 +13,20 @@ export class HeaderComponent implements OnInit {
   firstname: string;
   constructor(
     private authService: AuthService,
-    private homeServices: HomePageService,
-    private homePageServices: HomePageService
-  ) {}
+    private homePageServices: HomePageService,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.title = event.url.split('/').pop();
+        if (this.title === 'profile')
+          this.homePageServices.loadProfileStatus.next(true);
+        else this.homePageServices.loadProfileStatus.next(false);
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.homeServices.passTitle.subscribe((title) => (this.title = title));
     this.firstname = JSON.parse(localStorage.getItem('userData')).firstname;
   }
 
@@ -25,8 +34,7 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
-  setTitle(selectedOption: string) {
+  setTitle() {
     this.homePageServices.loadProfileStatus.next(true);
-    this.homePageServices.passTitle.next(selectedOption);
   }
 }

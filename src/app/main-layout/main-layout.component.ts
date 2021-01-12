@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HomePageService } from '../shared/services/home-page.service';
 
@@ -12,10 +13,12 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   loadProfile = false;
   subscription: Subscription;
 
-  constructor(private homePageServices: HomePageService) { }
+  constructor(private homePageServices: HomePageService) { 
+    this.subscription = this.homePageServices.loadProfileStatus.subscribe(status => this.loadProfile = status);
+  }
 
   ngOnInit(): void {
-    this.subscription = this.homePageServices.loadProfileStatus.subscribe(status => this.loadProfile = status);
+    
   }
 
   ngOnDestroy() {

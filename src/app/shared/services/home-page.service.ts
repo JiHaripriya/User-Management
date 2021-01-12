@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class HomePageService {
 
-  passTitle = new Subject<string>();
   loadProfileStatus = new Subject<boolean>();
   
   constructor() { }
