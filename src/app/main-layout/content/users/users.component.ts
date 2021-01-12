@@ -44,7 +44,7 @@ export class UsersComponent implements OnInit, OnDestroy {
         this.userDetails = data.filter(
           (user) =>
             user.email !== JSON.parse(localStorage.getItem('userData')).email
-        );
+        ).reverse();
         this.loading = false;
       });
   }
