@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.title = event.url.split('/').pop();
-        if (this.title === 'profile')
+        if (this.title === 'profile' || this.title === 'dashboard')
           this.homePageServices.loadProfileStatus.next(true);
         else this.homePageServices.loadProfileStatus.next(false);
       }
