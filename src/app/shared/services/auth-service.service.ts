@@ -9,6 +9,7 @@ import { UserDetails } from '../models/user-details.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<UserDetails>(null);
+  baseUrl = "http://user-dashboard.qburst.build:3002/user";
 
   constructor(private http: HttpClient, private route: Router) {}
 
@@ -21,7 +22,7 @@ export class AuthService {
 
   emailVerification(email: string) {
     return this.http.post<any>(
-      'http://user-dashboard.qburst.build:3002/user/check',
+      `${this.baseUrl}/check`,
       {
         email: email,
       }
@@ -30,7 +31,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<any>('http://user-dashboard.qburst.build:3002/user/login', {
+      .post<any>(`${this.baseUrl}/login`, {
         email: email,
         password: password,
       })
@@ -51,7 +52,7 @@ export class AuthService {
   }
 
   setOrForgotPassword(action: string, password: string, token: string) {
-    this.http.put('http://user-dashboard.qburst.build:3002/user/password', {
+    this.http.put(`http://user-dashboard.qburst.build:3002/user/password`, {
       password: password
     }, {
       params: new HttpParams().set('action', action)
@@ -87,7 +88,7 @@ export class AuthService {
   }
 
   logout() {
-    this.http.post('http://user-dashboard.qburst.build:3002/user/logout', {}).subscribe((res) => {
+    this.http.post(`${this.baseUrl}/logout`, {}).subscribe((res) => {
       console.log("Logged out");
     });
     this.user.next(null);

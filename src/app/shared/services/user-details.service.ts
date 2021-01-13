@@ -10,12 +10,13 @@ import { UserDetails } from '../models/user-details.model';
 export class UserDetailsService {
   isLoaded = new Subject<boolean>();
   reloadComponent = new Subject<boolean>();
+  baseUrl = "http://user-dashboard.qburst.build:3002/user";
 
   constructor(private http: HttpClient) {}
 
   addUser(userData: UserDetails) {
     this.http
-      .post('http://user-dashboard.qburst.build:3002/user', userData)
+      .post(`${this.baseUrl}`, userData)
       .subscribe((res) => {
         console.log("New user added!");
         this.reloadComponent.next(true);
@@ -23,7 +24,7 @@ export class UserDetailsService {
   }
 
   fetchUserList() {
-    return this.http.get('http://user-dashboard.qburst.build:3002/user').pipe(
+    return this.http.get(`${this.baseUrl}`).pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
         return responseData.data
@@ -33,7 +34,7 @@ export class UserDetailsService {
 
   updateUser(userData: UserDetails, id: number) {
     this.http
-      .put(`http://user-dashboard.qburst.build:3002/user/${id}`, userData)
+      .put(`${this.baseUrl}/${id}`, userData)
       .subscribe((res) => {
         console.log("Details updated!");
         this.reloadComponent.next(true);
@@ -42,7 +43,7 @@ export class UserDetailsService {
 
   updateOwnDetails(userData: UserDetails) {
     this.http
-      .put(`http://user-dashboard.qburst.build:3002/user`, userData)
+      .put(`${this.baseUrl}`, userData)
       .subscribe((res) => {
         console.log("Details updated!");
         this.reloadComponent.next(true);
@@ -51,7 +52,7 @@ export class UserDetailsService {
 
   deleteUser(id: number) {
     this.http
-      .delete(`http://user-dashboard.qburst.build:3002/user/delete/${id}`)
+      .delete(`${this.baseUrl}/delete/${id}`)
       .subscribe((res) => {
         console.log("User deleted");
         this.reloadComponent.next(true);
