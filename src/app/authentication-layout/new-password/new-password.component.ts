@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-new-password',
@@ -22,7 +23,11 @@ export class NewPasswordComponent implements OnInit {
   customErrorList = Object.keys(this.customErrors);
   someError = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   /*
     Validations provided:
@@ -109,7 +114,23 @@ export class NewPasswordComponent implements OnInit {
   onSubmit() {
     if (this.checkPasswords()) {
       if (this.passwordPatternCheck()) {
-        console.log(this.setPasswordForm.value);
+        const currentAction = this.activatedRoute.snapshot.queryParams[
+          'action'
+        ];
+        const tokenParam = this.activatedRoute.snapshot.queryParams['token'];
+        if (currentAction == 'setPassword') {
+          this.authService.setOrForgotPassword(
+            currentAction,
+            this.setPasswordForm.value.newPassword,
+            tokenParam
+          );
+        } else if (currentAction == 'forgotPassword') {
+          this.authService.setOrForgotPassword(
+            currentAction,
+            this.setPasswordForm.value.newPassword,
+            tokenParam
+          );
+        }
       }
     }
   }

@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
@@ -11,12 +12,15 @@ import { UserDetailsService } from 'src/app/shared/services/user-details.service
   templateUrl: './details-form.component.html',
   styleUrls: ['./details-form.component.css'],
 })
-export class DetailsFormComponent implements OnInit {
+export class DetailsFormComponent implements OnInit, OnDestroy {
   @ViewChild('content') detailsForm: ElementRef;
   userDetails: UserDetails[];
   addUserForm: FormGroup;
+  adduserSubscription: Subscription;
+  edituserSubscription: Subscription;
   formTitle = '';
   isPending = false;
+  index: number;
 
   constructor(
     private modalService: NgbModal,
@@ -26,22 +30,27 @@ export class DetailsFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formService.openAddUserForm.subscribe((status) => {
-      if (status) {
-        this.onAdd(this.detailsForm);
+    this.adduserSubscription = this.formService.openAddUserForm.subscribe(
+      (status) => {
+        if (status) {
+          this.onAdd(this.detailsForm);
+        }
       }
-    });
+    );
 
-    this.formService.openEditUserForm.subscribe((userData) => {
-      this.onEdit(this.detailsForm, userData);
-    });
+    this.edituserSubscription = this.formService.openEditUserForm.subscribe(
+      (userData) => {
+        this.index = userData.selectedId;
+        this.onEdit(this.detailsForm, userData.data);
+      }
+    );
 
     this.addUserForm = new FormGroup({
-      first_name: new FormControl(null, [
+      firstname: new FormControl(null, [
         Validators.required,
         Validators.pattern('[a-zA-Z ]+'),
       ]),
-      last_name: new FormControl(null, [
+      lastname: new FormControl(null, [
         Validators.required,
         Validators.pattern('[a-zA-Z ]+'),
       ]),
@@ -63,13 +72,17 @@ export class DetailsFormComponent implements OnInit {
     this.isPending = userDetails.status === 'pending' ? true : false;
 
     this.addUserForm.setValue({
-      first_name: userDetails.first_name,
-      last_name: userDetails.last_name,
+      firstname: this.capitalizeFirstLetter(userDetails.firstname),
+      lastname: this.capitalizeFirstLetter(userDetails.lastname),
       email: userDetails.email,
       status: userDetails.status,
     });
 
     this.modalService.open(content);
+  }
+
+  private capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
   }
 
   onSubmit() {
@@ -79,19 +92,23 @@ export class DetailsFormComponent implements OnInit {
         ? Object.assign(this.addUserForm.value, {
             status: 'pending',
             role: 'user',
-            token: '',
+            link: 'http://localhost:4200/setPassword',
           })
         : this.addUserForm.value;
 
     // New user
     if (this.formTitle === 'Add') {
-      this.authService.signup(userDetails.email);
       this.userDetailsApi.addUser(userDetails);
     } else {
       // Logic to update edited details
-      console.log(this.addUserForm.value);
+      this.userDetailsApi.updateUser(userDetails, this.index);
     }
-
     this.modalService.dismissAll();
   }
+
+  ngOnDestroy() {
+    this.adduserSubscription.unsubscribe();
+    this.edituserSubscription.unsubscribe();
+  }
+
 }

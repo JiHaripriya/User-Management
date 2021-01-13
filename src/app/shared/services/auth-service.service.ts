@@ -1,152 +1,121 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
-import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-
-export interface AuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
+import { UserDetails } from '../models/user-details.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
+  user = new BehaviorSubject<UserDetails>(null);
+  baseUrl = "http://user-dashboard.qburst.build:3002/user";
 
   constructor(private http: HttpClient, private route: Router) {}
 
   isAuthenticated(): boolean {
-    const token = JSON.parse(localStorage.getItem('userDetails'))?.token;
+    const token = JSON.parse(localStorage.getItem('userData'))?.token;
     // Check whether the token is expired and return true or false
     if (token) return true;
     else return false;
   }
 
-  signup(email: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: 'password',
-          returnSecureToken: true,
-        }
-      )
-      .subscribe((res) => console.log(res));
-  }
-
   emailVerification(email: string) {
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: 'password',
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError(this.handleError),
-        tap((resData) => {
-          this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
-          );
-        })
-      );
+    return this.http.post<any>(
+      `${this.baseUrl}/check`,
+      {
+        email: email,
+      }
+    );
   }
 
-  // Password page
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDof_8nFmAqX8kfrMfa86DehAv6HeE86YE',
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true,
-        }
-      )
+      .post<any>(`${this.baseUrl}/login`, {
+        email: email,
+        password: password,
+      })
       .pipe(
-        catchError(this.handleError),
+        // catchError(this.handleError),
         tap((resData) => {
           this.handleAuthentication(
-            resData.email,
-            resData.localId,
-            resData.idToken,
-            +resData.expiresIn
+            resData.data.loggedUser.firstname,
+            resData.data.loggedUser.lastname,
+            resData.data.loggedUser.email,
+            resData.data.role,
+            resData.data.loggedUser.status,
+            resData.data.loggedUser.token,
+            resData.data.id
           );
         })
       );
+  }
+
+  setOrForgotPassword(action: string, password: string, token: string) {
+    this.http.put(`http://user-dashboard.qburst.build:3002/user/password`, {
+      password: password
+    }, {
+      params: new HttpParams().set('action', action)
+        .set('token', token)
+    }).subscribe((res) => {
+      console.log("Password set");
+    });
   }
 
   autoLogin() {
     const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
+      firstname: string,
+      lastname: string,
+      email: string,
+      role: string,
+      status: string,
+      token: string
     } = JSON.parse(localStorage.getItem('userData'));
-
     if (!userData) {
       return;
     }
-
-    const loadedUser = new User(
+    const loadedUser = new UserDetails(
+      userData.firstname,
+      userData.lastname,
       userData.email,
-      userData.id,
-      userData._token,
-      new Date(userData._tokenExpirationDate)
+      userData.role,
+      userData.status,
+      userData.token
     );
-
     if (loadedUser.token) {
       this.user.next(loadedUser);
     }
   }
 
   logout() {
+    this.http.post(`${this.baseUrl}/logout`, {}).subscribe((res) => {
+      console.log("Logged out");
+    });
     this.user.next(null);
     localStorage.removeItem('userData');
-    localStorage.removeItem('userDetails');
-    this.route.navigate(['/login']);
+    this.route.navigateByUrl('/login');
   }
 
   private handleAuthentication(
+    firstname: string,
+    lastname: string,
     email: string,
-    userId: string,
+    role: string,
+    status: string,
     token: string,
-    expiresIn: number
+    id: number
   ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(email, userId, token, expirationDate);
+    // const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new UserDetails(
+      firstname,
+      lastname,
+      email,
+      role,
+      status,
+      token,
+      id
+    );
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
-  }
-
-  private handleError(errorRes: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
-    }
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
-        break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist.';
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.';
-        break;
-    }
-    return throwError(errorMessage);
   }
 }

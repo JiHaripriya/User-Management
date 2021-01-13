@@ -1,0 +1,98 @@
+.card {
+  background-color: var(--secondary-color) !important;
+  border: none !important;
+}
+
+.card-user {
+  overflow: hidden;
+}
+
+.card-user .author .block.block-one {
+  background: rgba(78, 142, 225, 0.6);
+  background: linear-gradient(
+    to right,
+   rgba(78, 125, 225, 0.6)0,
+    rgba(225, 78, 202, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+  margin-top: -90px;
+  margin-left: -50px;
+}
+
+.card-user .author .block.block-two {
+  background: rgba(78, 142, 225, 0.6);
+  background: linear-gradient(
+    to right,
+   rgba(78, 125, 225, 0.6)0,
+    rgba(225, 78, 202, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
+  -webkit-transform: rotate(30deg);
+  transform: rotate(30deg);
+  margin-top: -40px;
+  margin-left: -100px;
+}
+
+.card-user .author .block.block-three {
+  background: rgba(78, 142, 225, 0.6);
+  background: linear-gradient(
+    to right,
+   rgba(78, 125, 225, 0.6)0,
+    rgba(225, 78, 202, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
+  -webkit-transform: rotate(170deg);
+  transform: rotate(170deg);
+  margin-top: -70px;
+  right: -45px;
+}
+
+.card-user .author .block.block-four {
+  background: rgba(78, 125, 225, 0.6);
+  background: linear-gradient(
+    to right,
+   rgba(78, 125, 225, 0.6)0,
+    rgba(225, 78, 202, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=10);
+  -webkit-transform: rotate(150deg);
+  transform: rotate(150deg);
+  margin-top: -25px;
+  right: -45px;
+}
+
+.card-user .author .block {
+  position: absolute;
+  height: 100px;
+  width: 250px;
+}
+
+.card-user .avatar {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  border: 5px solid #2b3553;
+  border-bottom-color: transparent;
+  background-color: transparent;
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.card-body {
+    padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+}
+
+.card-footer {
+  padding-left: 0 !important;
+    border-top: none !important;
+}
+
+.profileForm .row {
+  padding: 0 !important;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: var(--secondary-color);
+}

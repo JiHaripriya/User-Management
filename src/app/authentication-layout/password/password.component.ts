@@ -2,19 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 
-import {
-  AuthResponseData,
-  AuthService,
-} from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
-import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 
 @Component({
   selector: 'app-password',
@@ -36,9 +28,10 @@ export class PasswordComponent implements OnInit, OnDestroy {
   passwordForm: FormGroup;
   hasEnteredEmail: boolean;
   emailSubscription: Subscription;
+  message = '';
 
-  width: number = 100;
-  height: number = 100;
+  width: number = 90;
+  height: number = 90;
   myStyle: Object = {};
   myParams: object = {};
 
@@ -47,7 +40,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     public particleService: ParticleService,
-    private userDetailsApi: UserDetailsService
+    private notifs: GeneralNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -66,39 +59,42 @@ export class PasswordComponent implements OnInit, OnDestroy {
         Validators.maxLength(25),
       ]),
     });
-
-    this.authService.user.subscribe((res) => console.log(res));
   }
 
   onSubmit() {
     const userEmail = this.activatedRoute.snapshot.queryParams['username'],
       password = this.passwordForm.value.password;
 
-    let authObs: Observable<AuthResponseData>;
+    let authObs: Observable<any>;
 
     // logic to check whether password matches the user --> pass email and password to api
     authObs = this.authService.login(userEmail, password);
 
     authObs.subscribe(
       (resData) => {
-        // fetch user details from user-db.json FOR USER ROLE
-        this.userDetailsApi.fetchUserDetails(userEmail).subscribe((res) => {
-          localStorage.setItem(
-            'userDetails',
-            JSON.stringify(
-              Object.assign(JSON.parse(JSON.stringify(res)), {
-                token: resData.idToken,
-              })
-            )
+        // if the user is active or pending redirect
+        if (resData.status === 'pending') {
+          this.notifs.contactAdminNotification('Verify your email first!');
+        } else if (resData.status === 'inactive') {
+          this.notifs.contactAdminNotification(
+            'You have been inactive for a while. Contact Admin immediately.'
           );
+        } else {
           // navigate to dashboard if authenticated
           this.router.navigateByUrl('/home/dashboard');
-        });
-      },
+        }
+      }, // wrong password
       (errorMessage) => {
-        alert(errorMessage);
+        console.log(errorMessage);        
+        this.passwordForm.setErrors({ invalidPassword: true });
+        this.message = errorMessage.error.message;
       }
     );
+  }
+
+  // Forgot password
+  notifyUser() {
+    this.notifs.contactAdminNotification('An email will be sent to you soon!');
   }
 
   ngOnDestroy() {

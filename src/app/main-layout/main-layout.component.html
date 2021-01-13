@@ -6,7 +6,7 @@
   <!-- Header Section -->
   <app-header></app-header>
 
-  <div class="content bg-secondary rounded">
+  <div class="content rounded" [ngClass]="{'bg-primary': loadProfile, 'bg-secondary' : !loadProfile}">
     <!-- Dynamically load content -->
     <router-outlet></router-outlet>
   </div>

@@ -2,18 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  AuthService,
-  AuthResponseData,
-} from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { EmailResolverService } from 'src/app/shared/services/email-resolver.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-} from '@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
+
 @Component({
   selector: 'app-username',
   templateUrl: './username.component.html',
@@ -38,6 +31,7 @@ export class UsernameComponent implements OnInit {
   myStyle: Object = {};
   myParams: object = {};
   visible = true;
+  message = '';
 
   constructor(
     private router: Router,
@@ -58,15 +52,14 @@ export class UsernameComponent implements OnInit {
 
   onSubmit() {
     // logic to check whether email is valid
-    let authObs: Observable<AuthResponseData>;
+    let authObs: Observable<any>;
     authObs = this.authService.emailVerification(this.usernameForm.value.email);
 
     authObs.subscribe(
       (resData) => {
-        console.log(resData);
-      },
-      (errorMessage) => {
-        if (errorMessage == 'This password is not correct.') {
+        // Active users
+        if(resData.data !== "pending") {
+          // success response {success: 200, message: "user exist"}
           this.emailService.emailEnterStatus.next(true);
           this.visible = false;
           // Navigate to next page by passing email as param
@@ -77,6 +70,17 @@ export class UsernameComponent implements OnInit {
             });
           }, 320);
         }
+        else {
+          // Email doesnot exist or user is inactive
+          this.usernameForm.setErrors({ invalidEmail: true });
+          this.message = "User email not verified";
+        }
+        
+      },
+      (errorMessage) => {
+        // Email doesnot exist or user is inactive
+        this.usernameForm.setErrors({ invalidEmail: true });
+        this.message = errorMessage.error.message;
       }
     );
   }

@@ -18,17 +18,17 @@
           <label for="">First Name</label>
           <input
             type="text"
-            formControlName="first_name"
+            formControlName="firstname"
             class="form-control"
           />
         </div>
         <div class="row">
           <label for="">Last Name</label>
-          <input type="text" formControlName="last_name" class="form-control" />
+          <input type="text" formControlName="lastname" class="form-control" />
         </div>
-        <div class="row">
+        <div class="row" [ngClass]="{'pointer-event-none': formTitle !== 'Add'}">
           <label for="">Email</label>
-          <input type="email" formControlName="email" class="form-control" />
+          <input type="email" formControlName="email" class="form-control"/>
         </div>
         <div class="row" *ngIf="formTitle !== 'Add' && !isPending">
           <label for="">Status</label>

@@ -1,3 +1,7 @@
+h4 {
+  padding-left: 7px;
+}
+
 tr,
 th {
   color: rgba(255, 255, 255, 0.7) !important;
@@ -10,11 +14,6 @@ th {
 
 .table thead th {
   border-bottom: none !important;
-}
-
-.form-control,
-.form-control:focus {
-  height: calc(0.5em + 0.85rem + 15px);
 }
 
 .modal-body,
@@ -39,18 +38,6 @@ th {
 .btn {
   background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
   color: rgb(255, 255, 255);
-}
-
-.form-group {
-  padding-top: 10px;
-}
-
-.row {
-  padding: 10px;
-}
-
-h4 {
-  padding-left: 7px;
 }
 
 .close:focus {

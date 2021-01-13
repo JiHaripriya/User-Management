@@ -1,13 +1,13 @@
 <app-loader *ngIf="loading"></app-loader>
 
 <div class="table-responsive pl-3 pr-3 pt-2" *ngIf="!loading">
-  <p style="margin: 20px 10px;">USER DETAILS</p>
+  <p style="margin: 20px 10px">USER DETAILS</p>
   <a *ngIf="role === 'admin'" (click)="onAdd(content)"
     ><img
       src="../assets/images/add-user.png"
       style="height: 25px; margin: 10px; cursor: pointer"
   /></a>
-  <table class="table tablesorter" id="">
+  <table class="table tablesorter" id="" *ngIf="userDetails.length > 0">
     <thead class="text-primary">
       <tr>
         <th>First Name</th>
@@ -19,10 +19,9 @@
       </tr>
     </thead>
     <tbody>
-      <!-- User id is essential for editing their details -->
       <tr *ngFor="let eachUser of userDetails; let i = index">
-        <td>{{ eachUser.first_name | titlecase }}</td>
-        <td>{{ eachUser.last_name | titlecase }}</td>
+        <td>{{ eachUser.firstname | titlecase }}</td>
+        <td>{{ eachUser.lastname | titlecase }}</td>
         <td>{{ eachUser.email }}</td>
         <td
           *ngIf="role === 'admin'"
@@ -36,8 +35,8 @@
         </td>
         <td>
           <img
-            *ngIf="role === 'admin'"
-            (click)="onEdit(i)"
+            *ngIf="role === 'admin' && eachUser.Role.name !== 'admin'"
+            (click)="onEdit(eachUser.id)"
             src="../assets/images/icons8-edit-50.png"
             alt=""
             srcset=""
@@ -46,8 +45,8 @@
         </td>
         <td>
           <img
-            *ngIf="role === 'admin'"
-            (click)="onDelete(i)"
+            *ngIf="role === 'admin' && eachUser.Role.name !== 'admin'"
+            (click)="onDelete(eachUser.id)"
             src="../assets/images/icons8-delete-bin-60.png"
             alt=""
             srcset=""

@@ -1,6 +1,11 @@
 <div class="sidebar-wrapper p-2">
   <div class="row" style="margin: 10px 20px; align-items: center">
-    <h6 class="mt-2 ml-4 text-light font-weight-bold">User Manager</h6>
+    <h6
+      class="mt-2 ml-4 text-light font-weight-bold"
+      style="font-size: 0.99rem"
+    >
+      {{ "User Manager" | uppercase }}
+    </h6>
   </div>
   <hr class="bg-light" />
   <ul class="nav" style="display: block">
@@ -10,13 +15,13 @@
         routerLink="dashboard"
         class="nav-link"
         routerLinkActive="active"
-        (click)="setTitle('Dashboard')"
         style="cursor: pointer"
       >
-       
         <!-- Icon -->
-        <i class="fa fa-pie-chart" aria-hidden="true"></i>
-        <span class="ml-3">Dashboard</span>
+        <i class="fa fa-pie-chart fa-lg" aria-hidden="true"></i>
+        <span class="ml-3" style="font-size: small">
+          {{ "Dashboard" | uppercase }}
+        </span>
       </a>
     </li>
     <li class="nav-item col-md-12 p-2">
@@ -24,12 +29,13 @@
         routerLink="users"
         class="nav-link"
         routerLinkActive="active"
-        (click)="setTitle('Users')"
         style="cursor: pointer"
       >
         <!-- Icon -->
-        <i class="fa fa-address-card"></i>
-        <span class="ml-3">Users</span>
+        <i class="fa fa-address-card fa-lg"></i>
+        <span class="ml-3" style="font-size: small">
+          {{ "Users" | uppercase }}
+        </span>
       </a>
     </li>
   </ul>

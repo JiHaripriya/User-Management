@@ -10,56 +10,54 @@ import { UserDetails } from '../models/user-details.model';
 export class UserDetailsService {
   isLoaded = new Subject<boolean>();
   reloadComponent = new Subject<boolean>();
+  baseUrl = "http://user-dashboard.qburst.build:3002/user";
 
   constructor(private http: HttpClient) {}
 
   addUser(userData: UserDetails) {
     this.http
-      .post(
-        'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json',
-        userData
-      )
+      .post(`${this.baseUrl}`, userData)
       .subscribe((res) => {
-        console.log(res);
+        console.log("New user added!");
         this.reloadComponent.next(true);
       });
   }
 
   fetchUserList() {
-    return this.http
-      .get(
-        'https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json'
-      )
-      .pipe(
-        take(1),
-        map((responseData) => {
-          const userDetailsArray: UserDetails[] = [];
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              userDetailsArray.push({ ...responseData[key] });
-            }
-          }
-          return userDetailsArray.filter((user) => user.role !== 'admin');
-        })
-      );
+    return this.http.get(`${this.baseUrl}`).pipe(
+      take(1),
+      map((responseData: { [index: string]: any }) => {
+        return responseData.data
+      })
+    );
   }
 
-  fetchUserDetails(email: string) {
-    return this.http
-      .get(
-        `https://user-management-9229a-default-rtdb.firebaseio.com/users-db.json?orderBy="email"&equalTo="${email}"`
-      )
-      .pipe(
-        take(1),
-        map((responseData) => {
-          let userDetailsArray: UserDetails;
-          for (const key in responseData) {
-            if (responseData.hasOwnProperty(key)) {
-              userDetailsArray = { ...responseData[key] };
-            }
-          }
-          return userDetailsArray;
-        })
-      );
+  updateUser(userData: UserDetails, id: number) {
+    this.http
+      .put(`${this.baseUrl}/${id}`, userData)
+      .subscribe((res) => {
+        console.log("Details updated!");
+        this.reloadComponent.next(true);
+      });
   }
+
+  updateOwnDetails(userData: UserDetails) {
+    this.http
+      .put(`${this.baseUrl}`, userData)
+      .subscribe((res) => {
+        console.log("Details updated!");
+        this.reloadComponent.next(true);
+      });
+  }
+
+  deleteUser(id: number) {
+    this.http
+      .delete(`${this.baseUrl}/delete/${id}`)
+      .subscribe((res) => {
+        console.log("User deleted");
+        this.reloadComponent.next(true);
+      });
+  }
+
+  // fetchUserDetails(email: string or token: string) for ROLE FETCH
 }

@@ -19,7 +19,15 @@
         class="form-control"
         placeholder="Email"
         formControlName="email"
+        [ngClass]="{ 'border-danger': usernameForm.hasError('invalidEmail') }"
       />
+    </div>
+    <div
+      class="row pt-2 text-danger"
+      *ngIf="usernameForm.hasError('invalidEmail')"
+      style="font-size: small"
+    >
+      {{ message | titlecase }}
     </div>
     <div class="row pt-4">
       <button

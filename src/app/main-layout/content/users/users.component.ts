@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/user-details.service';
-import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { FormServiceService } from 'src/app/shared/services/form-service.service';
 
 @Component({
@@ -44,7 +41,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userDetailsSubscription = this.userDetailsApi
       .fetchUserList()
       .subscribe((data) => {
-        this.userDetails = data;
+        this.userDetails = data.filter(
+          (user) =>
+            user.email !== JSON.parse(localStorage.getItem('userData')).email
+        ).reverse();
         this.loading = false;
       });
   }
@@ -54,7 +54,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onEdit(index) {
-    this.formService.openEditUserForm.next(this.userDetails[index]);
+    this.formService.openEditUserForm.next({
+      data: this.userDetails.filter((user) => user.id == index)[0],
+      selectedId: index,
+    });
   }
 
   onDelete(index) {

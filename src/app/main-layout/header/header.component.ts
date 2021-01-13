@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth-service.service';
 import { HomePageService } from 'src/app/shared/services/home-page.service';
 
@@ -9,15 +10,24 @@ import { HomePageService } from 'src/app/shared/services/home-page.service';
 })
 export class HeaderComponent implements OnInit {
   title: string = 'Dashboard';
-  firstName: string;
+  firstname: string;
   constructor(
     private authService: AuthService,
-    private homeServices: HomePageService
-  ) {}
+    private homePageServices: HomePageService,
+    private router: Router
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.title = event.url.split('/').pop();
+        if (this.title === 'profile' || this.title === 'dashboard')
+          this.homePageServices.loadProfileStatus.next(true);
+        else this.homePageServices.loadProfileStatus.next(false);
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.homeServices.passTitle.subscribe((title) => (this.title = title));
-    this.firstName = JSON.parse(localStorage.getItem('userDetails')).first_name;
+    this.firstname = JSON.parse(localStorage.getItem('userData')).firstname;
   }
 
   onLogout() {

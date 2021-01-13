@@ -22,6 +22,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetailsFormComponent } from './common/details-form/details-form.component';
 import { DeleteFormComponent } from './common/delete-form/delete-form.component';
+import { ContactAdminComponent } from './contact-admin/contact-admin.component';
+import { ProfileComponent } from './main-layout/content/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DeleteFormComponent } from './common/delete-form/delete-form.component'
     UsersComponent,
     LoaderComponent,
     DetailsFormComponent,
-    DeleteFormComponent
+    DeleteFormComponent,
+    ContactAdminComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
