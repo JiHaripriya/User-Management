@@ -7,7 +7,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of tableBody">
-        <td *ngFor="let key of tableHeaders.slice(1, -2); let i = index">
+        <td *ngFor="let key of tableHeaders.slice(1, -2)">
           {{ row[key] | titlecase }}
         </td>
         <td>
