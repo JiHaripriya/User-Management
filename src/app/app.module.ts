@@ -30,6 +30,8 @@ import { SubCategoriesComponent } from './admin-main-layout/content/sub-categori
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
+import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
+import { BannerComponent } from './customer-main-layout/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { TableComponent } from './common/table/table.component';
     SubCategoriesComponent,
     ProductFormsComponent,
     ProductListComponent,
-    TableComponent
+    TableComponent,
+    CustomerHeaderComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
