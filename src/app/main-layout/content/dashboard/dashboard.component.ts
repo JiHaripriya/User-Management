@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDetailsService } from 'src/app/shared/services/user-details.service';
+import { ActivatedRoute } from '@angular/router';
+import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
+import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,20 +14,27 @@ export class DashboardComponent implements OnInit {
   inactiveUsers: number;
   pendingUsers: number;
 
-  constructor(private userDetailsApi: UserDetailsService) {}
+  constructor(
+    private userDetailsApi: UserDetailsService,
+    private notifs: GeneralNotificationsService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.userDetailsApi.fetchUserList().subscribe((userDetails) => {
-      this.totalUsers = userDetails.length;
-      this.activeUsers = userDetails.filter(
-        (user) => user.status == 'active'
-      ).length;
-      this.inactiveUsers = userDetails.filter(
-        (user) => user.status == 'inactive'
-      ).length;
-      this.pendingUsers = userDetails.filter(
-        (user) => user.status == 'pending'
-      ).length;
-    });
+    if (this.route.snapshot.data['role'] === 'admin') {
+      this.userDetailsApi.fetchUserList().subscribe((userDetails) => {
+        this.totalUsers = userDetails.length;
+        this.activeUsers = userDetails.filter(
+          (user) => user.status == 'active'
+        ).length;
+        this.inactiveUsers = userDetails.filter(
+          (user) => user.status == 'inactive'
+        ).length;
+        this.pendingUsers = userDetails.filter(
+          (user) => user.status == 'pending'
+        ).length;
+      });
+    }
+    else this.notifs.contactAdminNotification('Access Forbidden');
   }
 }

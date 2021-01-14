@@ -6,7 +6,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { AuthService } from './auth-service.service';
+import { AuthService } from '../api/auth-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class LoginGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authService.isAuthenticated()) {
-      this.router.navigateByUrl('/home/dashboard');
+      this.router.navigateByUrl('/admin/dashboard');
       return false;
     }
     return true;

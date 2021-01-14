@@ -16,7 +16,7 @@ import { DashboardComponent } from './main-layout/content/dashboard/dashboard.co
 import { UsersComponent } from './main-layout/content/users/users.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
-import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { AuthInterceptorService } from './shared/services/api/auth-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

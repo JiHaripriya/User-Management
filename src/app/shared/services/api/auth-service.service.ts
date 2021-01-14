@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 
 import { Router } from '@angular/router';
-import { UserDetails } from '../models/user-details.model';
+import { UserDetails } from '../../models/user-details.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
