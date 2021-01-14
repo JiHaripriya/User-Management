@@ -25,6 +25,8 @@ import { DashboardComponent } from './admin-main-layout/content/dashboard/dashbo
 import { ProfileComponent } from './admin-main-layout/content/profile/profile.component';
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
+import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
+import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { CustomerMainLayoutComponent } from './customer-main-layout/customer-mai
     DeleteFormComponent,
     ContactAdminComponent,
     ProfileComponent,
-    CustomerMainLayoutComponent
+    CustomerMainLayoutComponent,
+    CategoriesComponent,
+    SubCategoriesComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,8 @@ import { ProfileComponent } from './admin-main-layout/content/profile/profile.co
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CustomerAuthGuardService } from './shared/services/guards/customer-auth-guard.service';
+import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
+import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -54,6 +56,16 @@ const routes: Routes = [
         component: ProfileComponent,
         resolve: { role: RoleResolverService },
       },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+        resolve: { role: RoleResolverService },
+      },
+      {
+        path: 'sub-categories',
+        component: SubCategoriesComponent,
+        resolve: { role: RoleResolverService },
+      }
     ],
   },
   {
