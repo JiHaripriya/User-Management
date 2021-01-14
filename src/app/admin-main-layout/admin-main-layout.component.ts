@@ -7,7 +7,7 @@ import { HomePageService } from '../shared/services/home-page.service';
   templateUrl: './admin-main-layout.component.html',
   styleUrls: ['./admin-main-layout.component.css']
 })
-export class MainLayoutComponent implements OnInit, OnDestroy {
+export class AdminMainLayoutComponent implements OnInit, OnDestroy {
 
   loadProfile = false;
   subscription: Subscription;

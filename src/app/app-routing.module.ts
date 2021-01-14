@@ -4,7 +4,7 @@ import { NewPasswordComponent } from './authentication-layout/new-password/new-p
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { UsernameComponent } from './authentication-layout/username/username.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
-import { MainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
+import { AdminMainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
 import { AdminAuthGuardService } from './shared/services/guards/admin-auth-guard.service';
 import { EmailResolverService } from './shared/services/resolvers/email-resolver.service';
 import { LoginGuardService } from './shared/services/guards/login-guard.service';
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'setPassword', canActivate: [LoginGuardService], component: NewPasswordComponent },
   {
     path: 'admin',
-    component: MainLayoutComponent,
+    component: AdminMainLayoutComponent,
     canActivate: [AdminAuthGuardService],
     children: [
       { path: 'dashboard', component: DashboardComponent, resolve: {role: RoleResolverService} },

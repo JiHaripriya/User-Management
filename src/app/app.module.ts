@@ -8,7 +8,7 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
+import { AdminMainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
 import { HeaderComponent } from './admin-main-layout/header/header.component';
 import { SidebarComponent } from './admin-main-layout/sidebar/sidebar.component';
 import { FooterComponent } from './admin-main-layout/footer/footer.component';
@@ -32,7 +32,7 @@ import { UsersComponent } from './admin-main-layout/content/users/users.componen
     PasswordComponent,
     NewPasswordComponent,
     NewPasswordComponent,
-    MainLayoutComponent,
+    AdminMainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
