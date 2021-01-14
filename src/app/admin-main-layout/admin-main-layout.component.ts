@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { HomePageService } from '../shared/services/home-page.service';
+import { AdminHomePageService } from '../shared/services/admin/admin-home-page.service';
 
 @Component({
   selector: 'app-admin-main-layout',
@@ -12,7 +12,7 @@ export class AdminMainLayoutComponent implements OnInit, OnDestroy {
   loadProfile = false;
   subscription: Subscription;
 
-  constructor(private homePageServices: HomePageService) { 
+  constructor(private homePageServices: AdminHomePageService) { 
     this.subscription = this.homePageServices.loadProfileStatus.subscribe(status => this.loadProfile = status);
   }
 

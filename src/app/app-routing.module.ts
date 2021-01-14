@@ -12,6 +12,8 @@ import { RoleResolverService } from './shared/services/resolvers/role-resolver.s
 import { DashboardComponent } from './admin-main-layout/content/dashboard/dashboard.component';
 import { ProfileComponent } from './admin-main-layout/content/profile/profile.component';
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
+import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
+import { CustomerAuthGuardService } from './shared/services/guards/customer-auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,22 +21,48 @@ const routes: Routes = [
     path: 'login',
     canActivate: [LoginGuardService],
     children: [
-      { path: '', component: UsernameComponent, pathMatch: 'full'},
-      { path: 'password', component: PasswordComponent, resolve: {status: EmailResolverService} },
+      { path: '', component: UsernameComponent, pathMatch: 'full' },
+      {
+        path: 'password',
+        component: PasswordComponent,
+        resolve: { status: EmailResolverService },
+      },
     ],
   },
-  { path: 'setPassword', canActivate: [LoginGuardService], component: NewPasswordComponent },
+  {
+    path: 'setPassword',
+    canActivate: [LoginGuardService],
+    component: NewPasswordComponent,
+  },
   {
     path: 'admin',
     component: AdminMainLayoutComponent,
     canActivate: [AdminAuthGuardService],
     children: [
-      { path: 'dashboard', component: DashboardComponent, resolve: {role: RoleResolverService} },
-      { path: 'users', component: UsersComponent, resolve: {role: RoleResolverService} },
-      { path: 'profile', component: ProfileComponent, resolve: {role: RoleResolverService} }
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        resolve: { role: RoleResolverService },
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        resolve: { role: RoleResolverService },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        resolve: { role: RoleResolverService },
+      },
     ],
   },
-  { path: 'contactAdmin', component: ContactAdminComponent}
+  {
+    path: 'user',
+    component: CustomerMainLayoutComponent,
+    canActivate: [CustomerAuthGuardService],
+    resolve: { role: RoleResolverService }
+  },
+  { path: 'contactAdmin', component: ContactAdminComponent },
 ];
 
 @NgModule({

@@ -82,7 +82,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
           );
         } else {
           // navigate to dashboard if authenticated
-          resData.data.role === 'admin' ? this.router.navigateByUrl('/admin/dashboard'): this.router.navigateByUrl('/login');
+          resData.data.role === 'admin' ? this.router.navigateByUrl('/admin/dashboard'): this.router.navigateByUrl('/user');
         }
       }, // wrong password
       (errorMessage) => {

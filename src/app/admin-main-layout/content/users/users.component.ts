@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
-import { FormServiceService } from 'src/app/shared/services/form-service.service';
+import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 
 @Component({

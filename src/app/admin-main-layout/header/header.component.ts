@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/api/auth-service.service';
-import { HomePageService } from 'src/app/shared/services/home-page.service';
+import { AdminHomePageService } from 'src/app/shared/services/admin/admin-home-page.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   firstname: string;
   constructor(
     private authService: AuthService,
-    private homePageServices: HomePageService,
+    private homePageServices: AdminHomePageService,
     private router: Router
   ) {
     this.router.events.subscribe((event) => {

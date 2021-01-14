@@ -18,12 +18,13 @@ import { AuthInterceptorService } from './shared/services/api/auth-interceptor.s
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DetailsFormComponent } from './common/details-form/details-form.component';
-import { DeleteFormComponent } from './common/delete-form/delete-form.component';
+import { DetailsFormComponent } from './common/admin-forms/user-forms/details-form/details-form.component';
+import { DeleteFormComponent } from './common/admin-forms/user-forms/delete-form/delete-form.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
 import { DashboardComponent } from './admin-main-layout/content/dashboard/dashboard.component';
 import { ProfileComponent } from './admin-main-layout/content/profile/profile.component';
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
+import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { UsersComponent } from './admin-main-layout/content/users/users.componen
     DetailsFormComponent,
     DeleteFormComponent,
     ContactAdminComponent,
-    ProfileComponent
+    ProfileComponent,
+    CustomerMainLayoutComponent
   ],
   imports: [
     BrowserModule,

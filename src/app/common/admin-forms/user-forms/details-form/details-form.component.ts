@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { AuthService } from 'src/app/shared/services/api/auth-service.service';
-import { FormServiceService } from 'src/app/shared/services/form-service.service';
+import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class HomePageService {
+export class AdminHomePageService {
 
   loadProfileStatus = new Subject<boolean>();
   
