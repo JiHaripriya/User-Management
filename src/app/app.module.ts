@@ -29,6 +29,7 @@ import { CategoriesComponent } from './admin-main-layout/content/categories/cate
 import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
+import { TableComponent } from './common/table/table.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProductListComponent } from './admin-main-layout/content/product-list/p
     CategoriesComponent,
     SubCategoriesComponent,
     ProductFormsComponent,
-    ProductListComponent
+    ProductListComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
