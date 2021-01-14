@@ -47,3 +47,9 @@ p {
   align-self: center;
   background-color: var(--font-color);
 }
+
+.rotate-arrow {
+  transform: rotate(90deg);
+  transition: transform 0.4s linear;
+  top: 10px;
+}
