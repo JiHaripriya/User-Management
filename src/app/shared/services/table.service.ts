@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class TableService {
 
-  tableValues = new Subject<[]>();
+  tableValues = new Subject<any>();
   
   constructor() { }
 

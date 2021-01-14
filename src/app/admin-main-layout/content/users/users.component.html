@@ -1,6 +1,6 @@
 <app-loader *ngIf="loading"></app-loader>
 
-<!-- <div class="table-responsive pl-3 pr-3 pt-2" *ngIf="!loading">
+<div class="table-responsive pl-3 pr-3 pt-2" *ngIf="!loading">
   <p style="margin: 20px 10px">USER DETAILS</p>
   <a *ngIf="role === 'admin'" (click)="onAdd(content)"
     ><img
@@ -56,12 +56,10 @@
       </tr>
     </tbody>
   </table>
-</div> -->
+</div>
 
 <!-- Add user or edit user form  -->
 <app-details-form></app-details-form>
 
 <!-- Delete User Form -->
 <app-delete-form></app-delete-form>
-
-<app-table></app-table>
