@@ -9,6 +9,7 @@
   </div>
   <hr class="bg-light" />
   <ul class="nav" style="display: block">
+    
     <!-- Router link redirection to specific tab -->
     <li class="nav-item col-md-12 p-2">
       <a
@@ -24,6 +25,7 @@
         </span>
       </a>
     </li>
+
     <li class="nav-item col-md-12 p-2">
       <a
         routerLink="users"
@@ -65,7 +67,7 @@
           {{ "Products" | uppercase }}
           <i class="fa fa-arrow-right ml-3" [ngClass]="{'rotate-arrow': !isCollapsed}"></i>
         </span>
-        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="ml-2">
+        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="ml-2 mt-2">
           <li class="nav-item col-md-12 p-2">
             <a
               routerLink="categories"
