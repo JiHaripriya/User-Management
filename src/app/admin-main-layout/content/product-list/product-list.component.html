@@ -29,12 +29,12 @@
         src="../../../../assets/images/{{ product.imgsrc }}"
         alt=""
         srcset=""
-        style="height: 24rem; border-radius: 5px"
+        class="product-img"
       />
       <div class="action_links" style="border-radius: 0 5px">
         <ul>
-          <li class="add_to_cart">
-            <a href="cart.html" title="" data-original-title="Add to cart"
+          <li>
+            <a
               ><img
                 src="../../../../assets/icons/trash.png"
                 alt=""
@@ -42,20 +42,18 @@
                 style="height: 17px"
             /></a>
           </li>
-          <li class="compare">
-            <a href="#" title="" data-original-title="Add to Compare"
+          <li>
+            <a
               ><img
+                (click)="onEdit()"
                 src="../../../../assets/icons/edit.png"
                 alt=""
                 srcset=""
                 style="height: 17px"
             /></a>
           </li>
-          <li class="wishlist">
+          <li>
             <a
-              href="wishlist.html"
-              title=""
-              data-original-title="Add to Wishlist"
               ><img
                 src=" ../../../../assets/icons/icons8-eye-24.png"
                 alt=""
@@ -75,3 +73,5 @@
     </div>
   </div>
 </div>
+
+<app-product-add-edit-form></app-product-add-edit-form>

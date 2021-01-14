@@ -1,0 +1,42 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ formTitle }} User</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+      style="background-clip: padding-box"
+    >
+      <span aria-hidden="true" style="color: rgb(250, 234, 210)">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row">
+          <label for="">Name</label>
+          <input type="text" formControlName="firstname" class="form-control" />
+        </div>
+        <div class="row">
+          <label for="">Description</label>
+          <input
+            type="textarea"
+            formControlName="description"
+            class="form-control"
+          />
+        </div>
+        <div class="row">
+          <label for="price">Price</label>
+          <input type="text" formControlName="price" class="form-control" />
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn" [disabled]="!addProductForm.valid">
+        {{ formTitle === "Add" ? "Create User" : "Update User" }}
+      </button>
+    </div>
+  </form>
+</ng-template>

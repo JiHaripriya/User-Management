@@ -30,6 +30,7 @@ import { SubCategoriesComponent } from './admin-main-layout/content/sub-categori
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CategoriesComponent,
     SubCategoriesComponent,
     ProductFormsComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductAddEditFormComponent
   ],
   imports: [
     BrowserModule,

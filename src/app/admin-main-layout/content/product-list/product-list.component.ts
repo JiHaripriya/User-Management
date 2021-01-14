@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 
 @Component({
   selector: 'app-product-list',
@@ -52,9 +53,17 @@ export class ProductListComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(private formService: FormServiceService) { }
 
   ngOnInit(): void {
+  }
+
+  onAdd() {
+    this.formService.openProjectAddForm.next(true);
+  }
+
+  onEdit() {
+    this.formService.openProjectEditForm.next(true);
   }
 
 }
