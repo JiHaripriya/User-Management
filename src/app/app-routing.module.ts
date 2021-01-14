@@ -4,14 +4,14 @@ import { NewPasswordComponent } from './authentication-layout/new-password/new-p
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { UsernameComponent } from './authentication-layout/username/username.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
-import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
-import { ProfileComponent } from './main-layout/content/profile/profile.component';
-import { UsersComponent } from './main-layout/content/users/users.component';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { MainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
 import { AdminAuthGuardService } from './shared/services/guards/admin-auth-guard.service';
 import { EmailResolverService } from './shared/services/resolvers/email-resolver.service';
 import { LoginGuardService } from './shared/services/guards/login-guard.service';
 import { RoleResolverService } from './shared/services/resolvers/role-resolver.service';
+import { DashboardComponent } from './admin-main-layout/content/dashboard/dashboard.component';
+import { ProfileComponent } from './admin-main-layout/content/profile/profile.component';
+import { UsersComponent } from './admin-main-layout/content/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
