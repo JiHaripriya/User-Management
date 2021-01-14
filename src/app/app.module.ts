@@ -27,6 +27,8 @@ import { UsersComponent } from './admin-main-layout/content/users/users.componen
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
 import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
+import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
+import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { SubCategoriesComponent } from './admin-main-layout/content/sub-categori
     ProfileComponent,
     CustomerMainLayoutComponent,
     CategoriesComponent,
-    SubCategoriesComponent
+    SubCategoriesComponent,
+    ProductFormsComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

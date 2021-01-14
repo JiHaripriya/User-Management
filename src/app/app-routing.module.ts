@@ -16,6 +16,7 @@ import { CustomerMainLayoutComponent } from './customer-main-layout/customer-mai
 import { CustomerAuthGuardService } from './shared/services/guards/customer-auth-guard.service';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
 import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
+import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -64,6 +65,11 @@ const routes: Routes = [
       {
         path: 'sub-categories',
         component: SubCategoriesComponent,
+        resolve: { role: RoleResolverService },
+      },
+      {
+        path: 'products',
+        component: ProductListComponent,
         resolve: { role: RoleResolverService },
       }
     ],
