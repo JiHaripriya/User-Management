@@ -17,6 +17,9 @@ import { CustomerAuthGuardService } from './shared/services/guards/customer-auth
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
 import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
+import { ContactComponent } from './customer-main-layout/contact/contact.component';
+import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
+import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -71,14 +74,24 @@ const routes: Routes = [
         path: 'products',
         component: ProductListComponent,
         resolve: { role: RoleResolverService },
-      }
+      },
     ],
   },
   {
     path: 'user',
     component: CustomerMainLayoutComponent,
     canActivate: [CustomerAuthGuardService],
-    resolve: { role: RoleResolverService }
+    resolve: { role: RoleResolverService },
+    children: [
+      {
+        path: 'home',
+        component: CustomerHomeComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
+      },
+    ],
   },
   { path: 'contactAdmin', component: ContactAdminComponent },
 ];

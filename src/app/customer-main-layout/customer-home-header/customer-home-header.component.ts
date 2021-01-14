@@ -19,7 +19,7 @@ export class CustomerHeaderComponent implements OnInit {
 
   scrollEvent = (event: any): void => {
     let headerScroll = event.srcElement.scrollingElement.scrollTop;
-    if(headerScroll >= 35)  this.fixHeader = true;
+    if(headerScroll >= 30)  this.fixHeader = true;
     else this.fixHeader = false;
   }
 
