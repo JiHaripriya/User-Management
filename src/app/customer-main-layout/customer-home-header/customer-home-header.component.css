@@ -70,13 +70,13 @@
   color: #fff;
 }
 
-li span:hover {
-  color:  #335af4af;
+li * :hover {
+  color:   #0b3af7da;
   transition: all 0.3s ease-in-out;
 }
 
 .active span {
   font-weight: 900;
-  color:  #335af4af;
+  color: #0b3af7da;
   transition: all 0.3s ease-in-out;
 }

@@ -26,8 +26,8 @@ textarea:active {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #335af4af !important;
-  border-color: #335af4af !important;
+  background-color: #0b3af7da !important;
+  border-color:  #0b3af7da !important;
   transition: background-color 0.3s ease-in-out;
 }
 

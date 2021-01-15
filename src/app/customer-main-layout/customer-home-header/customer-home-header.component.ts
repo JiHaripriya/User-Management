@@ -11,6 +11,7 @@ export class CustomerHeaderComponent implements OnInit {
   expandSearch = false;
   fontColorWhite: boolean;
   title = '';
+  count = 0;
   @ViewChild('searchText') searchText: ElementRef;
 
   constructor(private router: Router) {
