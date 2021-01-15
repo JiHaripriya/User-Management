@@ -65,7 +65,7 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
     CustomerHeaderComponent,
     BannerComponent,
     ContactComponent,
-    CustomerHomeComponent
+    CustomerHomeComponent,
     ProductAddEditFormComponent,
     ProductDetailsFormComponent
   ],
