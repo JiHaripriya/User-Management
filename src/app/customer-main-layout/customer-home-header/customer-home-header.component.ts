@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-home-header',
@@ -8,7 +9,20 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class CustomerHeaderComponent implements OnInit {
   fixHeader = false;
   expandSearch = false;
+  fontColorWhite: boolean;
+  title = '';
   @ViewChild('searchText') searchText: ElementRef;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.title = event.url.split('/').pop();
+        if (this.title === 'contact') {
+          this.fontColorWhite = true;
+        } else this.fontColorWhite = false;
+      }
+    });
+  }
 
   ngOnInit() {
     window.addEventListener('scroll', this.scrollEvent, true);
@@ -20,8 +34,14 @@ export class CustomerHeaderComponent implements OnInit {
 
   scrollEvent = (event: any): void => {
     let headerScroll = event.srcElement.scrollingElement.scrollTop;
-    if (headerScroll >= 30) this.fixHeader = true;
-    else this.fixHeader = false;
+    if (headerScroll >= 30) {
+      this.fixHeader = true;
+      this.fontColorWhite = false;
+    } else {
+      this.fixHeader = false;
+      this.fontColorWhite =
+        this.router.url.split('/').pop() === 'contact' ? true : false;
+    }
   };
 
   onSearch() {

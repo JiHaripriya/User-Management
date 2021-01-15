@@ -1,11 +1,11 @@
 .banner-img {
   position: absolute;
-  top: 27px;
+  top: 30px;
   border: none;
   height: calc(100vh-70px);
   width: 100%;
 }
 
-.carousel-item .active {
-  border: none !important;
+.carousel:focus {
+  outline: none !important;
 }

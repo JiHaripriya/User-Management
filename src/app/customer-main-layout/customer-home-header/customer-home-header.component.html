@@ -31,6 +31,7 @@
     <ul
       class="nav align-items-center"
       style="max-width: 1200px; margin: 0 auto"
+      [ngClass]="{'all-text-white': fontColorWhite}"
     >
       <li class="nav-item p-2">
         <a
@@ -51,7 +52,7 @@
           routerLinkActive="active"
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Home </span>
+          <span class="ml-3"> Home </span>
         </a>
       </li>
       <li class="nav-item p-2">
@@ -61,7 +62,7 @@
           routerLinkActive=""
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Shop </span>
+          <span class="ml-3"> Shop </span>
         </a>
       </li>
       <li class="nav-item p-2" style="flex: 2">
@@ -71,7 +72,7 @@
           routerLinkActive="active"
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Contact </span>
+          <span class="ml-3"> Contact </span>
         </a>
       </li>
       <li class="nav-item p-2">
@@ -81,7 +82,7 @@
         >
           <span class="ml-3">
             <i class="fa fa-search fa-lg" aria-hidden="true" (click)="onSearch()"></i>
-            <input type="text" name="search" id="search" placeholder="Search..." class="ml-2" [ngClass]="{'search': expandSearch, 'no-search-text': !expandSearch}" #searchText>
+            <input type="text" name="search" id="search" placeholder="Search ..." class="ml-2" [ngClass]="{'search': expandSearch, 'no-search-text': !expandSearch}" #searchText>
             <i class="fa fa-times" aria-hidden="true" [ngClass]="{'close': expandSearch, 'close-none': !expandSearch}" (click)="clearSearch()"></i>
           </span>
         </a>

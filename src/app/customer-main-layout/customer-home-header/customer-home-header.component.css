@@ -29,6 +29,7 @@
   position: fixed;
   top: 0;
   height: 70px;
+  margin-bottom: 30px;
   background-color: #fff;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
@@ -63,4 +64,19 @@
 
 .close-none {
   display: none;
+}
+
+.all-text-white * {
+  color: #fff;
+}
+
+li span:hover {
+  color:  #335af4af;
+  transition: all 0.3s ease-in-out;
+}
+
+.active span {
+  font-weight: 900;
+  color:  #335af4af;
+  transition: all 0.3s ease-in-out;
 }
