@@ -30,6 +30,9 @@ import { SubCategoriesComponent } from './admin-main-layout/content/sub-categori
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
+import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { TableComponent } from './common/table/table.component';
     SubCategoriesComponent,
     ProductFormsComponent,
     ProductListComponent,
-    TableComponent
+    TableComponent,
+    ProductAddEditFormComponent,
+    ProductDetailsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +70,8 @@ import { TableComponent } from './common/table/table.component';
     ParticlesModule,
     NgbModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2SearchPipeModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
