@@ -1,8 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">
-      {{ formTitle }} Product Name
-    </h4>
+    <!-- <h3 class="modal-title" id="modal-basic-title">Product Details</h3> -->
     <button
       type="button"
       class="close"
@@ -15,7 +13,20 @@
   </div>
   <div class="modal-body">
     <div class="row">
-      <img src="../../../../../assets/images/product-06.jpg" />
+      <div class="col-6">
+        <img src="../../../../../assets/images/product-06.jpg" height="500px" />
+      </div>
+      <div class="col-6">
+        <h4>Watch</h4>
+        <p style="color: yellowgreen">$400</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
+          iste laborum ad impedit pariatur esse optio tempora sint ullam autem
+          deleniti nam in quos qui nemo ipsum numquam, reiciendis maiores quidem
+          aperiam, rerum vel recusandae
+        </p>
+      </div>
     </div>
   </div>
+  <div class="modal-footer"></div>
 </ng-template>
