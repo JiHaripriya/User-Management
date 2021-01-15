@@ -34,6 +34,9 @@ import { CustomerHeaderComponent } from './customer-main-layout/customer-home-he
 import { BannerComponent } from './customer-main-layout/banner/banner.component';
 import { ContactComponent } from './customer-main-layout/contact/contact.component';
 import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
+import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,8 @@ import { CustomerHomeComponent } from './customer-main-layout/customer-home/cust
     BannerComponent,
     ContactComponent,
     CustomerHomeComponent
+    ProductAddEditFormComponent,
+    ProductDetailsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,8 @@ import { CustomerHomeComponent } from './customer-main-layout/customer-home/cust
     ParticlesModule,
     NgbModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2SearchPipeModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],

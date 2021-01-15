@@ -8,8 +8,13 @@ import { UserDetails } from '../../models/user-details.model';
 export class FormServiceService {
 
   openAddUserForm = new Subject<boolean>();
-  openEditUserForm = new Subject<{data: UserDetails, selectedId: number}>();
-  deleteFormParameters = new Subject<{index: number}>();
+  openEditUserForm = new Subject<{ data: UserDetails, selectedId: number }>();
+  deleteFormParameters = new Subject<{ index: number }>();
+
+  openProjectAddForm = new Subject<boolean>();
+  openProjectEditForm = new Subject<boolean>();
+
+  openProjectDetails = new Subject<boolean>();
 
   constructor() { }
 }
