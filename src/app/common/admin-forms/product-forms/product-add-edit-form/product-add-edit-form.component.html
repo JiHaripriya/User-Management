@@ -30,12 +30,32 @@
           <label for="price">Price</label>
           <input type="text" formControlName="price" class="form-control" />
         </div>
+
+        <div class="row">
+          <input
+            style="display: none"
+            type="file"
+            (change)="onFileChanged($event)"
+            formControlName="image"
+            #fileInput
+          />
+          <button (click)="fileInput.click()">Select Product Image</button>
+        </div>
+
+        <div class="row">
+          <img
+            [src]="image"
+            *ngIf="image"
+            alt=""
+            style="height: 400px; width: 300px"
+          />
+        </div>
       </div>
     </div>
 
     <div class="modal-footer">
       <button type="submit" class="btn" [disabled]="!addProductForm.valid">
-        {{ formTitle === "Add" ? "Create User" : "Update User" }}
+        {{ formTitle === "Add" ? "Add Product" : "Update Product" }}
       </button>
     </div>
   </form>

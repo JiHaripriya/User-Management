@@ -14,5 +14,7 @@ export class FormServiceService {
   openProjectAddForm = new Subject<boolean>();
   openProjectEditForm = new Subject<boolean>();
 
+  openProjectDetails = new Subject<boolean>();
+
   constructor() { }
 }

@@ -1,4 +1,4 @@
-<div class="row justify-content-between mr-3 mt-2">
+<div class="row justify-content-between mr-5 ml-5 mt-3 mb-4">
   <div>
     <h3>Product Details</h3>
   </div>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="row" style="flex-wrap: wrap">
+<div class="row justify-content-lg-center" style="flex-wrap: wrap">
   <!-- Total number of users card shadow -->
   <div
     *ngFor="let product of products | filter: searchItem"
@@ -57,6 +57,7 @@
           <li>
             <a
               ><img
+                (click)="onView()"
                 src=" ../../../../assets/icons/icons8-eye-24.png"
                 alt=""
                 srcset=""
@@ -77,3 +78,4 @@
 </div>
 
 <app-product-add-edit-form></app-product-add-edit-form>
+<app-product-details-form></app-product-details-form>

@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { UserDetails } from 'src/app/shared/models/user-details.model';
+// import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { AuthService } from 'src/app/shared/services/api/auth-service.service';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
@@ -15,19 +16,23 @@ import { UserDetailsService } from 'src/app/shared/services/api/user-details.ser
 export class ProductAddEditFormComponent implements OnInit {
 
   @ViewChild('content') productForm: ElementRef;
-  userDetails: UserDetails[];
+  // userDetails: UserDetails[];
   addProductForm: FormGroup;
   addProductSubscription: Subscription;
   editProductSubscription: Subscription;
   formTitle = '';
   isPending = false;
   index: number;
+  selectedFile: File;
+
+  image;
 
   constructor(
     private modalService: NgbModal,
     private formService: FormServiceService,
     private authService: AuthService,
-    private userDetailsApi: UserDetailsService
+    private userDetailsApi: UserDetailsService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +65,25 @@ export class ProductAddEditFormComponent implements OnInit {
         Validators.required,
         Validators.pattern('[1-9]+'),
       ]),
+      image: new FormControl(null, [Validators.required])
     });
+  }
+
+  sanitizeImageUrl(imageUrl: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+
+  onFileChanged(event) {
+
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+    }
   }
 
   private onAdd(content) {
@@ -91,23 +114,23 @@ export class ProductAddEditFormComponent implements OnInit {
 
   onSubmit() {
     // New user's status is appended as pending by default
-    const userDetails =
-      this.formTitle === 'Add'
-        ? Object.assign(this.addProductForm.value, {
-          status: 'pending',
-          role: 'user',
-          link: 'http://localhost:4200/setPassword',
-        })
-        : this.addProductForm.value;
+    // const userDetails =
+    //   this.formTitle === 'Add'
+    //     ? Object.assign(this.addProductForm.value, {
+    //       status: 'pending',
+    //       role: 'user',
+    //       link: 'http://localhost:4200/setPassword',
+    //     })
+    //     : this.addProductForm.value;
 
-    // New user
-    if (this.formTitle === 'Add') {
-      this.userDetailsApi.addUser(userDetails);
-    } else {
-      // Logic to update edited details
-      this.userDetailsApi.updateUser(userDetails, this.index);
-    }
-    this.modalService.dismissAll();
+    // // New user
+    // if (this.formTitle === 'Add') {
+    //   this.userDetailsApi.addUser(userDetails);
+    // } else {
+    //   // Logic to update edited details
+    //   this.userDetailsApi.updateUser(userDetails, this.index);
+    // }
+    // this.modalService.dismissAll();
   }
 
   ngOnDestroy() {

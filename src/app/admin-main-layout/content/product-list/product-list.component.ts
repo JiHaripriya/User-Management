@@ -66,4 +66,7 @@ export class ProductListComponent implements OnInit {
     this.formService.openProjectEditForm.next(true);
   }
 
+  onView() {
+    this.formService.openProjectDetails.next(true);
+  }
 }
