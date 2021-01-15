@@ -29,6 +29,7 @@ import { CategoriesComponent } from './admin-main-layout/content/categories/cate
 import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
+import { TableComponent } from './common/table/table.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
 import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
@@ -56,6 +57,7 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
     SubCategoriesComponent,
     ProductFormsComponent,
     ProductListComponent,
+    TableComponent,
     ProductAddEditFormComponent,
     ProductDetailsFormComponent
   ],
