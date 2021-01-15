@@ -30,6 +30,10 @@ import { SubCategoriesComponent } from './admin-main-layout/content/sub-categori
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
+import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
+import { BannerComponent } from './customer-main-layout/banner/banner.component';
+import { ContactComponent } from './customer-main-layout/contact/contact.component';
+import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
 import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
@@ -58,6 +62,10 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
     ProductFormsComponent,
     ProductListComponent,
     TableComponent,
+    CustomerHeaderComponent,
+    BannerComponent,
+    ContactComponent,
+    CustomerHomeComponent
     ProductAddEditFormComponent,
     ProductDetailsFormComponent
   ],
