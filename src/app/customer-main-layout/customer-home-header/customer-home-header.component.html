@@ -34,9 +34,9 @@
     >
       <li class="nav-item p-2">
         <a
-          routerLink=""
+          routerLink="home"
           class="nav-link"
-          routerLinkActive=""
+          routerLinkActive="active"
           style="cursor: pointer"
         >
           <span class="ml-3" style="font-size: large; font-weight: bold">
@@ -76,13 +76,13 @@
       </li>
       <li class="nav-item p-2">
         <a
-          routerLink=""
           class="nav-link"
-          routerLinkActive=""
           style="cursor: pointer"
         >
           <span class="ml-3">
-            <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+            <i class="fa fa-search fa-lg" aria-hidden="true" (click)="onSearch()"></i>
+            <input type="text" name="search" id="search" placeholder="Search..." class="ml-2" [ngClass]="{'search': expandSearch, 'no-search-text': !expandSearch}" #searchText>
+            <i class="fa fa-times" aria-hidden="true" [ngClass]="{'close': expandSearch, 'close-none': !expandSearch}" (click)="clearSearch()"></i>
           </span>
         </a>
       </li>

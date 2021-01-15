@@ -41,3 +41,26 @@
 .nav-item * {
     color: #000000;
 }
+
+.search,
+.search:focus {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: .375rem 0 0 .75rem;
+  border-bottom: 1px solid rgba(177, 177, 177, 0.568);
+}
+
+.no-search-text {
+  display: none;
+}
+
+.close {
+  position: relative;
+  left: -12px;
+  margin-top: 6px;
+}
+
+.close-none {
+  display: none;
+}
