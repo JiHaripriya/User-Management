@@ -1,0 +1,76 @@
+html,
+body {
+  font-weight: 300;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+}
+
+.wrapper {
+  border-top: 2.5px solid #1d8cf8;
+  display: flex;
+  width: 100%;
+}
+
+.mr-0 {
+  margin-right: 0px !important;
+}
+
+.mt-0 {
+  margin-top: 0px !important;
+}
+
+.bg-primary {
+  background-color: #1e1e2f !important;
+}
+
+.bg-success {
+  background-color: #1e1e2f !important;
+}
+
+.bg-secondary {
+  background-color: #27293d !important;
+}
+
+h1 {
+  font-size: 150%;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.content {
+  margin: 78px 30px 30px 280px;
+  min-height: calc(100vh - 100px);
+  width: 100%;
+}
+
+.modal-body,
+.modal-header,
+.modal-footer {
+  background-color: #1e1e2f;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e638;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e638;
+  justify-content: space-evenly;
+}
+
+.modal-body {
+  padding: 10px 29px;
+}
+
+.btn {
+  background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
+  color: rgb(255, 255, 255);
+}
+
+.close,
+button:focus {
+  outline: transparent !important;
+  border: transparent !important;
+}

@@ -1,0 +1,81 @@
+<div class="row justify-content-between mr-5 ml-5 mt-3 mb-4">
+  <div>
+    <h3>Product Details</h3>
+  </div>
+  <div class="row search-bar" style="margin-bottom: 20px">
+    <input
+      class="search-input"
+      type="text"
+      name=""
+      placeholder="Search..."
+      [(ngModel)]="searchItem"
+    />
+    <a href="#" class="search_icon"
+      ><img
+        src="../../../../assets/icons/magnifying-glass.png"
+        alt=""
+        srcset=""
+        style="height: 27px"
+    /></a>
+  </div>
+</div>
+
+<div class="row justify-content-lg-center" style="flex-wrap: wrap">
+  <!-- Total number of users card shadow -->
+  <div
+    *ngFor="let product of products | filter: searchItem"
+    style="margin: 0 20px"
+  >
+    <div class="card shadow-sm text-white bg-primary m-3" style="height: 24rem">
+      <img
+        src="../../../../assets/images/{{ product.imgsrc }}"
+        alt=""
+        srcset=""
+        class="product-img"
+      />
+      <div class="action_links" style="border-radius: 0 5px">
+        <ul>
+          <li>
+            <a
+              ><img
+                src="../../../../assets/icons/trash.png"
+                alt=""
+                srcset=""
+                style="height: 17px"
+            /></a>
+          </li>
+          <li>
+            <a
+              ><img
+                (click)="onEdit()"
+                src="../../../../assets/icons/edit.png"
+                alt=""
+                srcset=""
+                style="height: 17px"
+            /></a>
+          </li>
+          <li>
+            <a
+              ><img
+                (click)="onView()"
+                src=" ../../../../assets/icons/icons8-eye-24.png"
+                alt=""
+                srcset=""
+                style="height: 17px"
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="row"
+      style="margin: 10px; text-align: center; flex-direction: column"
+    >
+      <p>{{ product.name }}</p>
+      <p style="color: rgb(173, 173, 3)">$ {{ product.price }}</p>
+    </div>
+  </div>
+</div>
+
+<app-product-add-edit-form></app-product-add-edit-form>
+<app-product-details-form></app-product-details-form>
