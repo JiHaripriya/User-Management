@@ -11,7 +11,6 @@ export class CustomerAuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let userDetails = JSON.parse(localStorage.getItem('userData'));
-    console.log(userDetails)
     if (!this.authService.isAuthenticated()) {
       this.router.navigateByUrl('/login');
       return false;

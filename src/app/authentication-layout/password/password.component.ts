@@ -72,7 +72,6 @@ export class PasswordComponent implements OnInit, OnDestroy {
 
     authObs.subscribe(
       (resData) => {
-        console.log(resData)
         // if the user is active or pending redirect
         if (resData.status === 'pending') {
           this.notifs.contactAdminNotification('Verify your email first!');

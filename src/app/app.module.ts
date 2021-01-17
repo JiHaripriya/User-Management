@@ -26,7 +26,6 @@ import { ProfileComponent } from './admin-main-layout/content/profile/profile.co
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
-import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
@@ -35,6 +34,7 @@ import { BannerComponent } from './customer-main-layout/banner/banner.component'
 import { ContactComponent } from './customer-main-layout/contact/contact.component';
 import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
 import { CartComponent } from './customer-main-layout/cart/cart.component';
+import { ShopComponent } from './customer-main-layout/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,6 @@ import { CartComponent } from './customer-main-layout/cart/cart.component';
     ProfileComponent,
     CustomerMainLayoutComponent,
     CategoriesComponent,
-    SubCategoriesComponent,
     ProductFormsComponent,
     ProductListComponent,
     TableComponent,
@@ -64,7 +63,8 @@ import { CartComponent } from './customer-main-layout/cart/cart.component';
     BannerComponent,
     ContactComponent,
     CustomerHomeComponent,
-    CartComponent
+    CartComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,

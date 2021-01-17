@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { HomePageService } from 'src/app/shared/services/customer/home-page.service';
 
@@ -7,7 +13,7 @@ import { HomePageService } from 'src/app/shared/services/customer/home-page.serv
   templateUrl: './customer-home-header.component.html',
   styleUrls: ['./customer-home-header.component.css'],
 })
-export class CustomerHeaderComponent implements OnInit {
+export class CustomerHeaderComponent implements OnInit, OnDestroy {
   fixHeader = false;
   expandSearch = false;
   title = '';
@@ -27,6 +33,9 @@ export class CustomerHeaderComponent implements OnInit {
 
   ngOnInit() {
     window.addEventListener('scroll', this.scrollEvent, true);
+    this.customerHomePage.openCartModal.subscribe((status) => {
+      if (!status) window.addEventListener('scroll', this.scrollEvent, true);
+    });
   }
 
   ngOnDestroy() {
@@ -50,5 +59,6 @@ export class CustomerHeaderComponent implements OnInit {
 
   openCartModal() {
     this.customerHomePage.openCartModal.next(true);
+    window.removeEventListener('scroll', this.scrollEvent, true);
   }
 }
