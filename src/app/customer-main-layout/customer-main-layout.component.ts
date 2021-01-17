@@ -8,6 +8,7 @@ import { GeneralNotificationsService } from '../shared/services/general-notifica
   styleUrls: ['./customer-main-layout.component.css'],
 })
 export class CustomerMainLayoutComponent implements OnInit {
+  disableScroll = false;
   constructor(
     private notifs: GeneralNotificationsService,
     private route: ActivatedRoute
@@ -15,7 +16,6 @@ export class CustomerMainLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.data['role'] === 'user') {
-      console.log(this.route.snapshot.data['role'])
     } else this.notifs.contactAdminNotification('Access Forbidden');
   }
 }

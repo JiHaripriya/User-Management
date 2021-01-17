@@ -51,17 +51,17 @@
           routerLinkActive="active"
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Home </span>
+          <span class="ml-3"> Home </span>
         </a>
       </li>
       <li class="nav-item p-2">
         <a
-          routerLink=""
+          routerLink="shop"
           class="nav-link"
-          routerLinkActive=""
+          routerLinkActive="active"
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Shop </span>
+          <span class="ml-3"> Shop </span>
         </a>
       </li>
       <li class="nav-item p-2" style="flex: 2">
@@ -71,33 +71,63 @@
           routerLinkActive="active"
           style="cursor: pointer"
         >
-          <span class="ml-3" style="font-size: smaller"> Contact </span>
+          <span class="ml-3"> Contact </span>
         </a>
       </li>
-      <li class="nav-item p-2">
-        <a
-          class="nav-link"
-          style="cursor: pointer"
-        >
+      <li class="nav-item p-2" *ngIf="title !== 'contact'">
+        <a class="nav-link" style="cursor: pointer">
           <span class="ml-3">
-            <i class="fa fa-search fa-lg" aria-hidden="true" (click)="onSearch()"></i>
-            <input type="text" name="search" id="search" placeholder="Search..." class="ml-2" [ngClass]="{'search': expandSearch, 'no-search-text': !expandSearch}" #searchText>
-            <i class="fa fa-times" aria-hidden="true" [ngClass]="{'close': expandSearch, 'close-none': !expandSearch}" (click)="clearSearch()"></i>
+            <i
+              class="fa fa-search fa-lg"
+              aria-hidden="true"
+              (click)="onSearch()"
+            ></i>
+            <input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Search"
+              class="ml-2"
+              [ngClass]="{
+                search: expandSearch,
+                'no-search-text': !expandSearch
+              }"
+              #searchText
+            />
+            <i
+              class="fa fa-times"
+              aria-hidden="true"
+              [ngClass]="{ close: expandSearch, 'close-none': !expandSearch }"
+              (click)="clearSearch()"
+            ></i>
           </span>
         </a>
       </li>
-      <li class="nav-item p-2">
+      <li class="nav-item p-2" *ngIf="title !== 'contact'">
         <a
-          routerLink=""
           class="nav-link"
-          routerLinkActive=""
           style="cursor: pointer"
         >
           <span class="ml-3">
-            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true" (click)="openCartModal()"></i>
+            <span
+              style="
+                background-color: #335af4da;
+                color: #fff;
+                vertical-align: middle;
+                position: relative;
+                padding: 1px 3px;
+                top: -21px;
+                left: -5px;
+                font-size: small;
+              "
+              >{{ count }}</span
+            >
           </span>
         </a>
       </li>
     </ul>
   </div>
 </div>
+
+<app-cart></app-cart>

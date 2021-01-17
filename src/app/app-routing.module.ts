@@ -15,11 +15,10 @@ import { UsersComponent } from './admin-main-layout/content/users/users.componen
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CustomerAuthGuardService } from './shared/services/guards/customer-auth-guard.service';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
-import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { ContactComponent } from './customer-main-layout/contact/contact.component';
-import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
 import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
+import { ShopComponent } from './customer-main-layout/shop/shop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -66,11 +65,6 @@ const routes: Routes = [
         resolve: { role: RoleResolverService },
       },
       {
-        path: 'sub-categories',
-        component: SubCategoriesComponent,
-        resolve: { role: RoleResolverService },
-      },
-      {
         path: 'products',
         component: ProductListComponent,
         resolve: { role: RoleResolverService },
@@ -90,6 +84,10 @@ const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent
+      },
+      {
+        path: 'shop',
+        component: ShopComponent
       },
     ],
   },

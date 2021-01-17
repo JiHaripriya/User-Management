@@ -1,4 +1,9 @@
 .home-page {
   background-color: white !important;
   color: #000000;
+  height: 150vh;
+}
+
+.fit-screen * {
+  overflow: hidden;
 }

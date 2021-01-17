@@ -26,7 +26,6 @@ import { ProfileComponent } from './admin-main-layout/content/profile/profile.co
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
-import { SubCategoriesComponent } from './admin-main-layout/content/sub-categories/sub-categories.component';
 import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
@@ -37,6 +36,8 @@ import { CustomerHomeComponent } from './customer-main-layout/customer-home/cust
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
 import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
+import { CartComponent } from './customer-main-layout/cart/cart.component';
+import { ShopComponent } from './customer-main-layout/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,6 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
     ProfileComponent,
     CustomerMainLayoutComponent,
     CategoriesComponent,
-    SubCategoriesComponent,
     ProductFormsComponent,
     ProductListComponent,
     TableComponent,
@@ -67,7 +67,9 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
     ContactComponent,
     CustomerHomeComponent,
     ProductAddEditFormComponent,
-    ProductDetailsFormComponent
+    ProductDetailsFormComponent,
+    CartComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
