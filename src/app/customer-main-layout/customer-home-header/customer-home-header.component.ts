@@ -15,6 +15,7 @@ import { HomePageService } from 'src/app/shared/services/customer/home-page.serv
 })
 export class CustomerHeaderComponent implements OnInit, OnDestroy {
   fixHeader = false;
+  hideScrollButton = false;
   expandSearch = false;
   title = '';
   count = 0;
@@ -34,7 +35,10 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.customerHomePage.openCartModal.subscribe((status) => {
-      if (!status) window.addEventListener('scroll', this.scrollEvent, true);
+      if (!status) {
+        window.addEventListener('scroll', this.scrollEvent, true);
+        this.hideScrollButton = true;
+      }
     });
   }
 
@@ -44,8 +48,14 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
 
   scrollEvent = (event: any): void => {
     let headerScroll = event.srcElement.scrollingElement.scrollTop;
-    if (headerScroll >= 30) this.fixHeader = true;
-    else this.fixHeader = false;
+    if (headerScroll >= 30) {
+      this.fixHeader = true;
+      this.hideScrollButton = true;
+    }
+    else{
+      this.fixHeader = false;
+      this.hideScrollButton = false;
+    } 
   };
 
   onSearch() {
@@ -59,6 +69,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
 
   openCartModal() {
     this.customerHomePage.openCartModal.next(true);
+    this.hideScrollButton = false;
     window.removeEventListener('scroll', this.scrollEvent, true);
   }
 

@@ -37,6 +37,7 @@ import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/
 import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
 import { CartComponent } from './customer-main-layout/cart/cart.component';
 import { ShopComponent } from './customer-main-layout/shop/shop.component';
+import { ProductCategoryComponent } from './customer-main-layout/product-category/product-category.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ShopComponent } from './customer-main-layout/shop/shop.component';
     ProductAddEditFormComponent,
     ProductDetailsFormComponent,
     CartComponent,
-    ShopComponent
+    ShopComponent,
+    ProductCategoryComponent
   ],
   imports: [
     BrowserModule,
