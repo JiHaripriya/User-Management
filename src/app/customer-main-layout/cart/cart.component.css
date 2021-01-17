@@ -36,10 +36,13 @@
   box-shadow: none !important;
 }
 
-img:hover {
-  transform: scale(1.2);
+img {
   transition: transform 0.9s ease;
   -webkit-transition: transform 0.9s ease;
   -o-transition: transform 0.9s ease;
   -moz-transition: transform 0.9s ease;
+}
+
+img:hover {
+  transform: scale(1.2);
 }

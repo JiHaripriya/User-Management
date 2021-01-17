@@ -74,6 +74,7 @@ h3 {
 .product-img:hover {
   transform: scale(1.05);
 }
+
 /* Search bar */
 .search-bar {
   width: 400px;
