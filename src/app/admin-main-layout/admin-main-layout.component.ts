@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AdminHomePageService } from '../shared/services/admin/admin-home-page.service';
 
 @Component({
   selector: 'app-admin-main-layout',
   templateUrl: './admin-main-layout.component.html',
-  styleUrls: ['./admin-main-layout.component.css']
+  styleUrls: ['./admin-main-layout.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AdminMainLayoutComponent implements OnInit, OnDestroy {
 

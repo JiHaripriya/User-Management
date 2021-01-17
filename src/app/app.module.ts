@@ -26,7 +26,6 @@ import { ProfileComponent } from './admin-main-layout/content/profile/profile.co
 import { UsersComponent } from './admin-main-layout/content/users/users.component';
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
-import { ProductFormsComponent } from './common/admin-forms/product-forms/product-forms.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
 import { TableComponent } from './common/table/table.component';
 import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
@@ -59,7 +58,6 @@ import { ShopComponent } from './customer-main-layout/shop/shop.component';
     ProfileComponent,
     CustomerMainLayoutComponent,
     CategoriesComponent,
-    ProductFormsComponent,
     ProductListComponent,
     TableComponent,
     CustomerHeaderComponent,

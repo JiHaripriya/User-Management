@@ -10,34 +10,3 @@
 .row {
   padding: 10px;
 }
-
-.modal-content,
-.modal-body,
-.modal-header,
-.modal-footer {
-  background-color: #1e1e2f !important;
-}
-
-.modal-header {
-  border-bottom: 1px solid #dee2e638;
-}
-
-.modal-footer {
-  border-top: 1px solid #dee2e638;
-  justify-content: space-evenly;
-}
-
-.modal-body {
-  padding: 10px 29px;
-}
-
-.btn {
-  background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
-  color: rgb(255, 255, 255);
-}
-
-.close,
-button:focus {
-  outline: transparent !important;
-  border: transparent !important;
-}

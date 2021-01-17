@@ -9,8 +9,7 @@ import { GeneralNotificationsService } from 'src/app/shared/services/general-not
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit, OnDestroy {
   userDetails: UserDetails[];
