@@ -34,6 +34,7 @@ import { CustomerHeaderComponent } from './customer-main-layout/customer-home-he
 import { BannerComponent } from './customer-main-layout/banner/banner.component';
 import { ContactComponent } from './customer-main-layout/contact/contact.component';
 import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
+import { CartComponent } from './customer-main-layout/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { CustomerHomeComponent } from './customer-main-layout/customer-home/cust
     CustomerHeaderComponent,
     BannerComponent,
     ContactComponent,
-    CustomerHomeComponent
+    CustomerHomeComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

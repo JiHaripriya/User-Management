@@ -1,0 +1,38 @@
+<ng-template #cartModal let-modal>
+  <h4 class="modal-title pl-5 pt-3" style="font-weight: 700">YOUR CART</h4>
+  <div class="modal-body pl-5">
+    <div class="col-md-12" style="position: relative; max-height: 75vh; overflow-y: scroll;">
+      <ul class="nav col-md-12 w-100 mt-4" *ngFor="let img of images">
+        <li class="nav-item row mb-3">
+          <div style="overflow: hidden;">
+            <img
+              [src]="img"
+              alt="IMG"
+              height="100"
+              style="cursor: pointer;"
+              class="cart-img"
+            />
+          </div>
+          <div>
+            <a class="nav-link"> Item </a>
+            <span style="padding: .5rem 1rem;"> {{ count }} x $19.00 </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="row p-3 justify-content-between pl-5"
+    style="position: absolute; bottom: 20px; width: 100%"
+  >
+    <button
+      class="btn btn-primary mr-3"
+      style="border-radius: 24px; width: 40%"
+    >
+      View Cart
+    </button>
+    <button class="btn btn-primary" style="border-radius: 24px; width: 40%">
+      Checkout
+    </button>
+  </div>
+</ng-template>

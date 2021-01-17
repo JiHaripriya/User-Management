@@ -31,7 +31,6 @@
     <ul
       class="nav align-items-center"
       style="max-width: 1200px; margin: 0 auto"
-      [ngClass]="{ 'all-text-white': fontColorWhite }"
     >
       <li class="nav-item p-2">
         <a
@@ -87,7 +86,7 @@
               type="text"
               name="search"
               id="search"
-              placeholder="Search ..."
+              placeholder="Search"
               class="ml-2"
               [ngClass]="{
                 search: expandSearch,
@@ -106,13 +105,11 @@
       </li>
       <li class="nav-item p-2" *ngIf="title !== 'contact'">
         <a
-          routerLink=""
           class="nav-link"
-          routerLinkActive=""
           style="cursor: pointer"
         >
           <span class="ml-3">
-            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true" (click)="openCartModal()"></i>
             <span
               style="
                 background-color: #335af4da;
@@ -132,3 +129,5 @@
     </ul>
   </div>
 </div>
+
+<app-cart></app-cart>

@@ -40,7 +40,7 @@
 }
 
 .nav-item * {
-    color: #000000;
+  color: #000000;
 }
 
 .search,
@@ -48,7 +48,7 @@
   border: none;
   outline: none;
   background-color: transparent;
-  padding: .375rem 0 0 .75rem;
+  padding: 0.375rem 0 0 0.75rem;
   border-bottom: 1px solid rgba(177, 177, 177, 0.568);
 }
 
@@ -66,12 +66,8 @@
   display: none;
 }
 
-.all-text-white * {
-  color: #fff;
-}
-
 li * :hover {
-  color:   #0b3af7da;
+  color: #0b3af7da;
   transition: all 0.3s ease-in-out;
 }
 

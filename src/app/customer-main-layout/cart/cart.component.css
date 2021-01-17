@@ -1,0 +1,39 @@
+::ng-deep .modal {
+  position: fixed;
+  top: -30px !important;
+  z-index: 2050 !important;
+  height: 100% !important;
+}
+
+::ng-deep .modal .modal-content {
+  position: fixed !important;
+  width: 25% !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  right: 0 !important;
+  height: 100%;
+}
+
+::ng-deep .modal.fade .modal-dialog {
+    transition: none;
+    transform: none !important;
+}
+
+::ng-deep .modal-body, .modal-header, .modal-footer {
+  background-color: #ffffff !important;
+}
+
+.btn-primary {
+    background-color: #000000 !important;
+}
+
+.btn-primary:focus {
+    box-shadow: none !important;
+}
+
+.card-img:hover {
+    transform: scale(1.2);
+    transition: transform 0.9s ease;
+}

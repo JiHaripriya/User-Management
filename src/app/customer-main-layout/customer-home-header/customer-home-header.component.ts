@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { HomePageService } from 'src/app/shared/services/customer/home-page.service';
 
 @Component({
   selector: 'app-customer-home-header',
@@ -9,18 +10,17 @@ import { NavigationEnd, Router } from '@angular/router';
 export class CustomerHeaderComponent implements OnInit {
   fixHeader = false;
   expandSearch = false;
-  fontColorWhite: boolean;
   title = '';
   count = 0;
   @ViewChild('searchText') searchText: ElementRef;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private customerHomePage: HomePageService
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.title = event.url.split('/').pop();
-        if (this.title === 'contact') {
-          this.fontColorWhite = true;
-        } else this.fontColorWhite = false;
       }
     });
   }
@@ -35,14 +35,8 @@ export class CustomerHeaderComponent implements OnInit {
 
   scrollEvent = (event: any): void => {
     let headerScroll = event.srcElement.scrollingElement.scrollTop;
-    if (headerScroll >= 30) {
-      this.fixHeader = true;
-      this.fontColorWhite = false;
-    } else {
-      this.fixHeader = false;
-      this.fontColorWhite =
-        this.router.url.split('/').pop() === 'contact' ? true : false;
-    }
+    if (headerScroll >= 30) this.fixHeader = true;
+    else this.fixHeader = false;
   };
 
   onSearch() {
@@ -52,5 +46,9 @@ export class CustomerHeaderComponent implements OnInit {
   clearSearch() {
     this.expandSearch = false;
     this.searchText.nativeElement.value = '';
+  }
+
+  openCartModal() {
+    this.customerHomePage.openCartModal.next(true);
   }
 }
