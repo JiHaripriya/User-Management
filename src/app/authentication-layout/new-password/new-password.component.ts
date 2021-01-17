@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/api/auth-service.service';
 
 @Component({
   selector: 'app-new-password',

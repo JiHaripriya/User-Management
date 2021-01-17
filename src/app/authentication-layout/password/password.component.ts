@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 
-import { AuthService } from 'src/app/shared/services/auth-service.service';
+import { AuthService } from 'src/app/shared/services/api/auth-service.service';
 import { ParticleService } from 'src/app/shared/services/particle.service';
 import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 
@@ -81,7 +81,7 @@ export class PasswordComponent implements OnInit, OnDestroy {
           );
         } else {
           // navigate to dashboard if authenticated
-          this.router.navigateByUrl('/home/dashboard');
+          resData.data.role === 'admin' ? this.router.navigateByUrl('/admin/dashboard'): this.router.navigateByUrl('/user');
         }
       }, // wrong password
       (errorMessage) => {

@@ -8,22 +8,35 @@ import { UsernameComponent } from './authentication-layout/username/username.com
 import { PasswordComponent } from './authentication-layout/password/password.component';
 import { NewPasswordComponent } from './authentication-layout/new-password/new-password.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
-import { HeaderComponent } from './main-layout/header/header.component';
-import { SidebarComponent } from './main-layout/sidebar/sidebar.component';
-import { FooterComponent } from './main-layout/footer/footer.component';
-import { DashboardComponent } from './main-layout/content/dashboard/dashboard.component';
-import { UsersComponent } from './main-layout/content/users/users.component';
+import { AdminMainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
+import { HeaderComponent } from './admin-main-layout/header/header.component';
+import { SidebarComponent } from './admin-main-layout/sidebar/sidebar.component';
+import { FooterComponent } from './admin-main-layout/footer/footer.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
-import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { AuthInterceptorService } from './shared/services/api/auth-interceptor.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DetailsFormComponent } from './common/details-form/details-form.component';
-import { DeleteFormComponent } from './common/delete-form/delete-form.component';
+import { DetailsFormComponent } from './common/admin-forms/user-forms/details-form/details-form.component';
+import { DeleteFormComponent } from './common/admin-forms/user-forms/delete-form/delete-form.component';
 import { ContactAdminComponent } from './contact-admin/contact-admin.component';
-import { ProfileComponent } from './main-layout/content/profile/profile.component';
+import { DashboardComponent } from './admin-main-layout/content/dashboard/dashboard.component';
+import { ProfileComponent } from './admin-main-layout/content/profile/profile.component';
+import { UsersComponent } from './admin-main-layout/content/users/users.component';
+import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
+import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
+import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
+import { TableComponent } from './common/table/table.component';
+import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
+import { BannerComponent } from './customer-main-layout/banner/banner.component';
+import { ContactComponent } from './customer-main-layout/contact/contact.component';
+import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
+import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
+import { CartComponent } from './customer-main-layout/cart/cart.component';
+import { ShopComponent } from './customer-main-layout/shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +45,7 @@ import { ProfileComponent } from './main-layout/content/profile/profile.componen
     PasswordComponent,
     NewPasswordComponent,
     NewPasswordComponent,
-    MainLayoutComponent,
+    AdminMainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
@@ -42,7 +55,19 @@ import { ProfileComponent } from './main-layout/content/profile/profile.componen
     DetailsFormComponent,
     DeleteFormComponent,
     ContactAdminComponent,
-    ProfileComponent
+    ProfileComponent,
+    CustomerMainLayoutComponent,
+    CategoriesComponent,
+    ProductListComponent,
+    TableComponent,
+    CustomerHeaderComponent,
+    BannerComponent,
+    ContactComponent,
+    CustomerHomeComponent,
+    ProductAddEditFormComponent,
+    ProductDetailsFormComponent,
+    CartComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +78,8 @@ import { ProfileComponent } from './main-layout/content/profile/profile.componen
     ParticlesModule,
     NgbModule,
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2SearchPipeModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
