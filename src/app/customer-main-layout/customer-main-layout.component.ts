@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GeneralNotificationsService } from '../shared/services/general-notifications.service';
 
@@ -9,6 +9,7 @@ import { GeneralNotificationsService } from '../shared/services/general-notifica
 })
 export class CustomerMainLayoutComponent implements OnInit {
   disableScroll = false;
+  
   constructor(
     private notifs: GeneralNotificationsService,
     private route: ActivatedRoute

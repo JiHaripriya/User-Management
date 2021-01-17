@@ -61,4 +61,8 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     this.customerHomePage.openCartModal.next(true);
     window.removeEventListener('scroll', this.scrollEvent, true);
   }
+
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
 }

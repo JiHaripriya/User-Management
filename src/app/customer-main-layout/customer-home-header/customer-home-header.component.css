@@ -76,3 +76,25 @@ li * :hover {
   color: #0b3af7da;
   transition: all 0.3s ease-in-out;
 }
+
+.moving-cursor {
+  animation: movingCursor 2s infinite alternate-reverse;
+}
+
+@keyframes movingCursor {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+.moving-cursor g:hover path {
+  stroke: #0b3af7da;
+  fill: #0b3af7da;
+}
+
+.moving-cursor:hover {
+  animation-play-state: paused;
+}
