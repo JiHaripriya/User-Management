@@ -85,6 +85,10 @@ input[type="number"]:focus,
   color: var(--font-color);
 }
 
+.modal-dialog {
+  max-width: 1000px !important;
+}
+
 /* TYPOS */
 
 @font-face {
