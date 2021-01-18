@@ -1,0 +1,102 @@
+.categories .carousel-control-next,
+.categories .carousel-control-prev {
+  width: 2% !important;
+}
+
+.categories .carousel-indicators {
+  bottom: -25px;
+}
+
+.carousel:focus {
+  outline: none !important;
+}
+
+.category-cards {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.category-cards img {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  transition: transform 2s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+.category-content {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s ease;
+}
+
+.category-cards:hover .category-content {
+  background-color: #0b3af794;
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.category-content:hover p {
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+.categories .carousel-control-next-icon,
+.categories .carousel-control-prev-icon {
+  height: 30px !important;
+  background-color: black;
+}
+
+.border-light {
+  border-color: #b1b1b162 !important;
+}
+
+.category-name {
+  color: #000000;
+  padding: 25px 0 0 25px;
+  font-weight: 900;
+  font-size: 26px;
+  margin-bottom: 0rem !important;
+}
+
+.shop-now .text {
+  position: absolute;
+  bottom: 23px;
+  padding-left: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  color: transparent;
+}
+
+.category-content:hover .shop-now .text {
+  color: #ffffff;
+  bottom: 45px;
+  transition-delay: 0.5s;
+  transition-duration: 1s;
+  transition-property: bottom, color;
+}
+
+hr {
+  border-top: 2px solid #ffffff !important;
+}
+
+.line {
+  position: absolute;
+  margin-left: 25px;
+  bottom: 22px;
+  width: 80px;
+  transform: scale(0.01);
+}
+
+.category-content:hover .shop-now .line {
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
