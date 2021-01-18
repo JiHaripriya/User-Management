@@ -1,5 +1,6 @@
 .home-page {
   background-color: white !important;
   color: #000000 !important;
-  height: 150vh;
+  height: 250vh;
+  overflow-x: hidden;
 }

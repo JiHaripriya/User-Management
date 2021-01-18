@@ -39,7 +39,8 @@ img:hover {
 }
 
 .category-cards:hover .category-content {
-  background-color: #0b3af794;
+  background: #0b3af794;
+  background-clip: padding-box;
   opacity: 0.75;
   cursor: pointer;
 }
@@ -69,7 +70,7 @@ img:hover {
 
 .shop-now .text {
   position: absolute;
-  bottom: 23px;
+  bottom: 30px;
   padding-left: 25px;
   font-size: 15px;
   font-weight: bold;
@@ -78,9 +79,9 @@ img:hover {
 
 .category-content:hover .shop-now .text {
   color: #ffffff;
-  bottom: 45px;
+  bottom: 40px;
   transition-delay: 0.5s;
-  transition-duration: 1s;
+  transition-duration: 0.5s;
   transition-property: bottom, color;
 }
 
@@ -99,4 +100,17 @@ hr {
 .category-content:hover .shop-now .line {
   transform: scale(1);
   transition: transform 0.5s ease;
+}
+
+.categories .carousel-control-next-icon:hover,
+.categories .carousel-control-prev-icon:hover {
+    background-color: #0b3af794;
+}
+
+.pl-5, .px-5 {
+  padding-left: 3.5rem !important;
+}
+
+.row {
+  margin-right: 0 !important;
 }
