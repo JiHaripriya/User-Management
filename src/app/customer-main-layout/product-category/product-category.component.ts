@@ -13,6 +13,11 @@ export class ProductCategoryComponent implements OnInit {
     (num) => `../../../assets/images/banner-${num}.jpg`
   );
 
+  featureList = ['01', '02', '03', '01'].map(
+    (num) => `../../../assets/images/banner-${num}.jpg`
+  );
+
+
   ngOnInit(): void {}
 
   gotToShop() {

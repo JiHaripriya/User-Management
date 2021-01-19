@@ -1,7 +1,80 @@
 .col-md-12 {
-    padding-right: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
 }
 
 .row {
-    margin-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+.banner-wrapper:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.btn,
+.btn .btn-primary {
+  background-color: #0b3af7da !important;
+  border-radius: 24px !important;
+  min-width: 160px;
+}
+
+.btn-primary:hover {
+  background-color: #000000 !important;
+  transition: background-color 0.3s ease;
+}
+
+.text {
+  color: #000000b9;
+  animation: runIn 1.5s;
+}
+
+@keyframes runIn {
+  0% {
+    transform: translateX(20%) skewX(-30deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-1%) skewX(30deg);
+    opacity: 0.4;
+  }
+  80% {
+    transform: translateX(0%) skewX(-10deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0%) skewX(0deg);
+    opacity: 1;
+  }
+}
+
+.shop-button {
+  animation: rotateIn 0.3s;
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: scale(0.1) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(0.3) rotate(90deg);
+    opacity: 0.2;
+  }
+  40% {
+    transform: scale(0.5) rotate(180deg);
+    opacity: 0.4;
+  }
+  60% {
+    transform: scale(0.7) rotate(270deg);
+    opacity: 0.6;
+  }
+  80% {
+    transform: scale(0.9) rotate(300deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+  }
 }

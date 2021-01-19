@@ -47,7 +47,12 @@
   outline: none;
   background-color: transparent;
   padding: 0.375rem 0 0 0.75rem;
+  width: 80%;
   border-bottom: 1px solid rgba(177, 177, 177, 0.568);
+}
+
+.expand-search-tab {
+  flex: 3;
 }
 
 .no-search-text {

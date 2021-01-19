@@ -1,30 +1,10 @@
-<div class="row">
+<div class="row m-3">
+  <!-- Category Listing -->
   <div
     class="d-flex flex-row flex-nowrap p-3 categories"
     style="max-width: 100%; overflow-x: hidden; margin: 0 auto"
   >
     <ngb-carousel [interval]="2500" style="padding: 25px">
-      <ng-template ngbSlide>
-        <div
-          class="d-flex flex-row flex-nowrap pl-4 pr-5"
-          style="justify-content: space-between; max-width: 100%"
-        >
-          <div
-            class="col-md-4 border border-light m-1 category-cards"
-            *ngFor="let img of images"
-            (click)="gotToShop()"
-          >
-            <img src="../../../assets/images/category.jpg" alt="" />
-            <div class="category-content">
-              <p class="category-name">CATEGORY</p>
-              <div class="shop-now">
-                <span class="text">SHOP NOW</span>
-                <hr class="line" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
       <ng-template ngbSlide>
         <div
           class="d-flex flex-row flex-nowrap pl-4 pr-5"

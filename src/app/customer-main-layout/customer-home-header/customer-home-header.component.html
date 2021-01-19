@@ -1,4 +1,4 @@
-<div class="bg-dark" style="height: 30px">
+<div class="bg-dark" style="height: 30px; z-index: 1500;">
   <div
     ngbDropdown
     class="d-flex justify-content-end"
@@ -74,7 +74,9 @@
           <span class="ml-3"> Contact </span>
         </a>
       </li>
-      <li class="nav-item p-2" *ngIf="title !== 'contact'">
+      <li class="nav-item p-2" *ngIf="title !== 'contact'"  [ngClass]="{
+        'expand-search-tab': expandSearch
+      }">
         <a class="nav-link" style="cursor: pointer">
           <span class="ml-3">
             <i
@@ -89,7 +91,7 @@
               placeholder="Search"
               class="ml-2"
               [ngClass]="{
-                search: expandSearch,
+                'search': expandSearch,
                 'no-search-text': !expandSearch
               }"
               #searchText
