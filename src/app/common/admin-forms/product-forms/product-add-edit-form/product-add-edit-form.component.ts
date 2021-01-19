@@ -65,6 +65,13 @@ export class ProductAddEditFormComponent implements OnInit {
         Validators.required,
         Validators.pattern('[1-9]+'),
       ]),
+      quantity: new FormControl(null, [
+        Validators.required,
+        Validators.pattern('[1-9]+'),
+      ]),
+      category: new FormControl(null, [
+        Validators.required
+      ]),
       image: new FormControl(null, [Validators.required])
     });
   }

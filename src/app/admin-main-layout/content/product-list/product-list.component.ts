@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
+import { ProductDetailsService } from 'src/app/shared/services/api/product-details.service';
 
 @Component({
   selector: 'app-product-list',
@@ -51,11 +52,18 @@ export class ProductListComponent implements OnInit {
     'imgsrc': 'product-09.jpg'
   }
   ];
+  productList: any;
+  loading = false
 
-
-  constructor(private formService: FormServiceService) { }
+  constructor(private formService: FormServiceService, private productListService: ProductDetailsService) { }
 
   ngOnInit(): void {
+    this.loading = true;
+    this.productListService.fetchProductList().subscribe((res) => {
+      this.productList = res;
+      console.log(res);
+      this.loading = false;
+    })
   }
 
   onAdd() {

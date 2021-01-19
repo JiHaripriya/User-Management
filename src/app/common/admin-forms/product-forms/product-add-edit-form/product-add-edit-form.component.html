@@ -15,40 +15,82 @@
     <div class="modal-body">
       <div class="form-group">
         <div class="row">
-          <label for="">Name</label>
-          <input type="text" formControlName="firstname" class="form-control" />
-        </div>
-        <div class="row">
-          <label for="">Description</label>
-          <input
-            type="textarea"
-            formControlName="description"
-            class="form-control"
-          />
-        </div>
-        <div class="row">
-          <label for="price">Price</label>
-          <input type="text" formControlName="price" class="form-control" />
-        </div>
+          <div class="col-6">
+            <div class="row">
+              <label for="">Name</label>
+              <input
+                type="text"
+                formControlName="firstname"
+                class="form-control"
+              />
+            </div>
 
-        <div class="row">
-          <input
-            style="display: none"
-            type="file"
-            (change)="onFileChanged($event)"
-            formControlName="image"
-            #fileInput
-          />
-          <button (click)="fileInput.click()">Select Product Image</button>
-        </div>
+            <div class="row">
+              <div class="col-6 p-0">
+                <label for="price">Price</label>
+                <input
+                  type="text"
+                  formControlName="price"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6 pr-1">
+                <label for="quantity">Quantity</label>
+                <input
+                  type="number"
+                  formControlName="quantity"
+                  class="form-control"
+                />
+              </div>
+            </div>
 
-        <div class="row">
-          <img
-            [src]="image"
-            *ngIf="image"
-            alt=""
-            style="height: 400px; width: 300px"
-          />
+            <div class="row">
+              <label for="category">Category</label>
+              <select
+                name="category"
+                formControlName="category"
+                class="form-control"
+              >
+                <option value="Category">Category</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="">Description</label>
+              <textarea
+                formControlName="description"
+                class="form-control"
+                rows="10"
+              ></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <input
+                style="display: none"
+                type="file"
+                (change)="onFileChanged($event)"
+                formControlName="image"
+                #fileInput
+              />
+              <button class="btn small" (click)="fileInput.click()">
+                Select Product Image
+              </button>
+            </div>
+            <div
+              *ngIf="!image"
+              style="
+                height: 300px;
+                background-color: rgba(245, 245, 245, 0.719);
+              "
+            ></div>
+            <img
+              [src]="image"
+              *ngIf="image"
+              alt=""
+              style="height: 400px; width: 300px"
+            />
+          </div>
         </div>
       </div>
     </div>

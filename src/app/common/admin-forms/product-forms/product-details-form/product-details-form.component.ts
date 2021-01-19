@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,8 @@ import { UserDetailsService } from 'src/app/shared/services/api/user-details.ser
 @Component({
   selector: 'app-product-details-form',
   templateUrl: './product-details-form.component.html',
-  styleUrls: ['./product-details-form.component.css']
+  styleUrls: ['./product-details-form.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductDetailsFormComponent implements OnInit {
 

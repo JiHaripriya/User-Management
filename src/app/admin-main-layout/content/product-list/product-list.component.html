@@ -1,3 +1,4 @@
+<app-loader *ngIf="loading"></app-loader>
 <div class="row justify-content-between mr-5 ml-5 mt-3 mb-4">
   <div>
     <h3>Product Details</h3>
@@ -19,16 +20,23 @@
     /></a>
   </div>
 </div>
+<div class="row mb-3" style="margin-left: 70px">
+  <img src="../../../../assets/icons/shopping-basket.png" (click)="onAdd()" />
+</div>
 
-<div class="row justify-content-lg-center" style="flex-wrap: wrap">
+<div
+  class="row justify-content-lg-center"
+  style="flex-wrap: wrap"
+  *ngIf="!loading"
+>
   <!-- Total number of users card shadow -->
   <div
-    *ngFor="let product of products | filter: searchItem"
+    *ngFor="let product of productList | filter: searchItem"
     style="margin: 0 20px"
   >
     <div class="card shadow-sm text-white bg-primary m-3" style="height: 24rem">
       <img
-        src="../../../../assets/images/{{ product.imgsrc }}"
+        src="../../../../assets/images/product-15.jpg"
         alt=""
         srcset=""
         class="product-img"

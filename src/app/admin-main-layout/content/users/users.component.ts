@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private formService: FormServiceService,
     private notifs: GeneralNotificationsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.route.snapshot.data['role'] === 'admin') {
