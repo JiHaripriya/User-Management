@@ -38,6 +38,8 @@ import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/
 import { CartComponent } from './customer-main-layout/cart/cart.component';
 import { ShopComponent } from './customer-main-layout/shop/shop.component';
 import { ProductCategoryComponent } from './customer-main-layout/product-category/product-category.component';
+import { FilterComponent } from './customer-main-layout/filter/filter.component';
+import { SortComponent } from './customer-main-layout/sort/sort.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { ProductCategoryComponent } from './customer-main-layout/product-categor
     ProductDetailsFormComponent,
     CartComponent,
     ShopComponent,
-    ProductCategoryComponent
+    ProductCategoryComponent,
+    FilterComponent,
+    SortComponent
   ],
   imports: [
     BrowserModule,

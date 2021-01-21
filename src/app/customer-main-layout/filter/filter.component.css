@@ -1,0 +1,15 @@
+.rotate-arrow {
+  transform: rotate(90deg);
+  transition: transform 0.4s linear;
+  top: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+i:hover,
+.category-name:hover,
+.subcategory-name:hover {
+  color: #335af4da;
+}

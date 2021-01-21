@@ -74,37 +74,6 @@
           <span class="ml-3"> Contact </span>
         </a>
       </li>
-      <li class="nav-item p-2" *ngIf="title !== 'contact'"  [ngClass]="{
-        'expand-search-tab': expandSearch
-      }">
-        <a class="nav-link" style="cursor: pointer">
-          <span class="ml-3">
-            <i
-              class="fa fa-search fa-lg"
-              aria-hidden="true"
-              (click)="onSearch()"
-            ></i>
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Search"
-              class="ml-2"
-              [ngClass]="{
-                'search': expandSearch,
-                'no-search-text': !expandSearch
-              }"
-              #searchText
-            />
-            <i
-              class="fa fa-times"
-              aria-hidden="true"
-              [ngClass]="{ close: expandSearch, 'close-none': !expandSearch }"
-              (click)="clearSearch()"
-            ></i>
-          </span>
-        </a>
-      </li>
       <li class="nav-item p-2" *ngIf="title !== 'contact'">
         <a class="nav-link" style="cursor: pointer">
           <span class="ml-3">

@@ -1,0 +1,12 @@
+select,
+option {
+  color: #000000;
+  padding: 10px;
+  font-weight: 200 !important;
+  border: 1px solid #8f9da89a !important;
+  border-radius: 6px;
+}
+
+select:focus {
+  outline: none;
+}

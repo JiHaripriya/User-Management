@@ -1,0 +1,29 @@
+<div class="mt-3">
+  <div
+    class="d-flex ml-3 category-name"
+    style="
+      font-size: 0.9rem;
+      cursor: pointer;
+      justify-content: space-between;
+      align-items: center;
+    "
+    (click)="collapse.toggle()"
+  >
+    {{ "Category" | uppercase }}
+    <i
+      class="fa fa-plus"
+      aria-hidden="true"
+      [ngClass]="{ hide: !isCollapsed }"
+    ></i>
+    <i
+      class="fa fa-minus"
+      aria-hidden="true"
+      [ngClass]="{ hide: isCollapsed }"
+    ></i>
+  </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="ml-2 mt-2">
+    <div class="ml-3 mb-2 subcategory-name" style="font-size: 0.9rem; cursor: pointer">
+      {{ "Sub Category" | titlecase }}
+    </div>
+  </div>
+</div>

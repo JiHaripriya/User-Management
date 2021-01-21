@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 
 @Component({
@@ -53,9 +54,12 @@ export class ProductListComponent implements OnInit {
   ];
 
 
-  constructor(private formService: FormServiceService) { }
+  constructor(private formService: FormServiceService, private router: Router) { }
+
+  page = "";
 
   ngOnInit(): void {
+    this.page = this.router.url.split("/").pop();   
   }
 
   onAdd() {
