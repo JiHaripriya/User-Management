@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,7 +9,10 @@ import { take, map } from 'rxjs/operators';
 export class ProductServicesService {
 
   baseUrl = 'http://user-dashboard.qburst.build:3002';
-  imageUrlPrefix = "http://user-dashboard.qburst.build/user_dashboard/"
+  imageUrlPrefix = "http://user-dashboard.qburst.build/user_dashboard/";
+  listViewSelected = new Subject<boolean>();
+  collapselistView = new Subject<boolean>();
+  
   constructor(private http: HttpClient) { }
 
   getAllProducts() {

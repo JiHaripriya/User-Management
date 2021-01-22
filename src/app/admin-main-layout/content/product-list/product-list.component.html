@@ -36,15 +36,16 @@
       'mr-4': page === 'shop',
       'shadow-sm': page === 'shop',
       shadow: page !== 'shop',
-      'bg-success': page !== 'shop'
+      'bg-success': page !== 'shop',
+      'list-view': listView
     }"
   >
     <div
       class="card text-white"
       [ngClass]="{
-        'card-height-20': page !== 'shop',
+        'card-height-24': page !== 'shop',
         'm-3': page !== 'shop',
-        'card-height-18': page === 'shop',
+        'card-height-20': page === 'shop',
         'm-2': page === 'shop'
       }"
     >
@@ -105,16 +106,16 @@
       </div>
     </div>
     <div
-      class="row"
-      style="
-        margin: 10px;
-        text-align: center;
-        flex-direction: column;
-        cursor: pointer;
-      "
+      [ngClass]="{
+        'name-price-section-list-view': listView,
+        'row': !listView,
+        'name-price-section': !listView
+      }"
     >
-      <p style="margin-bottom: 0 !important">{{ product.name }}</p>
+      <p style="margin-bottom: 0 !important" class="product-name">{{ product.name }}</p>
       <p style="color: rgb(173, 173, 3)">$ {{ product.price }}</p>
+      <p *ngIf="listView">{{ product.description }}</p>
+      <p *ngIf="listView">In Stock: {{ product.quantity }}</p>
     </div>
   </div>
 </div>

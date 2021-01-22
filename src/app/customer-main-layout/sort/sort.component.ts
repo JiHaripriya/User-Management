@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
   selector: 'app-sort',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SortComponent implements OnInit {
 
-  constructor() { }
+  constructor(private productServices: ProductServicesService) { }
 
   ngOnInit(): void {
+  }
+
+  onListView(){
+    this.productServices.listViewSelected.next(true);
+  }
+
+  onGridView(){
+    this.productServices.collapselistView.next(true);
   }
 
 }
