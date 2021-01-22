@@ -13,3 +13,16 @@ i:hover,
 .subcategory-name:hover {
   color: #335af4da;
 }
+
+.subcategories {
+  animation: slideIn 0.3s ease-in;
+}
+
+@keyframes slideIn {
+  0% {
+    top: -3px;
+  }
+  100% {
+    top: 0px;
+  }
+}

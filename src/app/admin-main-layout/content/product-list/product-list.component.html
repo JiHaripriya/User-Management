@@ -3,7 +3,11 @@
   <div *ngIf="page !== 'shop'">
     <h3>Product Details</h3>
   </div>
-  <div class="row search-bar" style="align-items: center;" [ngClass]="{'search-bar-position': page === 'shop'}">
+  <div
+    class="row search-bar"
+    style="align-items: center"
+    [ngClass]="{ 'search-bar-position': page === 'shop' }"
+  >
     <input
       class="search-input"
       type="text"
@@ -17,20 +21,39 @@
   </div>
 </div>
 
-<div class="row justify-content-lg-even" style="flex-wrap: wrap" [ngClass]="{'mt-5': page === 'shop', 'ml-4': page !== 'shop'}">
+<div
+  class="row justify-content-lg-even"
+  style="flex-wrap: wrap"
+  [ngClass]="{ 'mt-5': page === 'shop', 'ml-4': page !== 'shop' }"
+>
   <!-- Total number of users card shadow -->
   <div
     *ngFor="let product of products.reverse() | filter: searchItem"
     class="card-holder"
-    [ngClass]="{'m-4': page !== 'shop', 'm-2': page === 'shop', 'mr-4': page === 'shop', 'shadow-sm': page === 'shop', 'shadow': page !== 'shop', 'bg-success':page !== 'shop'}"
+    [ngClass]="{
+      'm-4': page !== 'shop',
+      'm-2': page === 'shop',
+      'mr-4': page === 'shop',
+      'shadow-sm': page === 'shop',
+      shadow: page !== 'shop',
+      'bg-success': page !== 'shop'
+    }"
   >
-    <div class="card text-white" [ngClass]="{'card-height-20': page !== 'shop', 'm-3': page !== 'shop', 'card-height-18': page === 'shop', 'm-2': page === 'shop'}">
+    <div
+      class="card text-white"
+      [ngClass]="{
+        'card-height-20': page !== 'shop',
+        'm-3': page !== 'shop',
+        'card-height-18': page === 'shop',
+        'm-2': page === 'shop'
+      }"
+    >
       <img
         src="../../../../assets/images/{{ product.imgsrc }}"
         alt=""
         srcset=""
         class="product-img"
-        style="height: inherit;"
+        style="height: inherit"
       />
       <div class="action_links" style="border-radius: 0 5px">
         <ul>
@@ -68,9 +91,14 @@
     </div>
     <div
       class="row"
-      style="margin: 10px; text-align: center; flex-direction: column; cursor: pointer;"
+      style="
+        margin: 10px;
+        text-align: center;
+        flex-direction: column;
+        cursor: pointer;
+      "
     >
-      <p style="margin-bottom: 0 !important;">{{ product.name }}</p>
+      <p style="margin-bottom: 0 !important">{{ product.name }}</p>
       <p style="color: rgb(173, 173, 3)">$ {{ product.price }}</p>
     </div>
   </div>

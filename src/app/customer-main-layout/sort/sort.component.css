@@ -5,6 +5,8 @@ option {
   font-weight: 200 !important;
   border: 1px solid #8f9da89a !important;
   border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
 }
 
 select:focus {

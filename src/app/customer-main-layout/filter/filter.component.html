@@ -1,29 +1,45 @@
 <div class="mt-3">
+  <h6 style="font-weight: bold" class="border-bottom border-secondary pb-2">
+    FILTER BY CATEGORY
+  </h6>
   <div
-    class="d-flex ml-3 category-name"
+    class="col-md-12 pb-2 pt-2"
     style="
       font-size: 0.9rem;
       cursor: pointer;
-      justify-content: space-between;
-      align-items: center;
+      flex-wrap: wrap;
+      background-color: #ffffff;
     "
-    (click)="collapse.toggle()"
+    *ngFor="let category of categoryList"
   >
-    {{ "Category" | uppercase }}
-    <i
-      class="fa fa-plus"
-      aria-hidden="true"
-      [ngClass]="{ hide: !isCollapsed }"
-    ></i>
-    <i
-      class="fa fa-minus"
-      aria-hidden="true"
-      [ngClass]="{ hide: isCollapsed }"
-    ></i>
-  </div>
-  <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="ml-2 mt-2">
-    <div class="ml-3 mb-2 subcategory-name" style="font-size: 0.9rem; cursor: pointer">
-      {{ "Sub Category" | titlecase }}
+    <div
+      class="row category-name"
+      style="justify-content: space-between; align-items: center"
+      (click)="chooseCategory(category.id)"
+    >
+      {{ category.name | uppercase }}
+      <i class="fa fa-plus" *ngIf="category.isCollapsed"></i>
+      <i class="fa fa-minus" *ngIf="!category.isCollapsed"></i>
+    </div>
+    <div class="col-md-12 subcategories" *ngIf="!category.isCollapsed">
+      <div
+        class="mt-2"
+        *ngFor="let subCategory of category.Subcategories"
+        (click)="chooseSubcategory(subCategory.id, subCategory.category_id)"
+      >
+        <div
+          class="mb-2 subcategory-name"
+          style="font-size: 0.9rem; cursor: pointer"
+        >
+          {{ subCategory.name | titlecase }}
+        </div>
+      </div>
     </div>
   </div>
+</div>
+
+<div class="mt-3">
+  <h6 style="font-weight: bold" class="border-bottom border-secondary pb-2">
+    FILTER BY PRICE
+  </h6>
 </div>
