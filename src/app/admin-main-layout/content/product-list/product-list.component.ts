@@ -1,65 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
+import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-
   searchItem;
-
-  products = [{
-    'name': 'Watch',
-    'price': '200',
-    'imgsrc': 'product-06.jpg'
-  },
-  {
-    'name': 'Shoe',
-    'price': '400',
-    'imgsrc': 'product-09.jpg'
-  },
-  {
-    'name': 'Dress',
-    'price': '300',
-    'imgsrc': 'product-12.jpg'
-  },
-  {
-    'name': 'Watch',
-    'price': '300',
-    'imgsrc': 'product-15.jpg'
-  },
-  {
-    'name': 'Watch',
-    'price': '300',
-    'imgsrc': 'product-15.jpg'
-  },
-  {
-    'name': 'Dress',
-    'price': '300',
-    'imgsrc': 'product-12.jpg'
-  },
-  {
-    'name': 'Watch',
-    'price': '200',
-    'imgsrc': 'product-06.jpg'
-  },
-  {
-    'name': 'Shoe',
-    'price': '400',
-    'imgsrc': 'product-09.jpg'
+  products;
+  
+  constructor(
+    private formService: FormServiceService,
+    private router: Router,
+    private productServices: ProductServicesService
+  ) {
+    this.productServices
+      .getAllProducts()
+      .subscribe((data) => this.products = data);
   }
-  ];
 
-
-  constructor(private formService: FormServiceService, private router: Router) { }
-
-  page = "";
+  page = '';
 
   ngOnInit(): void {
-    this.page = this.router.url.split("/").pop();   
+    this.page = this.router.url.split('/').pop();
   }
 
   onAdd() {

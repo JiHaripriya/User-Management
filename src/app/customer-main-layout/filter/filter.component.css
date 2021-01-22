@@ -60,3 +60,7 @@ i:hover,
 ::ng-deep .ngx-slider .ngx-slider-selection {
   background-color: #335af4da !important;
 }
+
+.highlight{
+  border-bottom: 1px solid #335af4da;
+}

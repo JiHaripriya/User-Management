@@ -1,7 +1,7 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProductCategoryService } from 'src/app/shared/services/api/product-category.service';
+import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 
 @Component({
   selector: 'app-filter',
@@ -20,8 +20,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     step: 4000,
   };
 
-  constructor(private productServices: ProductCategoryService) {
-    console.log('Constructor called')
+  constructor(private productServices: CategoryServices) {
     this.subscription = this.productServices.getAllCategories().subscribe((data) => {
         this.categoryList = data.map((eachCategory) =>
           Object.assign({}, eachCategory, { isCollapsed: true })
@@ -30,7 +29,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('Ngoninit called')
     if (JSON.parse(localStorage.getItem('categoryData'))?.length > 0) {
       this.categoryList = JSON.parse(localStorage.getItem('categoryData'));
       localStorage.removeItem('categoryData');

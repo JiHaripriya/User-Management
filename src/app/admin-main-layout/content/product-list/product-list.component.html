@@ -28,14 +28,14 @@
 >
   <!-- Total number of users card shadow -->
   <div
-    *ngFor="let product of products.reverse() | filter: searchItem"
+    *ngFor="let product of products | filter: searchItem"
     class="card-holder"
     [ngClass]="{
       'm-4': page !== 'shop',
       'm-2': page === 'shop',
       'mr-4': page === 'shop',
       'shadow-sm': page === 'shop',
-      'shadow': page !== 'shop',
+      shadow: page !== 'shop',
       'bg-success': page !== 'shop'
     }"
   >
@@ -49,7 +49,7 @@
       }"
     >
       <img
-        src="../../../../assets/images/{{ product.imgsrc }}"
+        [src]="product.image"
         alt=""
         srcset=""
         class="product-img"
@@ -64,6 +64,8 @@
                 alt=""
                 srcset=""
                 style="height: 17px"
+                placement="top"
+                ngbTooltip="Delete"
             /></a>
           </li>
           <li *ngIf="page !== 'shop'">
@@ -74,6 +76,8 @@
                 alt=""
                 srcset=""
                 style="height: 17px"
+                placement="top"
+                ngbTooltip="Edit"
             /></a>
           </li>
           <li *ngIf="page !== 'shop'">
@@ -84,7 +88,18 @@
                 alt=""
                 srcset=""
                 style="height: 17px"
+                placement="top"
+                ngbTooltip="View"
             /></a>
+          </li>
+          <li *ngIf="page === 'shop'">
+            <a placement="top" ngbTooltip="Cart">
+              <i
+                class="fa fa-shopping-cart fa-lg"
+                aria-hidden="true"
+                style="height: 17px; color: black"
+              ></i
+            ></a>
           </li>
         </ul>
       </div>
