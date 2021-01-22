@@ -40,6 +40,7 @@ import { ShopComponent } from './customer-main-layout/shop/shop.component';
 import { ProductCategoryComponent } from './customer-main-layout/product-category/product-category.component';
 import { FilterComponent } from './customer-main-layout/filter/filter.component';
 import { SortComponent } from './customer-main-layout/sort/sort.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { SortComponent } from './customer-main-layout/sort/sort.component';
     NgbModule,
     CommonModule,
     BrowserAnimationsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxSliderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],

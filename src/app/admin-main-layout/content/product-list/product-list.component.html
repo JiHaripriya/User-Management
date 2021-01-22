@@ -24,7 +24,7 @@
 <div
   class="row justify-content-lg-even"
   style="flex-wrap: wrap"
-  [ngClass]="{ 'mt-5': page === 'shop', 'ml-4': page !== 'shop' }"
+  [ngClass]="{ 'mt-5': page === 'shop', 'ml-2': page === 'shop' }"
 >
   <!-- Total number of users card shadow -->
   <div
@@ -35,7 +35,7 @@
       'm-2': page === 'shop',
       'mr-4': page === 'shop',
       'shadow-sm': page === 'shop',
-      shadow: page !== 'shop',
+      'shadow': page !== 'shop',
       'bg-success': page !== 'shop'
     }"
   >

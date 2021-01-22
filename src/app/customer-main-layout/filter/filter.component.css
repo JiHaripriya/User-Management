@@ -26,3 +26,37 @@ i:hover,
     top: 0px;
   }
 }
+
+::ng-deep .ngx-slider .ngx-slider-pointer {
+  cursor: pointer;
+  width: 22px !important;
+  height: 22px !important;
+  top: -14px;
+  background-color: #335af4da !important;
+}
+
+
+::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-pointer-min,
+::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-pointer-max {
+  top: -9px;
+}
+
+::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-active,
+::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-active:focus {
+  outline: none !important;
+}
+
+::ng-deep .ngx-slider .ngx-slider-pointer:after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  top: 8px !important;
+  left: 7px !important;
+  border-radius: 4px;
+  background: #fff;
+}
+
+::ng-deep .ngx-slider .ngx-slider-selection {
+  background-color: #335af4da !important;
+}

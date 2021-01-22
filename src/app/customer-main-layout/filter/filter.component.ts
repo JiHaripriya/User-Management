@@ -1,3 +1,4 @@
+import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -50,11 +51,21 @@ export class FilterComponent implements OnInit {
     Object.assign({}, eachCategory, { isCollapsed: true })
   );
 
+  value: number = 1000;
+  highValue: number = 6000;
+  options: Options = {
+    floor: 0,
+    ceil: 40000,
+    step: 4000
+  };
+
   constructor() {}
 
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('categoryData'))?.length > 0)
+    if (JSON.parse(localStorage.getItem('categoryData'))?.length > 0){
       this.categoryList = JSON.parse(localStorage.getItem('categoryData'));
+      localStorage.removeItem('categoryData');
+    }
   }
 
   chooseSubcategory(subId: Number, catId: Number) {
