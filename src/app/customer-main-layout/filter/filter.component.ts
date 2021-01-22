@@ -1,68 +1,37 @@
 import { Options } from '@angular-slider/ngx-slider';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ProductCategoryService } from 'src/app/shared/services/api/product-category.service';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css'],
 })
-export class FilterComponent implements OnInit {
-  categories = [
-    {
-      id: 1,
-      name: 'clothing',
-      createdAt: '2021-01-15T06:45:21.000Z',
-      updatedAt: '2021-01-15T06:45:21.000Z',
-      Subcategories: [
-        {
-          id: 1,
-          name: 'Tshirts',
-          category_id: 1,
-          createdAt: '2021-01-15T06:45:21.000Z',
-          updatedAt: '2021-01-15T06:45:21.000Z',
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'footwear',
-      createdAt: '2021-01-15T06:51:55.000Z',
-      updatedAt: '2021-01-15T06:51:55.000Z',
-      Subcategories: [
-        {
-          id: 2,
-          name: 'casual',
-          category_id: 3,
-          createdAt: '2021-01-15T06:52:23.000Z',
-          updatedAt: '2021-01-15T06:52:23.000Z',
-        },
-        {
-          id: 3,
-          name: 'formals',
-          category_id: 3,
-          createdAt: '2021-01-15T06:52:23.000Z',
-          updatedAt: '2021-01-15T06:52:23.000Z',
-        },
-      ],
-    },
-  ];
-
-  categoryList = this.categories.map((eachCategory) =>
-    Object.assign({}, eachCategory, { isCollapsed: true })
-  );
+export class FilterComponent implements OnInit, OnDestroy {
+  categoryList;
+  subscription: Subscription;
 
   value: number = 1000;
   highValue: number = 6000;
   options: Options = {
     floor: 0,
     ceil: 40000,
-    step: 4000
+    step: 4000,
   };
 
-  constructor() {}
+  constructor(private productServices: ProductCategoryService) {
+    console.log('Constructor called')
+    this.subscription = this.productServices.getAllCategories().subscribe((data) => {
+        this.categoryList = data.map((eachCategory) =>
+          Object.assign({}, eachCategory, { isCollapsed: true })
+        );
+    });
+  }
 
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('categoryData'))?.length > 0){
+    console.log('Ngoninit called')
+    if (JSON.parse(localStorage.getItem('categoryData'))?.length > 0) {
       this.categoryList = JSON.parse(localStorage.getItem('categoryData'));
       localStorage.removeItem('categoryData');
     }
@@ -87,8 +56,12 @@ export class FilterComponent implements OnInit {
         return Object.assign({}, eachCategory, { isCollapsed: true });
       return eachCategory;
     });
-  
+
     localStorage.setItem('categoryData', JSON.stringify(this.categoryList));
     this.ngOnInit();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
