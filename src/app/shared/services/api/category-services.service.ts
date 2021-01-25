@@ -17,4 +17,32 @@ export class CategoryServices {
       })
     );
   }
+
+  getCategoryMapping() {
+    return this.http.get(`${this.baseUrl}/subcategory`).pipe(
+      take(1),
+      map((responseData: { [index: string]: any }) => {
+        return responseData.data.map((data) => {
+          return { category_id: data.id, name: data.name };
+        });
+      })
+    );
+  }
+
+  getSubcategoryMapping() {
+    return this.http.get(`${this.baseUrl}/subcategory`).pipe(
+      take(1),
+      map((responseData: { [index: string]: any }) => {
+        let subMap = [];
+        responseData.data
+          .map((data) => data.Subcategories)
+          .filter((data) => data.length > 0)
+          .map((data) => {
+            for (let eachData of data)
+              subMap.push({ id: eachData.id, name: eachData.name });
+          });
+        return subMap;
+      })
+    );
+  }
 }

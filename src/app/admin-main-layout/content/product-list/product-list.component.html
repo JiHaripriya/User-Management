@@ -108,14 +108,30 @@
     <div
       [ngClass]="{
         'name-price-section-list-view': listView,
-        'row': !listView,
+        row: !listView,
         'name-price-section': !listView
       }"
     >
-      <p style="margin-bottom: 0 !important" class="product-name">{{ product.name }}</p>
-      <p style="color: rgb(173, 173, 3)">$ {{ product.price }}</p>
+      <p style="margin-bottom: 0 !important" class="product-name">
+        {{ product.name }}
+      </p>
+      <p style="color: rgb(173, 173, 3)">Rs. {{ product.price }}</p>
       <p *ngIf="listView">{{ product.description }}</p>
       <p *ngIf="listView">In Stock: {{ product.quantity }}</p>
+      <p *ngIf="listView" style="cursor: pointer;">
+        Tags:
+        <span
+          class="p-2 text-light mr-2"
+          style="background-color: #335af4da; border-radius: 24px; font-size: medium;"
+          ><i>{{ product.category_name | titlecase }}</i></span
+        >
+        <span
+          class="p-2 text-light"
+          style="background-color: #335af4da; border-radius: 24px; font-size: medium;"
+        >
+          <i>{{ product.subcategory_name | titlecase }}</i></span
+        >
+      </p>
     </div>
   </div>
 </div>

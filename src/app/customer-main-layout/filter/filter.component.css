@@ -9,7 +9,7 @@
 }
 
 i:hover,
-.category-name:hover,
+.filter-category-name:hover,
 .subcategory-name:hover {
   color: #335af4da;
 }

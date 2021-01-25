@@ -69,6 +69,7 @@ h3 {
 
 .product-img {
   height: inherit;
+  width: inherit;
   transition: transform 0.5s;
 }
 
@@ -122,11 +123,13 @@ h3 {
 
 .card-height-24 {
   height: 24rem;
+  width: 20rem;
   transition: all 0.5s ease;
 }
 
 .card-height-20 {
   height: 20rem;
+  width: 17rem;
   transition: all 0.5s ease;
 }
 

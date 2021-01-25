@@ -41,6 +41,7 @@ import { ProductCategoryComponent } from './customer-main-layout/product-categor
 import { FilterComponent } from './customer-main-layout/filter/filter.component';
 import { SortComponent } from './customer-main-layout/sort/sort.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NoResultsComponent } from './common/no-results/no-results.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     ShopComponent,
     ProductCategoryComponent,
     FilterComponent,
-    SortComponent
+    SortComponent,
+    NoResultsComponent
   ],
   imports: [
     BrowserModule,
