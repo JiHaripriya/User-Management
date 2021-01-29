@@ -4,12 +4,13 @@ import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
+import { CartService } from 'src/app/shared/services/customer/cart.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   searchItem;
@@ -26,10 +27,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private formService: FormServiceService,
     private router: Router,
     private productServices: ProductServicesService,
-    private categoryServices: CategoryServices
+    private categoryServices: CategoryServices,
+    private cartServices: CartService
   ) {
     this.productServices.getAllProducts().subscribe((data) => {
-      this.products = data;   
+      this.products = data;
       this.mappingFunction(this.products);
     });
   }
@@ -41,17 +43,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subcategoryMapping = await this.categoryServices
       .getSubcategoryMapping()
       .toPromise();
-    products = products.map((product) =>{
+    products = products.map((product) => {
       Object.assign(product, {
         category_name: this.categoryMapping.filter(
           (data) => data.category_id === product.category_id
         )[0]?.name,
         subcategory_name: this.subcategoryMapping.filter(
           (data) => data.id === product.subcategory_id
-        )[0]?.name
-      })
+        )[0]?.name,
+      });
     });
-    
   }
 
   page = '';
@@ -84,16 +85,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   paginationUpperLimit() {
-    return this.pageNum * this.pageSize
+    return this.pageNum * this.pageSize;
   }
 
   paginationLowerLimit() {
-    return (this.pageNum - 1) * this.pageSize
+    return (this.pageNum - 1) * this.pageSize;
   }
-  
 
   scrollToTop() {
-    console.log(this.pageNum)
-    this.page === 'shop' ? window.scrollTo(0, 250):  window.scrollTo(0, 0)
+    console.log(this.pageNum);
+    this.page === 'shop' ? window.scrollTo(0, 250) : window.scrollTo(0, 0);
+  }
+
+  addToCart(item: any) {
+    this.cartServices.addCartItem(
+      Object.assign({}, { productName: item.name, productQuantity: 1 })
+    );
   }
 }

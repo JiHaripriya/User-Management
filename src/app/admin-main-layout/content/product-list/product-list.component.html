@@ -95,7 +95,7 @@
             /></a>
           </li>
           <li *ngIf="page === 'shop'">
-            <a placement="top" ngbTooltip="Cart">
+            <a placement="top" ngbTooltip="Cart" (click)="addToCart(product)">
               <i
                 class="fa fa-shopping-cart fa-lg p-icon"
                 aria-hidden="true"

@@ -7,7 +7,7 @@
 
 ::ng-deep .modal .modal-content {
   position: fixed !important;
-  width: 26% !important;
+  width: 30% !important;
   border: none !important;
   border-radius: 0 !important;
   background-color: #ffffff !important;
@@ -52,4 +52,19 @@ img:hover {
   background-color: #0b3af7da !important;
   border-color: #0b3af7da !important;
   transition: background-color 0.3s ease-in-out;
+}
+
+.row {
+  flex-wrap: nowrap !important;
+}
+
+input[type="number"]{
+  color: #000000 !important;
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 25%;
+}
+
+input[type="number"]:focus {
+  outline: none;
 }
