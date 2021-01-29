@@ -23,7 +23,7 @@
 
 <div
   class="row justify-content-lg-even"
-  style="flex-wrap: wrap"
+  style="flex-wrap: wrap; min-height: inherit"
   [ngClass]="{ 'mt-5': page === 'shop', 'ml-2': page === 'shop' }"
 >
   <!-- Total number of users card shadow -->
@@ -52,10 +52,11 @@
         'm-3': page !== 'shop',
         'card-height-20': page === 'shop',
         'width-50': page === 'shop' && listView,
-        'm-2': page === 'shop'
+        'm-2': page === 'shop',
+        'pad-25': listView
       }"
     >
-      <img [src]="product.image" alt="" srcset="" class="product-img"  [ngClass]="{'pad-25': listView}"/>
+      <img [src]="product.image" alt="" srcset="" class="product-img"/>
       <div class="action_links" style="border-radius: 0 5px">
         <ul>
           <li *ngIf="page !== 'shop'">
@@ -113,7 +114,7 @@
       }"
     >
       <p style="margin-bottom: 0 !important" class="product-name p-1">
-        {{ !listView? product.name.slice(0, 46)+"...": product.name }}
+        {{ !listView? product.name.length > 56 ? product.name.slice(0, 56)+"...": product.name.slice(0, 56) : product.name }}
       </p>
       <p style="color: rgb(173, 173, 3)" class="p-1">₹{{ product.price }}</p>
       <p [hidden]="!listView" class="p-1">{{ product.description }}</p>
