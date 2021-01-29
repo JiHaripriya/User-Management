@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
@@ -10,6 +9,7 @@ import { ProductServicesService } from 'src/app/shared/services/api/product-serv
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   searchItem;
@@ -19,6 +19,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   gridSubscription: Subscription;
   categoryMapping;
   subcategoryMapping;
+  pageNum = 1;
+  pageSize = 9;
 
   constructor(
     private formService: FormServiceService,
@@ -27,7 +29,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private categoryServices: CategoryServices
   ) {
     this.productServices.getAllProducts().subscribe((data) => {
-      this.products = data;
+      this.products = data;   
       this.mappingFunction(this.products);
     });
   }
@@ -39,17 +41,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.subcategoryMapping = await this.categoryServices
       .getSubcategoryMapping()
       .toPromise();
-    products = products.map((product) =>
+    products = products.map((product) =>{
       Object.assign(product, {
         category_name: this.categoryMapping.filter(
           (data) => data.category_id === product.category_id
-        )[0].name,
+        )[0]?.name,
         subcategory_name: this.subcategoryMapping.filter(
           (data) => data.id === product.subcategory_id
-        )[0].name,
+        )[0]?.name
       })
-    );
-    console.log(products);
+    });
+    
   }
 
   page = '';
@@ -79,5 +81,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.listSubscription.unsubscribe();
     this.gridSubscription.unsubscribe();
+  }
+
+  paginationUpperLimit() {
+    return this.pageNum * this.pageSize
+  }
+
+  paginationLowerLimit() {
+    return (this.pageNum - 1) * this.pageSize
+  }
+  
+
+  scrollToTop() {
+    console.log(this.pageNum)
+    this.page === 'shop' ? window.scrollTo(0, 250):  window.scrollTo(0, 0)
   }
 }

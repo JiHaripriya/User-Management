@@ -16,14 +16,28 @@ export class ProductServicesService {
   constructor(private http: HttpClient) { }
 
   getAllProducts() {
-    return this.http.get(`${this.baseUrl}/product`).pipe(
+    return this.http.get(`${this.baseUrl}/product?page=1&range=100`).pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
-        responseData.data = responseData.data.map(
+        responseData.data.rows = responseData.data.rows.map(
           eachData => Object.assign(eachData, {image: this.imageUrlPrefix + eachData.image})
         )
-        return responseData.data;
+        return responseData.data.rows;
       })
     );
   }
+
+  // this.getTotalProductCount().subscribe(totalProductCount => {
+  //   this.http.get(`${this.baseUrl}/product?page=1&range=${totalProductCount}`).pipe(
+  //   take(1),
+  //   map((responseData: { [index: string]: any }) => {
+  //     responseData.data.rows = responseData.data.rows.map(
+  //       eachData => Object.assign(eachData, {image: this.imageUrlPrefix + eachData.image})
+  //     )
+  //     return responseData.data.rows;
+  //   })
+  //   ).subscribe(data =>{
+  //     console.log(data)
+  //   })
+  // })
 }

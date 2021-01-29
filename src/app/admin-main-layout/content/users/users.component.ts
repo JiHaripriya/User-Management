@@ -48,8 +48,8 @@ export class UsersComponent implements OnInit, OnDestroy {
               (user) =>
                 user.email !==
                 JSON.parse(localStorage.getItem('userData')).email
-            )
-            .reverse();
+            );
+            // .reverse();
           this.loading = false;
         });
     } else this.notifs.contactAdminNotification('Access Forbidden');
