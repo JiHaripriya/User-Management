@@ -41,6 +41,7 @@
               {{ item.price * item.ProductsCarts.product_quantity }}
             </div>
           </div>
+          <span><i class="fa fa-times remove" aria-hidden="true" style="cursor: pointer;" (click)="removeItem(item.id)"></i></span>
         </li>
       </ul>
     </div>

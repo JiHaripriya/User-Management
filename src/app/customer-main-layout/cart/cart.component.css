@@ -44,7 +44,7 @@ img {
 }
 
 img:hover {
-  transform: scale(1.2);
+  transform: scale(1.06);
 }
 
 .btn-primary:hover {
@@ -67,4 +67,8 @@ input[type="number"]{
 
 input[type="number"]:focus {
   outline: none;
+}
+
+.remove:hover {
+  color: #0b3af7da;
 }

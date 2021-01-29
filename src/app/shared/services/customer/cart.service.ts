@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { UserDetailsService } from '../api/user-details.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,10 @@ export class CartService {
 
   baseUrl = "http://user-dashboard.qburst.build:3002/cart";
   imageUrlPrefix = "http://user-dashboard.qburst.build/user_dashboard/";
+
+  cartItems= new Subject<Number>();
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private reload: UserDetailsService) { }
 
   getCartItems() {
     return this.http.get(this.baseUrl).pipe(
@@ -24,15 +28,13 @@ export class CartService {
   }
 
   addCartItem(productDetails){
-    this.http.post(`${this.baseUrl}/add`, productDetails).subscribe(res => console.log('Item added'))
+    this.http.post(`${this.baseUrl}/add`, productDetails).subscribe((res:any) => res.success === 201 ? this.reload.reloadComponent.next(true): console.log(res))
   }
 
-  editCartItem() {
+  removeCartItem(id:number) {
+    console.log(id)
+    this.http.delete(`${this.baseUrl}/${id}`).subscribe((res:any) => res.success === 200 ? this.reload.reloadComponent.next(true): console.log(res))
     
-  }
-
-  removeCartItem() {
-
   }
 
 }
