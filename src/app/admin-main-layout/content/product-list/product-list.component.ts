@@ -99,7 +99,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.priceFilterSubscription = this.productServices.priceFilter.subscribe(
       (limits) => {
         (this.minPrice = limits.minPrice), (this.maxPrice = limits.maxPrice);
-        const url = this.router.url;
         this.productsSubscription = this.productServices
           .getAllProducts()
           .subscribe((data) => {
@@ -109,23 +108,43 @@ export class ProductListComponent implements OnInit, OnDestroy {
             if (this.router.url.includes('category=')) {
               // Subcategory already selected
               if (this.router.url.includes('subcategory=')) {
-                const category = url
-                  .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
-                  .split('=')
-                  .pop();
-                const subcategory = url
-                  .slice(url.indexOf('&subcategory'))
-                  .split('&subcategory=')
-                  .pop();
-                this.products = this.products.filter(product => (product.category_name === category) && (product.subcategory_name === subcategory));
+                const names = this.getCategorySubcategory();
+                this.products = this.products.filter(
+                  (product) =>
+                    product.category_name === names.category &&
+                    product.subcategory_name === names.subcategory
+                );
               } else {
-                const category = url.split('?').pop().split('category=').pop();
-                this.products = this.products.filter(product => product.category_name === category);
+                const category = this.getCategory();
+                this.products = this.products.filter(
+                  (product) => product.category_name === category
+                );
               }
             }
           });
       }
     );
+  }
+
+  private getCategorySubcategory() {
+    const url = this.router.url;
+    return {
+      category: url
+        .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
+        .split('=')
+        .pop(),
+      subcategory: url
+        .slice(url.indexOf('&subcategory'))
+        .split('&subcategory=')
+        .pop(),
+    };
+  }
+
+  private getCategory() {
+    const url = this.router.url;
+    return {
+      category: url.split('?').pop().split('category=').pop(),
+    };
   }
 
   onAdd() {
