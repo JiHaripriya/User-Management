@@ -8,15 +8,18 @@ import { CategoryServices } from './category-services.service';
   providedIn: 'root',
 })
 export class ProductServicesService {
-  baseUrl = 'http://user-dashboard.qburst.build:3002';
+  baseUrl = 'http://user-dashboard.qburst.build:3002/product';
   imageUrlPrefix = 'http://user-dashboard.qburst.build/user_dashboard/';
   listViewSelected = new Subject<boolean>();
   collapselistView = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private categoryServices: CategoryServices) {}
+  constructor(
+    private http: HttpClient,
+    private categoryServices: CategoryServices
+  ) {}
 
   getAllProducts() {
-    return this.http.get(`${this.baseUrl}/product?page=1&range=100`).pipe(
+    return this.http.get(`${this.baseUrl}?page=1&range=100`).pipe(
       take(1),
       map((responseData: { [index: string]: any }) => {
         responseData.data.rows = responseData.data.rows.map((eachData) =>
@@ -30,7 +33,7 @@ export class ProductServicesService {
   }
 
   getHomePageProducts() {
-    return this.http.get(`${this.baseUrl}/product/home`).pipe(
+    return this.http.get(`${this.baseUrl}/home`).pipe(
       take(1),
       map((responseData: any) => {
         return responseData.data.map((p) => {
@@ -43,5 +46,19 @@ export class ProductServicesService {
         });
       })
     );
+  }
+
+  productSearch(searchItem: string) {
+    return this.http
+      .get(`${this.baseUrl}?search=${searchItem}&page=1&range=100`)
+      .pipe(
+        take(1),
+        map((responseData: any) => {
+          let data = responseData.data.rows.map((p) => {
+            return Object.assign(p, {image: this.imageUrlPrefix + p.image });
+          });
+          return data
+        })
+      );
   }
 }

@@ -85,6 +85,10 @@ export class FilterComponent implements OnInit, OnDestroy {
     });
   }
 
+  priceFilter() {
+    console.log(this.value, this.highValue);
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

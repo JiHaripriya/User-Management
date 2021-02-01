@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
@@ -15,11 +22,13 @@ import { CartService } from 'src/app/shared/services/customer/cart.service';
 export class ProductListComponent implements OnInit, OnDestroy {
   searchItem;
   products;
-  listView = false;
   categoryMapping;
   subcategoryMapping;
+
+  listView = false;
   pageNum = 1;
   pageSize = 9;
+  page = '';
   showAllProducts = false;
 
   listSubscription: Subscription;
@@ -27,10 +36,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadCategorySubscription: Subscription;
   loadSubcategorySubscription: Subscription;
 
+  @ViewChild('inputValue') searchValue: ElementRef;
+
   constructor(
     private formService: FormServiceService,
     private router: Router,
-    private route: ActivatedRoute,
     private productServices: ProductServicesService,
     private categoryServices: CategoryServices,
     private cartServices: CartService
@@ -51,6 +61,45 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.mappingFunction(this.products);
       });
     }
+  }
+
+  ngOnInit(): void {
+    this.listSubscription = this.productServices.listViewSelected.subscribe(
+      (status) => (status ? (this.listView = status) : (this.listView = false))
+    );
+    this.gridSubscription = this.productServices.collapselistView.subscribe(
+      (status) => (status ? (this.listView = false) : (this.listView = true))
+    );
+
+    this.loadCategorySubscription = this.categoryServices.loadCategory.subscribe(
+      (data) => {
+        if (data.status) {
+          this.showAllProducts = false;
+          this.loadProductsByCategory(data.categoryName);
+        }
+      }
+    );
+
+    this.loadSubcategorySubscription = this.categoryServices.loadSubcategory.subscribe(
+      (data) => {
+        if (data.status) {
+          this.showAllProducts = false;
+          this.loadProductsBySubcategory(data.subcategoryName);
+        }
+      }
+    );
+  }
+
+  onAdd() {
+    this.formService.openProjectAddForm.next(true);
+  }
+
+  onEdit() {
+    this.formService.openProjectEditForm.next(true);
+  }
+
+  onView() {
+    this.formService.openProjectDetails.next(true);
   }
 
   private mappingFunction(products) {
@@ -95,50 +144,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
       });
   }
 
-  page = '';
-
-  ngOnInit(): void {
-    this.listSubscription = this.productServices.listViewSelected.subscribe(
-      (status) => (status ? (this.listView = status) : (this.listView = false))
-    );
-    this.gridSubscription = this.productServices.collapselistView.subscribe(
-      (status) => (status ? (this.listView = false) : (this.listView = true))
-    );
-
-    this.loadCategorySubscription = this.categoryServices.loadCategory.subscribe((data) => {
-      if (data.status) {
-        this.showAllProducts = false;
-        this.loadProductsByCategory(data.categoryName);
-      }
-    });
-
-    this.loadSubcategorySubscription = this.categoryServices.loadSubcategory.subscribe((data) => {
-      if (data.status) {
-        this.showAllProducts = false;
-        this.loadProductsBySubcategory(data.subcategoryName);
-      }
-    });
-  }
-
-  onAdd() {
-    this.formService.openProjectAddForm.next(true);
-  }
-
-  onEdit() {
-    this.formService.openProjectEditForm.next(true);
-  }
-
-  onView() {
-    this.formService.openProjectDetails.next(true);
-  }
-
-  ngOnDestroy() {
-    this.listSubscription.unsubscribe();
-    this.gridSubscription.unsubscribe();
-    this.loadCategorySubscription.unsubscribe();
-    this.loadSubcategorySubscription.unsubscribe();
-  }
-
   paginationUpperLimit() {
     return this.pageNum * this.pageSize;
   }
@@ -148,7 +153,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   scrollToTop() {
-    console.log(this.pageNum);
     this.page === 'shop' ? window.scrollTo(0, 250) : window.scrollTo(0, 0);
   }
 
@@ -156,5 +160,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.cartServices.addCartItem(
       Object.assign({}, { productName: item.name, productQuantity: 1 })
     );
+  }
+
+  search(searchItem: string) {
+    if (searchItem) {
+      this.productServices.productSearch(searchItem).subscribe((data) => {
+        this.products = data;
+        this.mappingFunction(this.products);
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    this.listSubscription.unsubscribe();
+    this.gridSubscription.unsubscribe();
+    this.loadCategorySubscription.unsubscribe();
+    this.loadSubcategorySubscription.unsubscribe();
   }
 }
