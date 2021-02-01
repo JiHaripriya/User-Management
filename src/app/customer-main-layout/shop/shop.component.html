@@ -1,1 +1,30 @@
-<p>shop works!</p>
+<div style="position: absolute; top: 30px; width: 100%">
+  <!-- Shop banner -->
+  <div
+    class="col-md-12 shop-gradient-background"
+    style="height: 30vh; max-width: 100%; overflow: hidden;"
+  >
+    <div
+      class="row"
+      style="justify-content: center; align-items: center; height: inherit"
+    >
+      <p style="font-size: 40px; margin-top: 25px">SHOP</p>
+    </div>
+  </div>
+
+  <!-- Filters and Product listing -->
+  <div class="col-md-12 mt-5 p-5" style="min-height: 100vh;background-color: white !important;">
+    <div class="row justify-content-even">
+      <!-- Filters -->
+      <div class="col-md-3">
+        <app-filter></app-filter>
+      </div>
+
+      <!-- Listing -->
+      <div class="col-md-8 ml-2">
+        <!-- Product list -->
+        <app-product-list></app-product-list>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="mt-3">
+  <h6
+    style="font-weight: bold"
+    class="border-bottom border-secondary pb-2 mb-3"
+  >
+    FILTER BY PRICE
+  </h6>
+  <ngx-slider
+    [(value)]="value"
+    [(highValue)]="highValue"
+    [options]="options"
+    (click)="priceFilter()"
+  ></ngx-slider>
+</div>
+
+<div class="mt-4">
+  <h6 style="font-weight: bold" class="border-bottom border-secondary pb-2">
+    FILTER BY CATEGORY
+  </h6>
+  <div
+    class="col-md-12 pb-2 pt-3"
+    style="
+      font-size: 0.9rem;
+      cursor: pointer;
+      flex-wrap: wrap;
+      background-color: #ffffff;
+    "
+    *ngFor="let category of categoryList"
+  >
+    <div
+      class="row filter-category-name"
+      style="justify-content: space-between; align-items: center"
+      (click)="chooseCategory(category.id)"
+    >
+      <span
+        class="highlight"
+        [ngClass]="{ highlight: !category.isCollapsed }"
+        (click)="loadCategoryProducts(category.name)"
+        >{{ category.name | uppercase }}</span
+      >
+      <i class="fa fa-plus" *ngIf="category.isCollapsed"></i>
+      <i class="fa fa-minus" *ngIf="!category.isCollapsed"></i>
+    </div>
+    <div class="col-md-12 subcategories" *ngIf="!category.isCollapsed">
+      <div
+        class="mt-2"
+        *ngFor="let subCategory of category.Subcategories"
+        (click)="loadSubcategoryProducts(category.name, subCategory.name, subCategory.id)"
+      >
+        <div
+          class="mb-2 subcategory-name"
+          style="font-size: 0.9rem; cursor: pointer"
+          [ngClass]="{'text-blue': selectedSubcategory === subCategory.id}"
+        >
+          {{ subCategory.name | titlecase }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

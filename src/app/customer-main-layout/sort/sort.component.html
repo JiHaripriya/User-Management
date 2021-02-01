@@ -1,0 +1,40 @@
+<div
+  class="row p-3 ml-3"
+  style="
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #8f9da89a;
+  "
+>
+  <div class="col-md-3">
+    <span
+      class="p-2 mr-2"
+      placement="bottom"
+      ngbTooltip="3 column"
+      style="cursor: pointer"
+      (click)="onGridView()"
+      ><i class="fa fa-th fa-lg" aria-hidden="true"></i>
+    </span>
+    <span
+      class="p-2"
+      placement="bottom"
+      ngbTooltip="List View"
+      style="cursor: pointer"
+      (click)="onListView()"
+      ><i class="fa fa-list fa-lg" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <!-- Sort Categories -->
+  <div class="col-md-4">
+    <select style="cursor: pointer; width: 100%;">
+      <option value="" selected>--- Choose an option ---</option>
+      <option value="1">Sort by price: low to high</option>
+      <option value="2">Sort by price: high to low</option>
+    </select>
+  </div>
+
+  <div class="col-md-3 text-right">
+    <span style="font-size: small">1–9 of 21 results</span>
+  </div>
+</div>

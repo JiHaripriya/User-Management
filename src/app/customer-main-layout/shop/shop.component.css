@@ -1,0 +1,36 @@
+.col-md-12 {
+  padding-right: 0 !important;
+}
+
+.row {
+  margin-right: 0 !important;
+}
+
+.shop-gradient-background {
+  background: linear-gradient(
+    -45deg,
+    #52e9ee85,
+    #adfabe5d,
+    #80b1fc62,
+    #8b59ff62,
+    #e8f2fd83
+  );
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.search-bar {
+  background-color: #ffffff !important;
+}
