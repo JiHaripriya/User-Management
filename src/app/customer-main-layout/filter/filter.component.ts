@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
+import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
   selector: 'app-filter',
@@ -12,19 +13,21 @@ import { CategoryServices } from 'src/app/shared/services/api/category-services.
 export class FilterComponent implements OnInit, OnDestroy {
   categoryList;
   subscription: Subscription;
+  selectedSubcategory;
 
   value: number = 50;
   highValue: number = 0;
   options: Options = {
     floor: 0,
-    ceil: 40000,
+    ceil: 100000,
     step: 1000,
   };
 
   constructor(
     private categoryServices: CategoryServices,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private productServices: ProductServicesService
   ) {
     this.subscription = this.categoryServices
       .getAllCategories()
@@ -44,6 +47,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   chooseCategory(catId: Number) {
     let categoryClicked;
+    
     this.categoryList.filter((eachCategory, index) => {
       if (eachCategory.id === catId) categoryClicked = index;
     });
@@ -73,7 +77,9 @@ export class FilterComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadSubcategoryProducts(categoryName: string, subcategoryName: string) {
+  loadSubcategoryProducts(categoryName: string, subcategoryName: string, id:number) {
+    this.selectedSubcategory = id;
+
     this.categoryServices.loadSubcategory.next({
       status: true,
       categoryName: categoryName,
@@ -86,7 +92,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   priceFilter() {
-    console.log(this.value, this.highValue);
+    this.productServices.priceFilter.next({minPrice: this.value, maxPrice: this.highValue});
   }
 
   ngOnDestroy() {

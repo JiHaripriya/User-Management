@@ -4,6 +4,11 @@ import { Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { CategoryServices } from './category-services.service';
 
+interface PriceLimits {
+  minPrice: number;
+  maxPrice: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,11 +17,9 @@ export class ProductServicesService {
   imageUrlPrefix = 'http://user-dashboard.qburst.build/user_dashboard/';
   listViewSelected = new Subject<boolean>();
   collapselistView = new Subject<boolean>();
+  priceFilter = new Subject<PriceLimits>();
 
-  constructor(
-    private http: HttpClient,
-    private categoryServices: CategoryServices
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getAllProducts() {
     return this.http.get(`${this.baseUrl}?page=1&range=100`).pipe(
@@ -55,9 +58,9 @@ export class ProductServicesService {
         take(1),
         map((responseData: any) => {
           let data = responseData.data.rows.map((p) => {
-            return Object.assign(p, {image: this.imageUrlPrefix + p.image });
+            return Object.assign(p, { image: this.imageUrlPrefix + p.image });
           });
-          return data
+          return data;
         })
       );
   }

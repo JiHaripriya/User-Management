@@ -19,7 +19,7 @@
       placeholder="Search Product"
       [(ngModel)]="searchItem"
     />
-    <a class="search_icon" style="cursor: pointer;"
+    <a class="search_icon" style="cursor: pointer"
       ><i class="fa fa-search fa-lg" aria-hidden="true"></i
     ></a>
   </div>
@@ -35,7 +35,7 @@
   <div
     *ngFor="
       let product of products
-        | slice: paginationLowerLimit():paginationUpperLimit()
+        | slice: (pageNum - 1) * pageSize:pageNum * pageSize
     "
     [ngClass]="{
       'm-4': page !== 'shop',

@@ -30,11 +30,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   pageSize = 9;
   page = '';
   showAllProducts = false;
+  minPrice = 0;
+  maxPrice = 100000;
 
   listSubscription: Subscription;
   gridSubscription: Subscription;
+  productsSubscription: Subscription;
   loadCategorySubscription: Subscription;
   loadSubcategorySubscription: Subscription;
+  priceFilterSubscription: Subscription;
 
   @ViewChild('inputValue') searchValue: ElementRef;
 
@@ -56,10 +60,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.showAllProducts = true;
       this.page = this.router.url.split('/').pop();
       // Load all products
-      this.productServices.getAllProducts().subscribe((data) => {
-        this.products = data;
-        this.mappingFunction(this.products);
-      });
+      this.productsSubscription = this.productServices
+        .getAllProducts()
+        .subscribe((data) => {
+          this.products = this.filterByPrice(data);
+          this.mappingFunction(this.products);
+          console.log(this.products);
+        });
     }
   }
 
@@ -86,6 +93,37 @@ export class ProductListComponent implements OnInit, OnDestroy {
           this.showAllProducts = false;
           this.loadProductsBySubcategory(data.subcategoryName);
         }
+      }
+    );
+
+    this.priceFilterSubscription = this.productServices.priceFilter.subscribe(
+      (limits) => {
+        (this.minPrice = limits.minPrice), (this.maxPrice = limits.maxPrice);
+        const url = this.router.url;
+        this.productsSubscription = this.productServices
+          .getAllProducts()
+          .subscribe((data) => {
+            this.products = this.filterByPrice(data);
+            this.mappingFunction(this.products);
+            // Category already selected
+            if (this.router.url.includes('category=')) {
+              // Subcategory already selected
+              if (this.router.url.includes('subcategory=')) {
+                const category = url
+                  .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
+                  .split('=')
+                  .pop();
+                const subcategory = url
+                  .slice(url.indexOf('&subcategory'))
+                  .split('&subcategory=')
+                  .pop();
+                this.products = this.products.filter(product => (product.category_name === category) && (product.subcategory_name === subcategory));
+              } else {
+                const category = url.split('?').pop().split('category=').pop();
+                this.products = this.products.filter(product => product.category_name === category);
+              }
+            }
+          });
       }
     );
   }
@@ -120,36 +158,37 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private loadProductsFromParameters() {
-    this.categoryServices
+    this.productsSubscription = this.categoryServices
       .productsUnderSubcategory(this.router.url.split('=').pop())
       .subscribe((data) => {
-        this.products = data;
+        this.products = this.filterByPrice(data);
         this.mappingFunction(this.products);
       });
   }
 
   private loadProductsByCategory(category) {
-    this.categoryServices.productsUnderCategory(category).subscribe((data) => {
-      this.products = data;
-      this.mappingFunction(this.products);
-    });
-  }
-
-  private loadProductsBySubcategory(subcategory) {
-    this.categoryServices
-      .productsUnderSubcategory(subcategory)
+    this.productsSubscription = this.categoryServices
+      .productsUnderCategory(category)
       .subscribe((data) => {
-        this.products = data;
+        this.products = this.filterByPrice(data);
         this.mappingFunction(this.products);
       });
   }
 
-  paginationUpperLimit() {
-    return this.pageNum * this.pageSize;
+  private loadProductsBySubcategory(subcategory) {
+    this.productsSubscription = this.categoryServices
+      .productsUnderSubcategory(subcategory)
+      .subscribe((data) => {
+        this.products = this.filterByPrice(data);
+        this.mappingFunction(this.products);
+      });
   }
 
-  paginationLowerLimit() {
-    return (this.pageNum - 1) * this.pageSize;
+  private filterByPrice(data) {
+    return data.filter(
+      (product) =>
+        this.minPrice <= product.price && product.price <= this.maxPrice
+    );
   }
 
   scrollToTop() {
@@ -164,10 +203,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   search(searchItem: string) {
     if (searchItem) {
-      this.productServices.productSearch(searchItem).subscribe((data) => {
-        this.products = data;
-        this.mappingFunction(this.products);
-      });
+      this.productsSubscription = this.productServices
+        .productSearch(searchItem)
+        .subscribe((data) => {
+          this.products = data;
+          this.mappingFunction(this.products);
+        });
     }
   }
 
@@ -176,5 +217,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.gridSubscription.unsubscribe();
     this.loadCategorySubscription.unsubscribe();
     this.loadSubcategorySubscription.unsubscribe();
+    this.priceFilterSubscription.unsubscribe();
+    this.productsSubscription.unsubscribe();
   }
 }
