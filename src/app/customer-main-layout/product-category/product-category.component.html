@@ -1,0 +1,38 @@
+<div class="row m-3" *ngFor="let eachCategory of productList">
+  <div style="position: relative; bottom: -30px; margin-left: 4.5%">
+    <h4>{{ eachCategory.subcategory_name | titlecase }}</h4>
+  </div>
+  <!-- Category Listing -->
+  <div
+    class="d-flex flex-row flex-nowrap p-3 categories"
+    style="max-width: 100%; overflow-x: hidden; margin: 0 auto"
+  >
+    <ngb-carousel [interval]="2500" style="padding: 25px">
+      <ng-template ngbSlide>
+        <div
+          class="d-flex flex-row flex-nowrap pl-4 pr-5"
+          style="justify-content: space-between; max-width: 100%"
+        >
+          <div
+            class="col-md-3 border border-light m-1 category-cards"
+            *ngFor="let product of eachCategory.products"
+            (click)="gotToShop(eachCategory.products[0].category_name, eachCategory.subcategory_name)"
+          >
+            <img [src]="product.image" alt="" />
+            <div class="category-content">
+              <p
+                class="category-name"
+              >
+                {{ product.name }}
+              </p>
+              <div class="shop-now">
+                <span class="text">SHOP NOW</span>
+                <hr class="line" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+</div>

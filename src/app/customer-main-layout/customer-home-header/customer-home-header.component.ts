@@ -6,6 +6,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CartService } from 'src/app/shared/services/customer/cart.service';
 import { HomePageService } from 'src/app/shared/services/customer/home-page.service';
 
 @Component({
@@ -15,14 +17,17 @@ import { HomePageService } from 'src/app/shared/services/customer/home-page.serv
 })
 export class CustomerHeaderComponent implements OnInit, OnDestroy {
   fixHeader = false;
+  hideScrollButton = false;
   expandSearch = false;
   title = '';
-  count = 0;
+  count;
   @ViewChild('searchText') searchText: ElementRef;
+  cartSubscription: Subscription;
 
   constructor(
     private router: Router,
-    private customerHomePage: HomePageService
+    private customerHomePage: HomePageService,
+    private cartService: CartService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -34,18 +39,30 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     window.addEventListener('scroll', this.scrollEvent, true);
     this.customerHomePage.openCartModal.subscribe((status) => {
-      if (!status) window.addEventListener('scroll', this.scrollEvent, true);
+      if (!status) {
+        window.addEventListener('scroll', this.scrollEvent, true);
+        this.hideScrollButton = true;
+      }
     });
+
+    this.cartService.cartItems.subscribe((count) => this.count = count);
   }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollEvent, true);
+    this.cartSubscription.unsubscribe();
   }
 
   scrollEvent = (event: any): void => {
     let headerScroll = event.srcElement.scrollingElement.scrollTop;
-    if (headerScroll >= 30) this.fixHeader = true;
-    else this.fixHeader = false;
+    if (headerScroll >= 30) {
+      this.fixHeader = true;
+      this.hideScrollButton = true;
+    }
+    else{
+      this.fixHeader = false;
+      this.hideScrollButton = false;
+    } 
   };
 
   onSearch() {
@@ -59,6 +76,11 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
 
   openCartModal() {
     this.customerHomePage.openCartModal.next(true);
+    this.hideScrollButton = false;
     window.removeEventListener('scroll', this.scrollEvent, true);
+  }
+
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 }

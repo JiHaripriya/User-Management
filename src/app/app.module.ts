@@ -37,6 +37,11 @@ import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/
 import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
 import { CartComponent } from './customer-main-layout/cart/cart.component';
 import { ShopComponent } from './customer-main-layout/shop/shop.component';
+import { ProductCategoryComponent } from './customer-main-layout/product-category/product-category.component';
+import { FilterComponent } from './customer-main-layout/filter/filter.component';
+import { SortComponent } from './customer-main-layout/sort/sort.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NoResultsComponent } from './common/no-results/no-results.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,11 @@ import { ShopComponent } from './customer-main-layout/shop/shop.component';
     ProductAddEditFormComponent,
     ProductDetailsFormComponent,
     CartComponent,
-    ShopComponent
+    ShopComponent,
+    ProductCategoryComponent,
+    FilterComponent,
+    SortComponent,
+    NoResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +88,8 @@ import { ShopComponent } from './customer-main-layout/shop/shop.component';
     NgbModule,
     CommonModule,
     BrowserAnimationsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxSliderModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent],
