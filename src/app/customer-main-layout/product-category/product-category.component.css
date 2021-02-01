@@ -64,8 +64,10 @@ img:hover {
   color: #000000;
   padding: 25px 0 0 25px;
   font-weight: 900;
-  font-size: 26px;
+  font-size: 16px;
   margin-bottom: 0rem !important;
+  background-color: white; 
+  background-clip: content-box
 }
 
 .shop-now .text {
@@ -82,7 +84,11 @@ img:hover {
   bottom: 40px;
   transition-delay: 0.5s;
   transition-duration: 0.5s;
-  transition-property: bottom, color;
+  transition-property: bottom, color; 
+}
+
+.category-content:hover .category-name{
+  background-color: transparent;
 }
 
 hr {

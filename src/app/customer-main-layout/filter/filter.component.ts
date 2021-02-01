@@ -1,5 +1,6 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 
@@ -20,12 +21,18 @@ export class FilterComponent implements OnInit, OnDestroy {
     step: 4000,
   };
 
-  constructor(private productServices: CategoryServices) {
-    this.subscription = this.productServices.getAllCategories().subscribe((data) => {
+  constructor(
+    private categoryServices: CategoryServices,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.subscription = this.categoryServices
+      .getAllCategories()
+      .subscribe((data) => {
         this.categoryList = data.map((eachCategory) =>
           Object.assign({}, eachCategory, { isCollapsed: true })
         );
-    });
+      });
   }
 
   ngOnInit(): void {
@@ -33,10 +40,6 @@ export class FilterComponent implements OnInit, OnDestroy {
       this.categoryList = JSON.parse(localStorage.getItem('categoryData'));
       localStorage.removeItem('categoryData');
     }
-  }
-
-  chooseSubcategory(subId: Number, catId: Number) {
-    alert(`${subId} + ${catId}`);
   }
 
   chooseCategory(catId: Number) {
@@ -57,6 +60,23 @@ export class FilterComponent implements OnInit, OnDestroy {
 
     localStorage.setItem('categoryData', JSON.stringify(this.categoryList));
     this.ngOnInit();
+  }
+
+  loadCategoryProducts(categoryName: string) {
+    this.categoryServices.loadCategory.next({
+      status: true,
+      categoryName: categoryName,
+    });
+    this.router.navigate([], {relativeTo: this.route, queryParams: {category: categoryName}});
+  }
+
+  loadSubcategoryProducts(categoryName: string, subcategoryName: string) {
+    this.categoryServices.loadSubcategory.next({
+      status: true,
+      categoryName: categoryName,
+      subcategoryName: subcategoryName,
+    });
+    this.router.navigate([], {relativeTo: this.route, queryParams: {category: categoryName, subcategory: subcategoryName}});
   }
 
   ngOnDestroy() {

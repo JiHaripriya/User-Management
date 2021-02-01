@@ -16,7 +16,6 @@
   <h6 style="font-weight: bold" class="border-bottom border-secondary pb-2">
     FILTER BY CATEGORY
   </h6>
-  <span style="cursor: pointer;" class="mt-2 mb-2">All Products</span>
   <div
     class="col-md-12 pb-2 pt-3"
     style="
@@ -29,10 +28,15 @@
   >
     <div
       class="row filter-category-name"
-      style="justify-content: space-between; align-items: center;"
+      style="justify-content: space-between; align-items: center"
       (click)="chooseCategory(category.id)"
     >
-      <span class="highlight" [ngClass]="{'highlight': !category.isCollapsed}">{{ category.name | uppercase }}</span>
+      <span
+        class="highlight"
+        [ngClass]="{ highlight: !category.isCollapsed }"
+        (click)="loadCategoryProducts(category.name)"
+        >{{ category.name | uppercase }}</span
+      >
       <i class="fa fa-plus" *ngIf="category.isCollapsed"></i>
       <i class="fa fa-minus" *ngIf="!category.isCollapsed"></i>
     </div>
@@ -40,7 +44,7 @@
       <div
         class="mt-2"
         *ngFor="let subCategory of category.Subcategories"
-        (click)="chooseSubcategory(subCategory.id, subCategory.category_id)"
+        (click)="loadSubcategoryProducts(category.name, subCategory.name)"
       >
         <div
           class="mb-2 subcategory-name"

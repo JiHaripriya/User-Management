@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
   selector: 'app-product-category',
@@ -8,7 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class ProductCategoryComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private productServices: ProductServicesService
+  ) {}
   images = ['01', '02', '03'].map(
     (num) => `../../../assets/images/banner-${num}.jpg`
   );
@@ -16,12 +21,28 @@ export class ProductCategoryComponent implements OnInit {
   featureList = ['01', '02', '03', '01'].map(
     (num) => `../../../assets/images/banner-${num}.jpg`
   );
+  productList;
 
+  ngOnInit(): void {
+    this.productServices.getHomePageProducts().subscribe((data) => {
+      this.productList = data;
+      let categoryMapping = JSON.parse(localStorage.getItem('categoryMapping'));
+      this.productList = this.productList.map((category) => {
+        return Object.assign(category, {
+          products: category.products.map((eachProduct) => {
+            return Object.assign(eachProduct, {
+              category_name: categoryMapping.filter(
+                (data) => data.category_id === eachProduct.category_id
+              )[0]?.name,
+            });
+          }),
+        });
+      });
+    });
+  }
 
-  ngOnInit(): void {}
-
-  gotToShop() {
+  gotToShop(category:string, subcategory: string) {
     // Take to category wise product listing later
-    this.router.navigateByUrl('user/shop');
+    this.router.navigate(['user', 'shop'], {queryParams: {category: category, subcategory: subcategory}});
   }
 }

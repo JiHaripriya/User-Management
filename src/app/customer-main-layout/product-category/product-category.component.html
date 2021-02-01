@@ -1,4 +1,7 @@
-<div class="row m-3">
+<div class="row m-3" *ngFor="let eachCategory of productList">
+  <div style="position: relative; bottom: -30px; margin-left: 4.5%">
+    <h4>{{ eachCategory.subcategory_name | titlecase }}</h4>
+  </div>
   <!-- Category Listing -->
   <div
     class="d-flex flex-row flex-nowrap p-3 categories"
@@ -11,13 +14,17 @@
           style="justify-content: space-between; max-width: 100%"
         >
           <div
-            class="col-md-4 border border-light m-1 category-cards"
-            *ngFor="let img of images"
-            (click)="gotToShop()"
+            class="col-md-3 border border-light m-1 category-cards"
+            *ngFor="let product of eachCategory.products"
+            (click)="gotToShop(eachCategory.products[0].category_name, eachCategory.subcategory_name)"
           >
-            <img src="../../../assets/images/category.jpg" alt="" />
+            <img [src]="product.image" alt="" />
             <div class="category-content">
-              <p class="category-name">CATEGORY</p>
+              <p
+                class="category-name"
+              >
+                {{ product.name }}
+              </p>
               <div class="shop-now">
                 <span class="text">SHOP NOW</span>
                 <hr class="line" />
