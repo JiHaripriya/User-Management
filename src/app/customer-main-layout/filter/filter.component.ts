@@ -13,12 +13,12 @@ export class FilterComponent implements OnInit, OnDestroy {
   categoryList;
   subscription: Subscription;
 
-  value: number = 1000;
-  highValue: number = 6000;
+  value: number = 0;
+  highValue: number = 0;
   options: Options = {
     floor: 0,
     ceil: 40000,
-    step: 4000,
+    step: 1000,
   };
 
   constructor(
@@ -67,7 +67,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       status: true,
       categoryName: categoryName,
     });
-    this.router.navigate([], {relativeTo: this.route, queryParams: {category: categoryName}});
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: categoryName },
+    });
   }
 
   loadSubcategoryProducts(categoryName: string, subcategoryName: string) {
@@ -76,7 +79,10 @@ export class FilterComponent implements OnInit, OnDestroy {
       categoryName: categoryName,
       subcategoryName: subcategoryName,
     });
-    this.router.navigate([], {relativeTo: this.route, queryParams: {category: categoryName, subcategory: subcategoryName}});
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: categoryName, subcategory: subcategoryName },
+    });
   }
 
   ngOnDestroy() {

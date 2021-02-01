@@ -3,6 +3,9 @@
   <div *ngIf="page !== 'shop'">
     <h3>Product Details</h3>
   </div>
+  <div *ngIf="showAllProducts">
+    <h3>All Products</h3>
+  </div>
   <div
     class="row search-bar"
     style="align-items: center"
@@ -25,13 +28,14 @@
   class="row justify-content-lg-even"
   style="flex-wrap: wrap; min-height: inherit"
   [ngClass]="{ 'mt-5': page === 'shop', 'ml-2': page === 'shop' }"
+  *ngIf="products?.length > 0"
 >
   <!-- Total number of users card shadow -->
   <div
     *ngFor="
       let product of products
         | filter: searchItem
-        | slice: paginationLowerLimit(): paginationUpperLimit()
+        | slice: paginationLowerLimit():paginationUpperLimit()
     "
     [ngClass]="{
       'm-4': page !== 'shop',
@@ -56,7 +60,7 @@
         'pad-25': listView
       }"
     >
-      <img [src]="product.image" alt="" srcset="" class="product-img"/>
+      <img [src]="product.image" alt="" srcset="" class="product-img" />
       <div class="action_links" style="border-radius: 0 5px">
         <ul>
           <li *ngIf="page !== 'shop'">
@@ -114,7 +118,13 @@
       }"
     >
       <p style="margin-bottom: 0 !important" class="product-name p-1">
-        {{ !listView? product.name.length > 56 ? product.name.slice(0, 56)+"...": product.name.slice(0, 56) : product.name }}
+        {{
+          !listView
+            ? product.name.length > 56
+              ? product.name.slice(0, 56) + "..."
+              : product.name.slice(0, 56)
+            : product.name
+        }}
       </p>
       <p style="color: rgb(173, 173, 3)" class="p-1">₹{{ product.price }}</p>
       <p [hidden]="!listView" class="p-1">{{ product.description }}</p>
@@ -147,6 +157,7 @@
 </div>
 
 <ngb-pagination
+  *ngIf="products?.length > 0"
   [collectionSize]="products?.length"
   [(page)]="pageNum"
   [(pageSize)]="pageSize"
@@ -155,9 +166,11 @@
   [ellipses]="false"
   [boundaryLinks]="true"
   class="d-flex justify-content-center mt-5"
-  [ngClass]="{'pagination-menu': page !== 'shop'}"
+  [ngClass]="{ 'pagination-menu': page !== 'shop' }"
   (click)="scrollToTop()"
 ></ngb-pagination>
 
 <app-product-add-edit-form></app-product-add-edit-form>
 <app-product-details-form></app-product-details-form>
+
+<app-no-results *ngIf="products?.length === 0"></app-no-results>

@@ -16,12 +16,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   searchItem;
   products;
   listView = false;
-  listSubscription: Subscription;
-  gridSubscription: Subscription;
   categoryMapping;
   subcategoryMapping;
   pageNum = 1;
   pageSize = 9;
+  showAllProducts = false;
+
+  listSubscription: Subscription;
+  gridSubscription: Subscription;
+  loadCategorySubscription: Subscription;
+  loadSubcategorySubscription: Subscription;
 
   constructor(
     private formService: FormServiceService,
@@ -37,8 +41,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .split('/')
         .pop();
       this.loadProductsFromParameters();
-      // logic to load products by category or subcategory
+      this.showAllProducts = false;
     } else {
+      this.showAllProducts = true;
       this.page = this.router.url.split('/').pop();
       // Load all products
       this.productServices.getAllProducts().subscribe((data) => {
@@ -100,14 +105,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
       (status) => (status ? (this.listView = false) : (this.listView = true))
     );
 
-    this.categoryServices.loadCategory.subscribe((data) => {
+    this.loadCategorySubscription = this.categoryServices.loadCategory.subscribe((data) => {
       if (data.status) {
+        this.showAllProducts = false;
         this.loadProductsByCategory(data.categoryName);
       }
     });
 
-    this.categoryServices.loadSubcategory.subscribe((data) => {
+    this.loadSubcategorySubscription = this.categoryServices.loadSubcategory.subscribe((data) => {
       if (data.status) {
+        this.showAllProducts = false;
         this.loadProductsBySubcategory(data.subcategoryName);
       }
     });
@@ -128,6 +135,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.listSubscription.unsubscribe();
     this.gridSubscription.unsubscribe();
+    this.loadCategorySubscription.unsubscribe();
+    this.loadSubcategorySubscription.unsubscribe();
   }
 
   paginationUpperLimit() {

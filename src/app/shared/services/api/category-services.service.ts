@@ -4,15 +4,14 @@ import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
 interface ProductStatus {
-  status: boolean,
-  categoryName?: string,
-  subcategoryName?: string
+  status: boolean;
+  categoryName?: string;
+  subcategoryName?: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class CategoryServices {
   baseUrl = 'http://user-dashboard.qburst.build:3002';
   imageUrlPrefix = 'http://user-dashboard.qburst.build/user_dashboard/';
@@ -58,31 +57,37 @@ export class CategoryServices {
     );
   }
 
-  productsUnderCategory(category:String) {
-    return this.http.get(`${this.baseUrl}/product?category=${category}&page=1&range=100`).pipe(
-      take(1),
-      map((responseData: { [index: string]: any }) => {
-        responseData.data.rows = responseData.data.rows.map((eachData) =>
-          Object.assign(eachData, {
-            image: this.imageUrlPrefix + eachData.image,
-          })
-        );
-        return responseData.data.rows;
-      })
-    );
+  productsUnderCategory(category: String) {
+    return this.http
+      .get(`${this.baseUrl}/product?category=${category}&page=1&range=100`)
+      .pipe(
+        take(1),
+        map((responseData: { [index: string]: any }) => {
+          responseData.data.rows = responseData.data.rows.map((eachData) =>
+            Object.assign(eachData, {
+              image: this.imageUrlPrefix + eachData.image,
+            })
+          );
+          return responseData.data.rows;
+        })
+      );
   }
 
-  productsUnderSubcategory(subcategory:String) {
-    return this.http.get(`${this.baseUrl}/product?subcategory=${subcategory}&page=1&range=100`).pipe(
-      take(1),
-      map((responseData: { [index: string]: any }) => {
-        responseData.data.rows = responseData.data.rows.map((eachData) =>
-          Object.assign(eachData, {
-            image: this.imageUrlPrefix + eachData.image,
-          })
-        );
-        return responseData.data.rows;
-      })
-    );
+  productsUnderSubcategory(subcategory: String) {
+    return this.http
+      .get(
+        `${this.baseUrl}/product?subcategory=${subcategory}&page=1&range=100`
+      )
+      .pipe(
+        take(1),
+        map((responseData: { [index: string]: any }) => {
+          responseData.data.rows = responseData.data.rows.map((eachData) =>
+            Object.assign(eachData, {
+              image: this.imageUrlPrefix + eachData.image,
+            })
+          );
+          return responseData.data.rows;
+        })
+      );
   }
 }
