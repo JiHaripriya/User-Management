@@ -13,7 +13,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   categoryList;
   subscription: Subscription;
 
-  value: number = 0;
+  value: number = 50;
   highValue: number = 0;
   options: Options = {
     floor: 0,
