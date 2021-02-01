@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import { CategoryServices } from './category-services.service';
 
 interface PriceLimits {
   minPrice: number;
@@ -18,6 +17,7 @@ export class ProductServicesService {
   listViewSelected = new Subject<boolean>();
   collapselistView = new Subject<boolean>();
   priceFilter = new Subject<PriceLimits>();
+  
 
   constructor(private http: HttpClient) {}
 
