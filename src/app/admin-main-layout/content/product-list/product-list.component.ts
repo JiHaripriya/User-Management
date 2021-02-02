@@ -1,12 +1,10 @@
 import {
   Component,
-  ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
@@ -40,8 +38,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadSubcategorySubscription: Subscription;
   priceFilterSubscription: Subscription;
 
-  @ViewChild('inputValue') searchValue: ElementRef;
-
   constructor(
     private formService: FormServiceService,
     private router: Router,
@@ -65,7 +61,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .subscribe((data) => {
           this.products = this.filterByPrice(data);
           this.mappingFunction(this.products);
-          console.log(this.products);
         });
     }
   }
@@ -204,15 +199,18 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private filterByPrice(data) {
-    return data.filter(
+    const products = data.filter(
       (product) =>
         this.minPrice <= product.price && product.price <= this.maxPrice
     );
+    this.productServices.totalResults.next(products.length)
+    return products
   }
 
   scrollToTop() {
     this.page === 'shop' ? window.scrollTo(0, 250) : window.scrollTo(0, 0);
   }
+
 
   addToCart(item: any) {
     this.cartServices.addCartItem(

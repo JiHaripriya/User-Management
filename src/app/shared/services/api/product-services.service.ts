@@ -17,6 +17,7 @@ export class ProductServicesService {
   listViewSelected = new Subject<boolean>();
   collapselistView = new Subject<boolean>();
   priceFilter = new Subject<PriceLimits>();
+  totalResults = new Subject<number>();
   
 
   constructor(private http: HttpClient) {}
@@ -63,5 +64,19 @@ export class ProductServicesService {
           return data;
         })
       );
+  }
+
+  ascendingSortByProperty(propertyName: string) {
+    return this.http
+    .get(`${this.baseUrl}?property=${propertyName}&sort=ASC&page=1&range=100`)
+    .pipe(
+      take(1),
+      map((responseData: any) => {
+        let data = responseData.data.rows.map((p) => {
+          return Object.assign(p, { image: this.imageUrlPrefix + p.image });
+        });
+        return data;
+      })
+    );
   }
 }

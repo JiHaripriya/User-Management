@@ -20,21 +20,41 @@
       placement="bottom"
       ngbTooltip="List View"
       style="cursor: pointer"
-      (click)="onListView()"
+      (mousedown)="onListView()"
       ><i class="fa fa-list fa-lg" aria-hidden="true"></i>
     </span>
   </div>
 
   <!-- Sort Categories -->
   <div class="col-md-4">
-    <select style="cursor: pointer; width: 100%;">
-      <option value="" selected>--- Choose an option ---</option>
-      <option value="1">Sort by price: low to high</option>
-      <option value="2">Sort by price: high to low</option>
-    </select>
+    <div
+      ngbDropdown
+      class="d-flex justify-content-between sort-options border rounded"
+      style="width: inherit; cursor: pointer"
+    >
+      <div ngbDropdownToggle class="m-2" style="width: 100%">
+        <span style="font-size: smaller">Choose a category</span>
+      </div>
+      <div ngbDropdownMenu>
+        <div
+          style="cursor: pointer; outline: none; font-size: small"
+          class="pl-3 pr-3 pt-2 pb-2"
+          ngbDropdownItem
+        >
+          Sort by price: low to high
+        </div>
+        <div
+          style="cursor: pointer; font-size: small"
+          ngbDropdownItem
+          class="pl-3 pr-3 pt-2 pb-2"
+        >
+          Sort by price: high to low
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="col-md-3 text-right">
-    <span style="font-size: small">1–9 of 21 results</span>
+    <span style="font-size: small"> {{ results }} total results</span>
   </div>
 </div>
