@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
@@ -9,6 +9,7 @@ import { HomePageService } from 'src/app/shared/services/customer/home-page.serv
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('cartModal') cardModal: ElementRef;
