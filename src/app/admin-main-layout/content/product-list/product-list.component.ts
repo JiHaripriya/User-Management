@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
@@ -50,19 +45,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .slice(0, this.router.url.indexOf('?'))
         .split('/')
         .pop();
-      this.loadProductsFromParameters();
       this.showAllProducts = false;
     } else {
       this.showAllProducts = true;
       this.page = this.router.url.split('/').pop();
-      // Load all products
-      this.productsSubscription = this.productServices
-        .getAllProducts()
-        .subscribe((data) => {
-          this.products = this.filterByPrice(data);
-          this.mappingFunction(this.products);
-        });
     }
+    this.initializeProducts();
+    this.categoryServices.mappingFunction();
   }
 
   ngOnInit(): void {
@@ -93,53 +82,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     this.priceFilterSubscription = this.productServices.priceFilter.subscribe(
       (limits) => {
-        (this.minPrice = limits.minPrice), (this.maxPrice = limits.maxPrice);
-        this.productsSubscription = this.productServices
-          .getAllProducts()
-          .subscribe((data) => {
-            this.products = this.filterByPrice(data);
-            this.mappingFunction(this.products);
-            // Category already selected
-            if (this.router.url.includes('category=')) {
-              // Subcategory already selected
-              if (this.router.url.includes('subcategory=')) {
-                const names = this.getCategorySubcategory();
-                this.products = this.products.filter(
-                  (product) =>
-                    product.category_name === names.category &&
-                    product.subcategory_name === names.subcategory
-                );
-              } else {
-                const category = this.getCategory();
-                this.products = this.products.filter(
-                  (product) => product.category_name === category
-                );
-              }
-            }
-          });
+        this.minPrice = limits.minPrice;
+        this.maxPrice = limits.maxPrice >= 49999 ? 100000 : limits.maxPrice;
+        this.initializeProducts();
       }
     );
   }
 
-  private getCategorySubcategory() {
-    const url = this.router.url;
-    return {
-      category: url
-        .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
-        .split('=')
-        .pop(),
-      subcategory: url
-        .slice(url.indexOf('&subcategory'))
-        .split('&subcategory=')
-        .pop(),
-    };
-  }
-
-  private getCategory() {
-    const url = this.router.url;
-    return {
-      category: url.split('?').pop().split('category=').pop(),
-    };
+  private initializeProducts() {
+    this.productsSubscription = this.productServices
+      .getAllProducts()
+      .subscribe((data) => {
+        this.products = this.filterByPrice(data);
+        this.mappingFunction(this.products);
+        this.filterProducts();
+      });
   }
 
   onAdd() {
@@ -171,15 +128,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadProductsFromParameters() {
-    this.productsSubscription = this.categoryServices
-      .productsUnderSubcategory(this.router.url.split('=').pop())
-      .subscribe((data) => {
-        this.products = this.filterByPrice(data);
-        this.mappingFunction(this.products);
-      });
-  }
-
   private loadProductsByCategory(category) {
     this.productsSubscription = this.categoryServices
       .productsUnderCategory(category)
@@ -203,14 +151,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       (product) =>
         this.minPrice <= product.price && product.price <= this.maxPrice
     );
-    this.productServices.totalResults.next(products.length)
-    return products
+    this.productServices.totalResults.next(products.length);
+    return products;
   }
 
   scrollToTop() {
     this.page === 'shop' ? window.scrollTo(0, 250) : window.scrollTo(0, 0);
   }
-
 
   addToCart(item: any) {
     this.cartServices.addCartItem(
@@ -225,7 +172,32 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .subscribe((data) => {
           this.products = data;
           this.mappingFunction(this.products);
+          this.filterProducts();
         });
+    } else {
+      this.initializeProducts();
+    }
+  }
+
+  filterProducts() {
+    // Category already selected
+    if (this.router.url.includes('category=')) {
+      // Subcategory already selected
+      if (this.router.url.includes('subcategory=')) {
+        const names = this.categoryServices.getCategorySubcategory(
+          this.router.url
+        );
+        this.products = this.products.filter(
+          (product) =>
+            product.category_name === names.category &&
+            product.subcategory_name === names.subcategory
+        );
+      } else {
+        const category = this.categoryServices.getCategory(this.router.url);
+        this.products = this.products.filter(
+          (product) => product.category_name === category
+        );
+      }
     }
   }
 

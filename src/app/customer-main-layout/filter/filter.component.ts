@@ -35,6 +35,27 @@ export class FilterComponent implements OnInit, OnDestroy {
         this.categoryList = data.map((eachCategory) =>
           Object.assign({}, eachCategory, { isCollapsed: true })
         );
+
+        if (this.router.url.includes('category=')) {
+          if (this.router.url.includes('subcategory=')) {
+            const names = this.categoryServices.getCategorySubcategory(
+              this.router.url
+            );
+            this.categoryList.map((data) => {
+              if (data.name === names.category) data.isCollapsed = false;
+              const subcategory = data.Subcategories.filter(
+                (item) => item.name === names.subcategory
+              );
+              if (subcategory.length > 0)
+                this.selectedSubcategory = subcategory[0].id;
+            });
+          } else {
+            const category = this.categoryServices.getCategory(this.router.url);
+            this.categoryList.map((data) => {
+              if (data.name === category) data.isCollapsed = false;
+            });
+          }
+        }
       });
   }
 
@@ -47,7 +68,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   chooseCategory(catId: Number) {
     let categoryClicked;
-    
+
     this.categoryList.filter((eachCategory, index) => {
       if (eachCategory.id === catId) categoryClicked = index;
     });
@@ -77,7 +98,11 @@ export class FilterComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadSubcategoryProducts(categoryName: string, subcategoryName: string, id:number) {
+  loadSubcategoryProducts(
+    categoryName: string,
+    subcategoryName: string,
+    id: number
+  ) {
     this.selectedSubcategory = id;
 
     this.categoryServices.loadSubcategory.next({
@@ -92,7 +117,10 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   priceFilter() {
-    this.productServices.priceFilter.next({minPrice: this.value, maxPrice: this.highValue});
+    this.productServices.priceFilter.next({
+      minPrice: this.value,
+      maxPrice: this.highValue,
+    });
   }
 
   ngOnDestroy() {

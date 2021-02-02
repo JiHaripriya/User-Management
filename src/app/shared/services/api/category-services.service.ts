@@ -20,6 +20,17 @@ export class CategoryServices {
 
   constructor(private http: HttpClient) {}
 
+  async mappingFunction() {
+    localStorage.setItem(
+      'categoryMapping',
+      JSON.stringify(await this.getCategoryMapping().toPromise())
+    );
+    localStorage.setItem(
+      'subcategoryMapping',
+      JSON.stringify(await this.getSubcategoryMapping().toPromise())
+    );
+  }
+
   getAllCategories() {
     return this.http.get(`${this.baseUrl}/subcategory`).pipe(
       take(1),
@@ -89,5 +100,32 @@ export class CategoryServices {
           return responseData.data.rows;
         })
       );
+  }
+
+  getCategorySubcategory(url) {
+    return {
+      category: url
+        .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
+        .split('=')
+        .pop()
+        .match(/[A-Za-z ]+/g)
+        .join(' '),
+      subcategory: url
+        .slice(url.indexOf('&subcategory'))
+        .split('&subcategory=')
+        .pop()
+        .match(/[A-Za-z ]+/g)
+        .join(' '),
+    };
+  }
+
+  getCategory(url) {
+    return url
+      .split('?')
+      .pop()
+      .split('category=')
+      .pop()
+      .match(/[A-Za-z ]+/g)
+      .join(' ');
   }
 }

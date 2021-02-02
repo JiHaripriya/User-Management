@@ -3,14 +3,14 @@
   <div *ngIf="page !== 'shop'">
     <h3>Product Details</h3>
   </div>
-  <div *ngIf="showAllProducts">
+  <div *ngIf="showAllProducts && page === 'shop'">
     <h3>All Products</h3>
   </div>
   <div
     class="row search-bar"
     style="align-items: center"
     [ngClass]="{ 'search-bar-position': page === 'shop' }"
-    (click)="search(searchItem)"
+    (keydown)="search(searchItem)"
   >
     <input
       class="search-input"
@@ -27,8 +27,8 @@
 
 <div
   class="row justify-content-lg-even"
-  style="flex-wrap: wrap; min-height: inherit"
-  [ngClass]="{ 'mt-5': page === 'shop', 'ml-2': page === 'shop' }"
+  style="min-height: inherit; width: 100%;"
+  [ngClass]="{ 'pt-4': page === 'shop', 'ml-2': page === 'shop' }"
   *ngIf="products?.length > 0"
 >
   <!-- Total number of users card shadow -->
