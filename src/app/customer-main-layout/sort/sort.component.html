@@ -33,13 +33,25 @@
       style="width: inherit; cursor: pointer"
     >
       <div ngbDropdownToggle class="m-2" style="width: 100%">
-        <span style="font-size: smaller">Choose a category</span>
+        <span style="font-size: smaller" [(ngModel)]="option" ngDefaultControl>{{
+          option
+        }}</span>
       </div>
       <div ngbDropdownMenu>
         <div
           style="cursor: pointer; outline: none; font-size: small"
           class="pl-3 pr-3 pt-2 pb-2"
           ngbDropdownItem
+          *ngIf="selected"
+          (click)="sortOption('Choose an option', 0)"
+        >
+          Clear Sort
+        </div>
+        <div
+          style="cursor: pointer; outline: none; font-size: small"
+          class="pl-3 pr-3 pt-2 pb-2"
+          ngbDropdownItem
+          (click)="sortOption('Sort by price: low to high', 1)"
         >
           Sort by price: low to high
         </div>
@@ -47,6 +59,7 @@
           style="cursor: pointer; font-size: small"
           ngbDropdownItem
           class="pl-3 pr-3 pt-2 pb-2"
+          (click)="sortOption('Sort by price: high to low', 2)"
         >
           Sort by price: high to low
         </div>

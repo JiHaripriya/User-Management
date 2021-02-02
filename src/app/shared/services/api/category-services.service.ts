@@ -128,4 +128,21 @@ export class CategoryServices {
       .match(/[A-Za-z ]+/g)
       .join(' ');
   }
+
+  addCategoryNames(products) {
+    const categoryMapping = JSON.parse(localStorage.getItem('categoryMapping'));
+    const subcategoryMapping = JSON.parse(
+      localStorage.getItem('subcategoryMapping')
+    );
+    return products.map((product) => {
+      return Object.assign(product, {
+        category_name: categoryMapping.filter(
+          (data) => data.category_id === product.category_id
+        )[0]?.name,
+        subcategory_name: subcategoryMapping.filter(
+          (data) => data.id === product.subcategory_id
+        )[0]?.name,
+      });
+    });
+  }
 }

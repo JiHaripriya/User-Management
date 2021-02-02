@@ -32,6 +32,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   loadCategorySubscription: Subscription;
   loadSubcategorySubscription: Subscription;
   priceFilterSubscription: Subscription;
+  sortedProductsSubscription: Subscription;
 
   constructor(
     private formService: FormServiceService,
@@ -87,6 +88,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.initializeProducts();
       }
     );
+
+    this.sortedProductsSubscription = this.productServices.sortedProducts.subscribe(
+      (data) => {
+        this.products = this.filterByPrice(data);
+      }
+    );
+
+    this.productServices.loadAllProducts.subscribe((status) => {
+      if (status){
+        this.showAllProducts = true;
+        this.initializeProducts();
+      }
+    });
   }
 
   private initializeProducts() {
@@ -94,7 +108,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .getAllProducts()
       .subscribe((data) => {
         this.products = this.filterByPrice(data);
-        this.mappingFunction(this.products);
+        this.products = this.categoryServices.addCategoryNames(this.products);
         this.filterProducts();
       });
   }
@@ -111,29 +125,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.formService.openProjectDetails.next(true);
   }
 
-  private mappingFunction(products) {
-    this.categoryMapping = JSON.parse(localStorage.getItem('categoryMapping'));
-    this.subcategoryMapping = JSON.parse(
-      localStorage.getItem('subcategoryMapping')
-    );
-    products = products.map((product) => {
-      Object.assign(product, {
-        category_name: this.categoryMapping.filter(
-          (data) => data.category_id === product.category_id
-        )[0]?.name,
-        subcategory_name: this.subcategoryMapping.filter(
-          (data) => data.id === product.subcategory_id
-        )[0]?.name,
-      });
-    });
-  }
-
   private loadProductsByCategory(category) {
     this.productsSubscription = this.categoryServices
       .productsUnderCategory(category)
       .subscribe((data) => {
         this.products = this.filterByPrice(data);
-        this.mappingFunction(this.products);
+        this.products = this.categoryServices.addCategoryNames(this.products);
       });
   }
 
@@ -142,7 +139,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       .productsUnderSubcategory(subcategory)
       .subscribe((data) => {
         this.products = this.filterByPrice(data);
-        this.mappingFunction(this.products);
+        this.products = this.categoryServices.addCategoryNames(this.products);
       });
   }
 
@@ -171,7 +168,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .productSearch(searchItem)
         .subscribe((data) => {
           this.products = data;
-          this.mappingFunction(this.products);
+          this.products = this.categoryServices.addCategoryNames(this.products);
           this.filterProducts();
         });
     } else {
@@ -180,10 +177,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   filterProducts() {
-    // Category already selected
     if (this.router.url.includes('category=')) {
-      // Subcategory already selected
+      // Category already selected
       if (this.router.url.includes('subcategory=')) {
+        // Subcategory already selected
         const names = this.categoryServices.getCategorySubcategory(
           this.router.url
         );

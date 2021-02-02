@@ -39,7 +39,7 @@
         >{{ category.name | uppercase }}</span
       >
       <i class="fa fa-plus" *ngIf="category.isCollapsed"></i>
-      <i class="fa fa-minus" *ngIf="!category.isCollapsed"></i>
+      <i class="fa fa-minus" *ngIf="!category.isCollapsed" (click)="clearFilter()" placement="bottom" ngbTooltip="Clear Filter"></i>
     </div>
     <div class="col-md-12 subcategories" *ngIf="!category.isCollapsed">
       <div

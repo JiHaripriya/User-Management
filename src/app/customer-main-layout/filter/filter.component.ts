@@ -67,6 +67,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   chooseCategory(catId: Number) {
+    this.selectedSubcategory = -1;
     let categoryClicked;
 
     this.categoryList.filter((eachCategory, index) => {
@@ -84,6 +85,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     });
 
     localStorage.setItem('categoryData', JSON.stringify(this.categoryList));
+    this.productServices.resetSortMenu.next(true);
     this.ngOnInit();
   }
 
@@ -114,6 +116,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       relativeTo: this.route,
       queryParams: { category: categoryName, subcategory: subcategoryName },
     });
+    this.productServices.resetSortMenu.next(true);
   }
 
   priceFilter() {
@@ -121,6 +124,11 @@ export class FilterComponent implements OnInit, OnDestroy {
       minPrice: this.value,
       maxPrice: this.highValue,
     });
+  }
+
+  clearFilter() {
+    this.router.navigate([], {queryParams: null});
+    this.productServices.loadAllProducts.next(true);
   }
 
   ngOnDestroy() {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
@@ -8,9 +10,14 @@ import { ProductServicesService } from 'src/app/shared/services/api/product-serv
 })
 export class SortComponent implements OnInit {
   results;
-  option;
+  option = 'Choose an option';
+  selected = false;
 
-  constructor(private productServices: ProductServicesService) {
+  constructor(
+    private productServices: ProductServicesService,
+    private router: Router,
+    private categoryServices: CategoryServices
+  ) {
     this.productServices.getAllProducts().subscribe((data) => {
       this.results = data.length;
     });
@@ -20,6 +27,14 @@ export class SortComponent implements OnInit {
     this.productServices.totalResults.subscribe(
       (data) => (this.results = data)
     );
+
+    this.productServices.resetSortMenu.subscribe(
+      status => {
+        if(status) {
+          this.option = 'Choose an option';
+          this.selected = false;
+        }
+     })
   }
 
   onListView() {
@@ -30,26 +45,34 @@ export class SortComponent implements OnInit {
     this.productServices.collapselistView.next(true);
   }
 
-  sortOption(value) {
-    console.log(this.option, value)
+  sortOption(title, value) {
+    this.option = title;
+    title === 'Choose an option'
+      ? (this.selected = false)
+      : (this.selected = true);
+
+    if (value == 1) {
+      this.productServices
+        .ascendingSortByProperty('price')
+        .subscribe((data) => {
+          let products = data;
+          products = this.productServices.filterProducts(
+            this.router.url,
+            products
+          );
+          this.productServices.sortedProducts.next(products);
+        });
+    } else if (value == 2) {
+      this.productServices
+        .descendingSortByProperty('price')
+        .subscribe((data) => {
+          let products = data;
+          products = this.productServices.filterProducts(
+            this.router.url,
+            products
+          );
+          this.productServices.sortedProducts.next(products);
+        });
+    }
   }
-
-  // private getCategorySubcategory(url) {
-  //   return {
-  //     category: url
-  //       .slice(url.indexOf('?category='), url.indexOf('&subcategory'))
-  //       .split('=')
-  //       .pop(),
-  //     subcategory: url
-  //       .slice(url.indexOf('&subcategory'))
-  //       .split('&subcategory=')
-  //       .pop(),
-  //   };
-  // }
-
-  // private getCategory(url) {
-  //   return {
-  //     category: url.split('?').pop().split('category=').pop(),
-  //   };
-  // }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import { CategoryServices } from './category-services.service';
 
 interface PriceLimits {
   minPrice: number;
@@ -18,9 +19,12 @@ export class ProductServicesService {
   collapselistView = new Subject<boolean>();
   priceFilter = new Subject<PriceLimits>();
   totalResults = new Subject<number>();
+  sortedProducts = new Subject<any>();
+  resetSortMenu = new Subject<boolean>();
+  loadAllProducts = new Subject<boolean>();
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private categoryServices:CategoryServices) {}
 
   getAllProducts() {
     return this.http.get(`${this.baseUrl}?page=1&range=100`).pipe(
@@ -78,5 +82,39 @@ export class ProductServicesService {
         return data;
       })
     );
+  }
+
+  descendingSortByProperty(propertyName: string) {
+    return this.http
+    .get(`${this.baseUrl}?property=${propertyName}&sort=DESC&page=1&range=100`)
+    .pipe(
+      take(1),
+      map((responseData: any) => {
+        let data = responseData.data.rows.map((p) => {
+          return Object.assign(p, { image: this.imageUrlPrefix + p.image });
+        });
+        return data;
+      })
+    );
+  }
+
+  filterProducts(url, products) {
+    if (url.includes('category=')) {
+      if (url.includes('subcategory=')) {
+        const names = this.categoryServices.getCategorySubcategory(
+          url
+        );
+        return this.categoryServices.addCategoryNames(products).filter(
+          (product) =>
+            product.category_name === names.category &&
+            product.subcategory_name === names.subcategory
+        );
+      } else {
+        const category = this.categoryServices.getCategory(url);
+        return this.categoryServices.addCategoryNames(products).filter(
+          (product) => product.category_name === category
+        );
+      }
+    }
   }
 }
