@@ -1,0 +1,21 @@
+<!-- Add Subcategory Formcontrol -->
+<form
+  [formGroup]="subcategoryForm"
+  (ngSubmit)="addSubcategory()"
+>
+  <div class="row">
+    <div class="col-md-8">
+      <!-- <label for="category-name">Subcategory Name</label> -->
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+    <div class="col-md-4" style="align-self: flex-end">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!subcategoryForm.valid"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</form>

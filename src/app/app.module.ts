@@ -27,7 +27,6 @@ import { UsersComponent } from './admin-main-layout/content/users/users.componen
 import { CustomerMainLayoutComponent } from './customer-main-layout/customer-main-layout.component';
 import { CategoriesComponent } from './admin-main-layout/content/categories/categories.component';
 import { ProductListComponent } from './admin-main-layout/content/product-list/product-list.component';
-import { TableComponent } from './common/table/table.component';
 import { CustomerHeaderComponent } from './customer-main-layout/customer-home-header/customer-home-header.component';
 import { BannerComponent } from './customer-main-layout/banner/banner.component';
 import { ContactComponent } from './customer-main-layout/contact/contact.component';
@@ -42,6 +41,9 @@ import { FilterComponent } from './customer-main-layout/filter/filter.component'
 import { SortComponent } from './customer-main-layout/sort/sort.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NoResultsComponent } from './common/no-results/no-results.component';
+import { CategoryFormComponent } from './common/admin-forms/category-forms/category-form/category-form.component';
+import { SubcategoryFormComponent } from './common/admin-forms/category-forms/subcategory-form/subcategory-form.component';
+import { DeleteItemsComponent } from './common/admin-forms/delete-items/delete-items.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,6 @@ import { NoResultsComponent } from './common/no-results/no-results.component';
     CustomerMainLayoutComponent,
     CategoriesComponent,
     ProductListComponent,
-    TableComponent,
     CustomerHeaderComponent,
     BannerComponent,
     ContactComponent,
@@ -76,7 +77,10 @@ import { NoResultsComponent } from './common/no-results/no-results.component';
     ProductCategoryComponent,
     FilterComponent,
     SortComponent,
-    NoResultsComponent
+    NoResultsComponent,
+    CategoryFormComponent,
+    SubcategoryFormComponent,
+    DeleteItemsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,105 @@
-<app-table></app-table>
+<h3 class="pl-4 pt-4">CATEGORY LIST</h3>
+
+<app-delete-items *ngIf="deleteForm"></app-delete-items>
+
+<app-category-form></app-category-form>
+
+<div class="pl-4 pt-5">
+  <table
+    *ngFor="let category of categoryList"
+    style="width: 50%; margin-bottom: 35px"
+  >
+    <thead
+      style="
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      "
+    >
+      <th style="padding: 12px 0">
+        <form
+          class="w-100"
+          [formGroup]="categoryForm"
+          (ngSubmit)="updateCategory(category.id)"
+        >
+          <div class="row">
+            <div class="col-md-8">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                [value]="category.name"
+                [ngClass]="{'disable-cursor': !editCategory}"
+              />
+            </div>
+            <div
+              class="col-md-4"
+              style="align-self: flex-end"
+              *ngIf="editCategory && selectedCategory === category.id"
+            >
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="!categoryForm.valid"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </th>
+      <th>
+        <img
+          (click)="enableCategoryEdit(category.id)"
+          src="../assets/images/icons8-edit-50.png"
+          alt=""
+          srcset=""
+          style="height: 25px; cursor: pointer"
+        />
+      </th>
+      <th>
+        <img
+          (click)="deleteCategory(category.id)"
+          src="../assets/images/icons8-delete-bin-60.png"
+          alt=""
+          srcset=""
+          style="height: 25px; cursor: pointer"
+        />
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcategory of category.Subcategories">
+        <td style="padding: 10px 0">{{ subcategory.name | titlecase }}</td>
+        <td>
+          <img
+            (click)="editSubcategory()"
+            src="../assets/images/icons8-edit-50.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+        <td>
+          <img
+            (click)="deleteSubcategory()"
+            src="../assets/images/icons8-delete-bin-60.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td
+          [ngClass]="{
+            'pt-2': category.Subcategories.length > 0,
+            'pb-2': category.Subcategories.length > 0,
+            'pt-4': category.Subcategories.length === 0,
+            'pb-4': category.Subcategories.length === 0
+          }"
+        >
+          <app-subcategory-form></app-subcategory-form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,25 @@
+label {
+  position: relative;
+  top: 18px;
+  left: 10px;
+  background-color: #27293d;
+  font-size: small;
+}
+
+input:focus {
+  border-image-slice: 1 !important;
+  border-width: 1px !important;
+  border-image-source: linear-gradient(to right, #3358f4, #1d8cf8) !important;
+}
+
+.btn .btn-primary:focus {
+  box-shadow: none !important;
+}
+
+.form-control, .form-control:focus {
+  height: calc(1.5em + 0.75rem + 2px) !important;
+}
+
+.btn-primary {
+  height: 2.15rem !important;
+}

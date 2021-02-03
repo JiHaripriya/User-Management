@@ -2,13 +2,9 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TableService {
-
-  tableValues = new Subject<any>();
-  
-  constructor() { }
-
-
+  tableStatus = new Subject<boolean>();
+  constructor() {}
 }

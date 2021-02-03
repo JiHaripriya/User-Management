@@ -17,6 +17,10 @@ export class CategoryServices {
   imageUrlPrefix = 'http://user-dashboard.qburst.build/user_dashboard/';
   loadCategory = new Subject<ProductStatus>();
   loadSubcategory = new Subject<ProductStatus>();
+  deleteCategoryStatus = new Subject<number>();
+  deleteSubcategoryStatus = new Subject<number>();
+  deleteForm = new Subject<boolean>();
+  reloadComponent = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -143,6 +147,52 @@ export class CategoryServices {
           (data) => data.id === product.subcategory_id
         )[0]?.name,
       });
+    });
+  }
+
+  createCategory(data: string) {
+    this.http.post(`${this.baseUrl}/category/create`, data).subscribe((res) => {
+      //console.log(res);
+      this.reloadComponent.next(true);
+    });
+  }
+
+  editCategory(id: number, data: string) {
+    this.http.put(`${this.baseUrl}/category/${id}`, data).subscribe((res) => {
+      //console.log(res);
+      this.reloadComponent.next(true);
+    });
+  }
+
+  deleteCategory(id: number) {
+    this.http.delete(`${this.baseUrl}/category/${id}`).subscribe((res) => {
+      //console.log(res);
+      this.reloadComponent.next(true);
+    });
+  }
+
+  createSubCategory(data: string) {
+    this.http
+      .post(`${this.baseUrl}/subCategory/create`, data)
+      .subscribe((res) => {
+        //console.log(res);
+        this.reloadComponent.next(true);
+      });
+  }
+
+  editSubCategory(id: number, data: string) {
+    this.http
+      .put(`${this.baseUrl}/subCategory/${id}`, data)
+      .subscribe((res) => {
+        //console.log(res);
+        this.reloadComponent.next(true);
+      });
+  }
+
+  deleteSubCategory(id: number) {
+    this.http.delete(`${this.baseUrl}/subCategory/${id}`).subscribe((res) => {
+      //console.log(res);
+      this.reloadComponent.next(true);
     });
   }
 }

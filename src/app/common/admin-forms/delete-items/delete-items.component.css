@@ -1,0 +1,11 @@
+.btn-default {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-image-slice: 1 !important;
+  border-width: 1px !important;
+  border-image-source: linear-gradient(to right, #3358f4, #1d8cf8) !important;
+}
+
+.btn-default:hover {
+  color: #3358f4;
+}

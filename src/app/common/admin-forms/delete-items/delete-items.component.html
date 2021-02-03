@@ -1,0 +1,39 @@
+<div
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    z-index: 6000;
+  "
+>
+  <div style="position: relative; top: 100px; width: 25%; margin: 0 auto">
+    <img src="../../../../assets/images/thinking.gif" alt="" />
+    <div class="row">
+      <div class="col-md-12" style="text-align: center">
+        <h4>Confirm Delete?</h4>
+        <p>This action cannot be undone.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-md-12"
+        style="display: flex; justify-content: space-between"
+      >
+        <button type="submit" class="btn btn-default" (click)="cancelDelete()">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn btn-secondary"
+          (click)="delete()"
+          style="width: 35%"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

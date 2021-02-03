@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableComponent } from './table.component';
+import { SubcategoryFormComponent } from './subcategory-form.component';
 
-describe('TableComponent', () => {
-  let component: TableComponent;
-  let fixture: ComponentFixture<TableComponent>;
+describe('SubcategoryFormComponent', () => {
+  let component: SubcategoryFormComponent;
+  let fixture: ComponentFixture<SubcategoryFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableComponent ]
+      declarations: [ SubcategoryFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableComponent);
+    fixture = TestBed.createComponent(SubcategoryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
