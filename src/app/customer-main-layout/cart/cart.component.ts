@@ -8,8 +8,7 @@ import { HomePageService } from 'src/app/shared/services/customer/home-page.serv
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit, OnDestroy {
   @ViewChild('cartModal') cardModal: ElementRef;

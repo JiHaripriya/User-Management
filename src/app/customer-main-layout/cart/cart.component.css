@@ -5,7 +5,11 @@
   height: 100% !important;
 }
 
-::ng-deep .modal .modal-content {
+::ng-deep .modal-open {
+  padding-right:0px !important;
+}
+
+::ng-deep .modal-content {
   position: fixed !important;
   width: 30% !important;
   border: none !important;
@@ -54,7 +58,7 @@ img:hover {
   transition: background-color 0.3s ease-in-out;
 }
 
-.row {
+.cart .row {
   flex-wrap: nowrap !important;
 }
 
