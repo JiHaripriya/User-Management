@@ -74,3 +74,7 @@ button:focus {
   outline: transparent !important;
   border: transparent !important;
 }
+
+.alert {
+  font-size: smaller;
+}

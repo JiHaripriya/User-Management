@@ -1,14 +1,26 @@
-<div class="wrapper">
+<div style="position: absolute; z-index: 6000; right: 25px; top: 66px">
+  <p *ngFor="let alert of alerts">
+    <ngb-alert
+      [type]="alert.type"
+      (closed)="close(alert)"
+      style="position: relative; margin: 10px 0"
+      >{{ alert.message }}</ngb-alert
+    >
+  </p>
+</div>
 
+<div class="wrapper">
   <!-- Sidebar -->
   <app-sidebar></app-sidebar>
 
   <!-- Header Section -->
   <app-header></app-header>
 
-  <div class="content rounded" [ngClass]="{'bg-primary': loadProfile, 'bg-secondary' : !loadProfile}">
+  <div
+    class="content rounded"
+    [ngClass]="{ 'bg-primary': loadProfile, 'bg-secondary': !loadProfile }"
+  >
     <!-- Dynamically load content -->
     <router-outlet></router-outlet>
   </div>
-
 </div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { Alerts } from '../../models/alert.model';
 
 interface ProductStatus {
   status: boolean;
@@ -21,6 +22,7 @@ export class CategoryServices {
   deleteSubcategoryStatus = new Subject<number>();
   deleteForm = new Subject<boolean>();
   reloadComponent = new Subject<boolean>();
+  categoryAlerts = new Subject<Alerts>();
 
   constructor(private http: HttpClient) {}
 
@@ -151,24 +153,65 @@ export class CategoryServices {
   }
 
   createCategory(data: string) {
-    this.http.post(`${this.baseUrl}/category/create`, data).subscribe((res) => {
-      //console.log(res);
-      this.reloadComponent.next(true);
-    });
+    this.http.post(`${this.baseUrl}/category/create`, data).subscribe(
+      (res) => {
+        this.categoryAlerts.next({
+          type: 'success',
+          message: 'Category created successfully!',
+        });
+        this.reloadComponent.next(true);
+      },
+      (error) => {
+        if (error.error.error >= 400) {
+          this.categoryAlerts.next({
+            type: 'danger',
+            message: 'Unknown error occured',
+          });
+        }
+      }
+    );
   }
 
   editCategory(id: number, data: string) {
-    this.http.put(`${this.baseUrl}/category/${id}`, data).subscribe((res) => {
-      //console.log(res);
-      this.reloadComponent.next(true);
-    });
+    this.http.put(`${this.baseUrl}/category/${id}`, data).subscribe(
+      (res: any) => {
+        this.categoryAlerts.next({
+          type: 'success',
+          message: 'Category edited successfully!',
+        });
+        this.reloadComponent.next(true);
+      },
+      (error) => {
+        if (
+          error.error.error === 400 &&
+          error.error.message === 'id doesnt exist'
+        ) {
+          this.categoryAlerts.next({
+            type: 'warning',
+            message: 'No changes made to catgory name',
+          });
+        }
+      }
+    );
   }
 
   deleteCategory(id: number) {
-    this.http.delete(`${this.baseUrl}/category/${id}`).subscribe((res) => {
-      //console.log(res);
+    this.http.delete(`${this.baseUrl}/category/${id}`).subscribe((res:any) => {
+      this.categoryAlerts.next({
+        type: 'success',
+        message: 'Category and all subcategories under it deleted successfully',
+      });
       this.reloadComponent.next(true);
-    });
+    },
+    (error) => {
+      if (error.error.error >= 400) {
+        this.categoryAlerts.next({
+          type: 'danger',
+          message: 'Unknown error occured',
+        });
+      }
+    }
+  );
   }
 
   createSubCategory(data: string) {
