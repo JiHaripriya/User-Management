@@ -22,9 +22,11 @@ export class ProductServicesService {
   sortedProducts = new Subject<any>();
   resetSortMenu = new Subject<boolean>();
   loadAllProducts = new Subject<boolean>();
-  
 
-  constructor(private http: HttpClient, private categoryServices:CategoryServices) {}
+  constructor(
+    private http: HttpClient,
+    private categoryServices: CategoryServices
+  ) {}
 
   getAllProducts() {
     return this.http.get(`${this.baseUrl}?page=1&range=100`).pipe(
@@ -72,49 +74,51 @@ export class ProductServicesService {
 
   ascendingSortByProperty(propertyName: string) {
     return this.http
-    .get(`${this.baseUrl}?property=${propertyName}&sort=ASC&page=1&range=100`)
-    .pipe(
-      take(1),
-      map((responseData: any) => {
-        let data = responseData.data.rows.map((p) => {
-          return Object.assign(p, { image: this.imageUrlPrefix + p.image });
-        });
-        return data;
-      })
-    );
+      .get(`${this.baseUrl}?property=${propertyName}&sort=ASC&page=1&range=100`)
+      .pipe(
+        take(1),
+        map((responseData: any) => {
+          let data = responseData.data.rows.map((p) => {
+            return Object.assign(p, { image: this.imageUrlPrefix + p.image });
+          });
+          return data;
+        })
+      );
   }
 
   descendingSortByProperty(propertyName: string) {
     return this.http
-    .get(`${this.baseUrl}?property=${propertyName}&sort=DESC&page=1&range=100`)
-    .pipe(
-      take(1),
-      map((responseData: any) => {
-        let data = responseData.data.rows.map((p) => {
-          return Object.assign(p, { image: this.imageUrlPrefix + p.image });
-        });
-        return data;
-      })
-    );
+      .get(
+        `${this.baseUrl}?property=${propertyName}&sort=DESC&page=1&range=100`
+      )
+      .pipe(
+        take(1),
+        map((responseData: any) => {
+          let data = responseData.data.rows.map((p) => {
+            return Object.assign(p, { image: this.imageUrlPrefix + p.image });
+          });
+          return data;
+        })
+      );
   }
 
   filterProducts(url, products) {
     if (url.includes('category=')) {
       if (url.includes('subcategory=')) {
-        const names = this.categoryServices.getCategorySubcategory(
-          url
-        );
-        return this.categoryServices.addCategoryNames(products).filter(
-          (product) =>
-            product.category_name === names.category &&
-            product.subcategory_name === names.subcategory
-        );
+        const names = this.categoryServices.getCategorySubcategory(url);
+        return this.categoryServices
+          .addCategoryNames(products)
+          .filter(
+            (product) =>
+              product.category_name === names.category &&
+              product.subcategory_name === names.subcategory
+          );
       } else {
         const category = this.categoryServices.getCategory(url);
-        return this.categoryServices.addCategoryNames(products).filter(
-          (product) => product.category_name === category
-        );
+        return this.categoryServices
+          .addCategoryNames(products)
+          .filter((product) => product.category_name === category);
       }
-    }
+    } else return this.categoryServices.addCategoryNames(products);
   }
 }
