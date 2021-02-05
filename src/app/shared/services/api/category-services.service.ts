@@ -10,6 +10,12 @@ interface ProductStatus {
   subcategoryName?: string;
 }
 
+interface Subcategory {
+  id?: number;
+  name: string;
+  category: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +29,7 @@ export class CategoryServices {
   deleteForm = new Subject<boolean>();
   reloadComponent = new Subject<boolean>();
   categoryAlerts = new Subject<Alerts>();
+  hideInputField = new Subject<boolean>();
 
   constructor(private http: HttpClient) {}
 
@@ -182,9 +189,10 @@ export class CategoryServices {
         this.reloadComponent.next(true);
       },
       (error) => {
+        console.log(error);
         if (
           error.error.error === 400 &&
-          error.error.message === 'id doesnt exist'
+          error.error.message === 'category name already exist'
         ) {
           this.categoryAlerts.next({
             type: 'warning',
@@ -196,46 +204,94 @@ export class CategoryServices {
   }
 
   deleteCategory(id: number) {
-    this.http.delete(`${this.baseUrl}/category/${id}`).subscribe((res:any) => {
-      this.categoryAlerts.next({
-        type: 'success',
-        message: 'Category and all subcategories under it deleted successfully',
-      });
-      this.reloadComponent.next(true);
-    },
-    (error) => {
-      if (error.error.error >= 400) {
+    this.http.delete(`${this.baseUrl}/category/${id}`).subscribe(
+      (res: any) => {
         this.categoryAlerts.next({
-          type: 'danger',
-          message: 'Unknown error occured',
+          type: 'success',
+          message:
+            'Category and all subcategories under it deleted successfully',
         });
+        this.reloadComponent.next(true);
+      },
+      (error) => {
+        if (error.error.error >= 400) {
+          this.categoryAlerts.next({
+            type: 'danger',
+            message: 'Unknown error occured',
+          });
+        }
       }
-    }
-  );
+    );
   }
 
-  createSubCategory(data: string) {
+  createSubCategory(data: Subcategory) {
+    console.log(data);
     this.http
-      .post(`${this.baseUrl}/subCategory/create`, data)
-      .subscribe((res) => {
-        //console.log(res);
-        this.reloadComponent.next(true);
-      });
+      .post(`${this.baseUrl}/subCategory/create`, {
+        name: data.name,
+        category: data.category,
+      })
+      .subscribe(
+        (res: any) => {
+          this.categoryAlerts.next({
+            type: 'success',
+            message: res.message.split(' by ')[0] + '!',
+          });
+          this.reloadComponent.next(true);
+        },
+        (error) => {
+          if (error.error.error >= 400) {
+            this.categoryAlerts.next({
+              type: 'danger',
+              message: 'Unknown error occured',
+            });
+          }
+        }
+      );
   }
 
-  editSubCategory(id: number, data: string) {
+  editSubCategory(data: Subcategory) {
     this.http
-      .put(`${this.baseUrl}/subCategory/${id}`, data)
-      .subscribe((res) => {
-        //console.log(res);
-        this.reloadComponent.next(true);
-      });
+      .put(`${this.baseUrl}/subCategory/${data.id}`, {
+        name: data.name,
+        category: data.category,
+      })
+      .subscribe(
+        (res: any) => {
+          this.categoryAlerts.next({
+            type: 'success',
+            message: res.message.split(' by ')[0] + '!',
+          });
+          this.reloadComponent.next(true);
+        },
+        (error) => {
+          if (error.error.error >= 400) {
+            this.categoryAlerts.next({
+              type: 'danger',
+              message: 'Unknown error occured',
+            });
+          }
+        }
+      );
   }
 
   deleteSubCategory(id: number) {
-    this.http.delete(`${this.baseUrl}/subCategory/${id}`).subscribe((res) => {
-      //console.log(res);
-      this.reloadComponent.next(true);
-    });
+    this.http.delete(`${this.baseUrl}/subCategory/${id}`).subscribe(
+      (res: any) => {
+        this.categoryAlerts.next({
+          type: 'success',
+          message: res.message.split(' by ')[0] + '!',
+        });
+        this.reloadComponent.next(true);
+      },
+      (error) => {
+        if (error.error.error >= 400) {
+          this.categoryAlerts.next({
+            type: 'danger',
+            message: 'Unknown error occured',
+          });
+        }
+      }
+    );
   }
 }

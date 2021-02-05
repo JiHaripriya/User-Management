@@ -7,12 +7,9 @@ import { CategoryServices } from 'src/app/shared/services/api/category-services.
   styleUrls: ['./delete-items.component.css'],
 })
 export class DeleteItemsComponent implements OnInit {
-
   constructor(private catServices: CategoryServices) {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   cancelDelete() {
     this.catServices.deleteForm.next(false);
@@ -20,11 +17,19 @@ export class DeleteItemsComponent implements OnInit {
 
   delete() {
     // delete category
-    const selectedId = Number(localStorage.getItem('categoryId'));
-    this.catServices.deleteCategory(selectedId);
-    this.catServices.deleteForm.next(false);
-    localStorage.removeItem('categoryId');
+    if (localStorage.getItem('categoryId')) {
+      const selectedId = Number(localStorage.getItem('categoryId'));
+      this.catServices.deleteCategory(selectedId);
+      this.catServices.deleteForm.next(false);
+      localStorage.removeItem('categoryId');
+    }
 
     // delete subcategory
+    if (localStorage.getItem('subcategoryId')) {
+      const selectedId = Number(localStorage.getItem('subcategoryId'));
+      this.catServices.deleteSubCategory(selectedId);
+      this.catServices.deleteForm.next(false);
+      localStorage.removeItem('subcategoryId');
+    }
   }
 }
