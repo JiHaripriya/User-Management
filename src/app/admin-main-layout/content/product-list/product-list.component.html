@@ -1,176 +1,185 @@
 <app-sort *ngIf="page === 'shop'"></app-sort>
-<div class="row justify-content-between mr-5 ml-3 mt-3 mb-4 product-list">
-  <div *ngIf="page !== 'shop'">
-    <h3>Product Details</h3>
-  </div>
-  <div *ngIf="showAllProducts && page === 'shop'">
-    <h3>All Products</h3>
-  </div>
-  <div
-    class="row search-bar"
-    style="align-items: center"
-    [ngClass]="{ 'search-bar-position': page === 'shop' }"
-    (keydown)="search(searchItem)"
-  >
-    <input
-      class="search-input"
-      type="text"
-      name=""
-      placeholder="Search Product"
-      [(ngModel)]="searchItem"
-    />
-    <a class="search_icon" style="cursor: pointer"
-      ><i class="fa fa-search fa-lg" aria-hidden="true"></i
-    ></a>
-  </div>
-</div>
-
-<div
-  class="row justify-content-lg-even"
-  style="min-height: inherit; width: 100%"
-  [ngClass]="{ 'pt-4': page === 'shop', 'ml-2': page === 'shop' }"
-  *ngIf="products?.length > 0"
->
-  <!-- Total number of users card shadow -->
-  <div
-    *ngFor="
-      let product of products
-        | slice: (pageNum - 1) * pageSize:pageNum * pageSize
-    "
-    [ngClass]="{
-      'm-4': page !== 'shop',
-      'm-2': page === 'shop',
-      'mr-4': page === 'shop',
-      'shadow-sm': page === 'shop',
-      shadow: page !== 'shop',
-      'bg-success': page !== 'shop',
-      'list-view': listView,
-      'card-holder-user': page === 'shop',
-      'card-holder': page !== 'shop'
-    }"
-  >
+<div style="padding: 16px" *ngIf="!showDetails">
+  <div class="row justify-content-between product-list">
+    <div *ngIf="page !== 'shop'">
+      <h3>Product Details</h3>
+    </div>
+    <div *ngIf="showAllProducts && page === 'shop'">
+      <h3>All Products</h3>
+    </div>
     <div
-      class="card text-white"
+      class="row search-bar"
+      style="align-items: center"
+      [ngClass]="{ 'search-bar-position': page === 'shop' }"
+      (keydown)="search(searchItem)"
+    >
+      <input
+        class="search-input"
+        type="text"
+        name=""
+        placeholder="Search Product"
+        [(ngModel)]="searchItem"
+      />
+      <a class="search_icon" style="cursor: pointer"
+        ><i class="fa fa-search fa-lg" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+
+  <div
+    class="row justify-content-lg-even"
+    style="min-height: inherit; width: 100%"
+    [ngClass]="{ 'pt-4': page === 'shop' }"
+    *ngIf="products?.length > 0"
+  >
+    <!-- Total number of users card shadow -->
+    <div
+      *ngFor="
+        let product of products
+          | slice: (pageNum - 1) * pageSize:pageNum * pageSize
+      "
       [ngClass]="{
-        'card-height-24': page !== 'shop',
-        'm-3': page !== 'shop',
-        'card-height-20': page === 'shop',
-        'width-50': page === 'shop' && listView,
+        'm-4': page !== 'shop',
         'm-2': page === 'shop',
-        'pad-25': listView
+        'mr-4': page === 'shop',
+        'shadow-sm': page === 'shop',
+        shadow: page !== 'shop',
+        'bg-success': page !== 'shop',
+        'list-view': listView,
+        'card-holder-user': page === 'shop',
+        'card-holder': page !== 'shop'
       }"
     >
-      <img [src]="product.image" alt="" srcset="" class="product-img" />
-      <div class="action_links" style="border-radius: 0 5px">
-        <ul>
-          <li *ngIf="page !== 'shop'">
-            <a
-              ><img
-                src="../../../../assets/icons/trash.png"
-                alt=""
-                srcset=""
-                class="p-icon"
-                placement="top"
-                ngbTooltip="Delete"
-            /></a>
-          </li>
-          <li *ngIf="page !== 'shop'">
-            <a
-              ><img
-                (click)="onEdit()"
-                src="../../../../assets/icons/edit.png"
-                alt=""
-                srcset=""
-                class="p-icon"
-                placement="top"
-                ngbTooltip="Edit"
-            /></a>
-          </li>
-          <li *ngIf="page !== 'shop'">
-            <a
-              ><img
-                (click)="onView()"
-                src=" ../../../../assets/icons/icons8-eye-24.png"
-                alt=""
-                srcset=""
-                class="p-icon"
-                placement="top"
-                ngbTooltip="View"
-            /></a>
-          </li>
-          <li *ngIf="page === 'shop'">
-            <a placement="top" ngbTooltip="Cart" (click)="addToCart(product)">
-              <i
-                class="fa fa-shopping-cart fa-lg p-icon"
-                aria-hidden="true"
-                style="color: black"
-              ></i
-            ></a>
-          </li>
-        </ul>
+      <div
+        class="card text-white"
+        [ngClass]="{
+          'card-height-24': page !== 'shop',
+          'm-3': page !== 'shop',
+          'card-height-20': page === 'shop',
+          'width-50': page === 'shop' && listView,
+          'm-2': page === 'shop',
+          'pad-25': listView
+        }"
+      >
+        <img [src]="product.image" alt="" srcset="" class="product-img" />
+        <div class="action_links" style="border-radius: 0 5px">
+          <ul>
+            <li *ngIf="page !== 'shop'">
+              <a
+                ><img
+                  src="../../../../assets/icons/trash.png"
+                  alt=""
+                  srcset=""
+                  class="p-icon"
+                  placement="top"
+                  ngbTooltip="Delete"
+              /></a>
+            </li>
+            <li *ngIf="page !== 'shop'">
+              <a
+                ><img
+                  (click)="onEdit()"
+                  src="../../../../assets/icons/edit.png"
+                  alt=""
+                  srcset=""
+                  class="p-icon"
+                  placement="top"
+                  ngbTooltip="Edit"
+              /></a>
+            </li>
+            <!-- <li *ngIf="page !== 'shop'"> -->
+            <li>
+              <a
+                ><img
+                  (click)="onView(product)"
+                  src=" ../../../../assets/icons/icons8-eye-24.png"
+                  alt=""
+                  srcset=""
+                  class="p-icon"
+                  placement="top"
+                  ngbTooltip="View"
+              /></a>
+            </li>
+            <li *ngIf="page === 'shop'">
+              <a placement="top" ngbTooltip="Cart" (click)="addToCart(product)">
+                <i
+                  class="fa fa-shopping-cart fa-lg p-icon"
+                  aria-hidden="true"
+                  style="color: black"
+                ></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        [ngClass]="{
+          'name-price-section-list-view': listView,
+          row: !listView,
+          'name-price-section': !listView
+        }"
+      >
+        <p style="margin-bottom: 0 !important" class="product-name p-1">
+          {{
+            !listView
+              ? product.name.length > 56
+                ? product.name.slice(0, 56) + "..."
+                : product.name.slice(0, 56)
+              : product.name
+          }}
+        </p>
+        <p style="color: rgb(173, 173, 3)" class="p-1">₹{{ product.price }}</p>
+        <p [hidden]="!listView" class="p-1" style="font-size: smaller">
+          {{ product.description }}
+        </p>
+        <p [hidden]="!listView" style="cursor: pointer" class="p-1">
+          <span
+            *ngIf="product.category_name"
+            class="p-2 text-light mr-2"
+            style="
+              background-color: #335af4da;
+              border-radius: 24px;
+              font-size: smaller;
+            "
+            ><i>{{ product.category_name | titlecase }}</i></span
+          >
+          <span
+            *ngIf="product.subcategory_name"
+            class="p-2 text-light"
+            style="
+              background-color: #335af4da;
+              border-radius: 24px;
+              font-size: smaller;
+            "
+          >
+            <i>{{ product.subcategory_name | titlecase }}</i></span
+          >
+        </p>
+        <p [hidden]="!listView" class="p-1" style="font-size: smaller">
+          In Stock: {{ product.quantity }}
+        </p>
       </div>
     </div>
-    <div
-      [ngClass]="{
-        'name-price-section-list-view': listView,
-        row: !listView,
-        'name-price-section': !listView
-      }"
-    >
-      <p style="margin-bottom: 0 !important" class="product-name p-1">
-        {{
-          !listView
-            ? product.name.length > 56
-              ? product.name.slice(0, 56) + "..."
-              : product.name.slice(0, 56)
-            : product.name
-        }}
-      </p>
-      <p style="color: rgb(173, 173, 3)" class="p-1">₹{{ product.price }}</p>
-      <p [hidden]="!listView" class="p-1" style="font-size: smaller;">{{ product.description }}</p>
-      <p [hidden]="!listView" style="cursor: pointer" class="p-1">
-        <span
-          *ngIf="product.category_name"
-          class="p-2 text-light mr-2"
-          style="
-            background-color: #335af4da;
-            border-radius: 24px;
-            font-size: smaller;
-          "
-          ><i>{{ product.category_name | titlecase }}</i></span
-        >
-        <span
-          *ngIf="product.subcategory_name"
-          class="p-2 text-light"
-          style="
-            background-color: #335af4da;
-            border-radius: 24px;
-            font-size: smaller;
-          "
-        >
-          <i>{{ product.subcategory_name | titlecase }}</i></span
-        >
-      </p>
-      <p [hidden]="!listView" class="p-1" style="font-size: smaller;">In Stock: {{ product.quantity }}</p>
-    </div>
   </div>
-</div>
 
-<ngb-pagination
-  *ngIf="products?.length > 0"
-  [collectionSize]="products?.length"
-  [(page)]="pageNum"
-  [(pageSize)]="pageSize"
-  [maxSize]="12"
-  [rotate]="true"
-  [ellipses]="false"
-  [boundaryLinks]="true"
-  class="d-flex justify-content-center mt-5"
-  [ngClass]="{ 'pagination-menu': page !== 'shop' }"
-  (click)="scrollToTop()"
-></ngb-pagination>
+  <ngb-pagination
+    *ngIf="products?.length > 0"
+    [collectionSize]="products?.length"
+    [(page)]="pageNum"
+    [(pageSize)]="pageSize"
+    [maxSize]="12"
+    [rotate]="true"
+    [ellipses]="false"
+    [boundaryLinks]="true"
+    class="d-flex justify-content-center mt-5"
+    [ngClass]="{ 'pagination-menu': page !== 'shop' }"
+    (click)="scrollToTop()"
+  ></ngb-pagination>
+</div>
 
 <app-product-add-edit-form></app-product-add-edit-form>
 <app-product-details-form></app-product-details-form>
 
 <app-no-results *ngIf="products?.length === 0"></app-no-results>
+
+<app-product-details *ngIf="showDetails"></app-product-details>

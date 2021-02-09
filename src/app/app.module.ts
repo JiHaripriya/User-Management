@@ -44,6 +44,7 @@ import { NoResultsComponent } from './common/no-results/no-results.component';
 import { CategoryFormComponent } from './common/admin-forms/category-forms/category-form/category-form.component';
 import { SubcategoryFormComponent } from './common/admin-forms/category-forms/subcategory-form/subcategory-form.component';
 import { DeleteItemsComponent } from './common/admin-forms/delete-items/delete-items.component';
+import { ProductDetailsComponent } from './admin-main-layout/content/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { DeleteItemsComponent } from './common/admin-forms/delete-items/delete-i
     NoResultsComponent,
     CategoryFormComponent,
     SubcategoryFormComponent,
-    DeleteItemsComponent
+    DeleteItemsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { FormServiceService } from 'src/app/shared/services/admin/form-service.s
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 import { CartService } from 'src/app/shared/services/customer/cart.service';
+import { Product } from 'src/app/shared/models/product.model';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +24,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   pageSize = 9;
   page = '';
   showAllProducts = false;
+  showDetails = false;
   minPrice = 0;
   maxPrice = 100000;
 
@@ -96,7 +98,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     );
 
     this.productServices.loadAllProducts.subscribe((status) => {
-      if (status){
+      if (status) {
         this.showAllProducts = true;
         this.initializeProducts();
       }
@@ -121,8 +123,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.formService.openProjectEditForm.next(true);
   }
 
-  onView() {
-    this.formService.openProjectDetails.next(true);
+  onView(details: Product) {
+    this.showDetails = true;
+    this.router.navigate([], {
+      queryParams: {
+        product: details.name,
+      },
+    });
+    localStorage.setItem('product', JSON.stringify(details));
   }
 
   private loadProductsByCategory(category) {
