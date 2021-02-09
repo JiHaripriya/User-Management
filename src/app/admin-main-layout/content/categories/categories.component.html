@@ -1,0 +1,176 @@
+<app-delete-items *ngIf="deleteForm"></app-delete-items>
+
+<div style="align-items: center; display: flex; justify-content: space-between">
+  <div><h3 class="pl-4 pt-4">CATEGORY LIST</h3></div>
+  <div class="w-25" style="display: flex; align-self: flex-end">
+    <input
+      class="form-control"
+      style="border-radius: 24px"
+      type="text"
+      name=""
+      placeholder="Search Category"
+      [(ngModel)]="searchItem"
+    />
+    <a
+      class="search_icon"
+      style="cursor: pointer; position: relative; right: 15%; top: 10px"
+      ><i class="fa fa-search fa-lg" aria-hidden="true"></i
+    ></a>
+  </div>
+</div>
+
+<app-category-form></app-category-form>
+
+<div class="pl-4 pt-5">
+  <table
+    *ngFor="let category of categoryList | filter: searchItem"
+    style="width: 50%; margin-bottom: 35px"
+  >
+    <thead
+      style="
+        border-top: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border-color);
+      "
+    >
+      <th style="padding: 12px 0">
+        <form
+          [formGroup]="categoryForm"
+          (ngSubmit)="updateCategory(category.id)"
+        >
+          <div class="row">
+            <div class="col-md-8">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                [value]="category.name"
+                [ngClass]="{
+                  'disable-cursor': selectedCategory !== category.id
+                }"
+              />
+            </div>
+            <div
+              class="col-md-4"
+              style="align-self: flex-end"
+              *ngIf="editCategory && selectedCategory === category.id"
+            >
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="!categoryForm.valid"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </th>
+      <th>
+        <img
+          (click)="enableCategoryEdit(category.id)"
+          src="../assets/images/icons8-edit-50.png"
+          alt=""
+          srcset=""
+          style="height: 25px; cursor: pointer"
+        />
+      </th>
+      <th>
+        <img
+          (click)="deleteCategory(category.id)"
+          src="../assets/images/icons8-delete-bin-60.png"
+          alt=""
+          srcset=""
+          style="height: 25px; cursor: pointer"
+        />
+      </th>
+      <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subcategory of category.Subcategories; let i = index">
+        <td>
+          <form
+            [formGroup]="subcategoryForm"
+            (ngSubmit)="editSubcategory(subcategory.id, category.name)"
+          >
+            <div class="row forms">
+              <div class="col-md-8" style="margin-top: 10px">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  [value]="subcategory.name"
+                  [ngClass]="{
+                    'disable-cursor': selectedSubcategory !== subcategory.id
+                  }"
+                />
+              </div>
+              <div
+                class="col-md-4"
+                style="align-self: flex-end"
+                *ngIf="
+                  editsubCategory && selectedSubcategory === subcategory.id
+                "
+              >
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!subcategoryForm.valid"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <img
+            (click)="enableSubcategoryEdit(subcategory.id)"
+            src="../assets/images/icons8-edit-50.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+        <td>
+          <img
+            (click)="deleteSubcategory(subcategory.id)"
+            src="../assets/images/icons8-delete-bin-60.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+        <td *ngIf="i === category.Subcategories.length - 1">
+          <img
+            (click)="addNewSubcategory(category.name, category.id)"
+            src="../../../../assets/icons/plus-icon.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+      </tr>
+      <tr *ngIf="showInputField && selectedCategory === category.id">
+        <td
+          [ngClass]="{
+            'pt-2': category.Subcategories.length > 0,
+            'pb-2': category.Subcategories.length > 0
+          }"
+        >
+          <app-subcategory-form></app-subcategory-form>
+        </td>
+      </tr>
+      <tr *ngIf="category.Subcategories.length === 0">
+        <td
+          [ngClass]="{
+            'pt-4': category.Subcategories.length === 0,
+            'pb-4': category.Subcategories.length === 0
+          }"
+          (click)="storeCategory(category.name)"
+        >
+          <app-subcategory-form></app-subcategory-form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

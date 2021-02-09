@@ -1,0 +1,112 @@
+/* COMMON CSS */
+:root {
+  --primary-color: rgb(30, 30, 46);
+  --secondary-color: #27293d;
+  --font-color: rgba(255, 255, 255, 0.8);
+  --border-color: #3a4568;
+  --input-font-color: rgba(255, 255, 255, 0.699);
+}
+
+html,
+body {
+  font-family: "Poppins-Light", sans-serif;
+  color: var(--font-color);
+  font-weight: 300;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  background-color: var(--primary-color);
+}
+
+input[type="date"],
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="email"],
+input[type="checkbox"],
+textarea,
+select {
+  font-family: "Poppins-Light", sans-serif;
+  color: var(--font-color);
+  font-weight: 300;
+  font-size: 14px !important;
+  text-rendering: optimizeLegibility;
+}
+
+/* Override box shadows of boostrap */
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+[type="text"].form-control:focus,
+[type="password"].form-control:focus,
+[type="email"].form-control:focus,
+[type="tel"].form-control:focus,
+[contenteditable].form-control:focus {
+  box-shadow: none;
+}
+
+/* FORM STYLING */
+.auth-form {
+  position: absolute;
+  left: 35%;
+  top: 26vh !important;
+  width: 30% !important;
+}
+
+.form-control,
+.form-control:focus {
+  color: var(--input-font-color) !important;
+  height: calc(1.5em + 0.75rem + 15px) !important;
+  background-color: var(--secondary-color) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.form-control:focus {
+  color: var(--input-font-color);
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to right, #3358f4, #1d8cf8);
+}
+
+.gradient-background {
+  background: linear-gradient(0deg, #3358f4 0, #1d8cf8 100%);
+}
+
+.btn-primary {
+  height: 45px;
+  border: none;
+  color: var(--font-color);
+}
+
+/* TYPOS */
+
+@font-face {
+  font-family: "Poppins-Medium";
+  src: url("../assets/fonts/poppins-medium-webfont.woff2") format("woff2"),
+    url("../assets/fonts/poppins-medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins-Light";
+  src: url("../assets/fonts/poppins-light-webfont.woff2") format("woff2"),
+    url("../assets/fonts/poppins-light-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("../assets/fonts/poppins-regular-webfont.woff2") format("woff2"),
+    url("../assets/fonts/poppins-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

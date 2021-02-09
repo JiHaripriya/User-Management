@@ -1,0 +1,65 @@
+<app-loader *ngIf="loading"></app-loader>
+
+<div class="table-responsive pl-3 pr-3 pt-2" *ngIf="!loading">
+  <p style="margin: 20px 10px">USER DETAILS</p>
+  <a *ngIf="role === 'admin'" (click)="onAdd(content)"
+    ><img
+      src="../assets/images/add-user.png"
+      style="height: 25px; margin: 10px; cursor: pointer"
+  /></a>
+  <table class="table tablesorter" id="" *ngIf="userDetails.length > 0">
+    <thead class="text-primary">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th *ngIf="role === 'admin'">Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let eachUser of userDetails; let i = index">
+        <td>{{ eachUser.firstname | titlecase }}</td>
+        <td>{{ eachUser.lastname | titlecase }}</td>
+        <td>{{ eachUser.email }}</td>
+        <td
+          *ngIf="role === 'admin'"
+          [ngClass]="{
+            'text-success': eachUser.status == 'active',
+            'text-warning': eachUser.status == 'pending',
+            'text-danger': eachUser.status == 'inactive'
+          }"
+        >
+          {{ eachUser.status | titlecase }}
+        </td>
+        <td>
+          <img
+            *ngIf="role === 'admin' && eachUser.Role.name !== 'admin'"
+            (click)="onEdit(eachUser.id)"
+            src="../assets/images/icons8-edit-50.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+        <td>
+          <img
+            *ngIf="role === 'admin' && eachUser.Role.name !== 'admin'"
+            (click)="onDelete(eachUser.id)"
+            src="../assets/images/icons8-delete-bin-60.png"
+            alt=""
+            srcset=""
+            style="height: 25px; cursor: pointer"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add user or edit user form  -->
+<app-details-form></app-details-form>
+
+<!-- Delete User Form -->
+<app-delete-form></app-delete-form>

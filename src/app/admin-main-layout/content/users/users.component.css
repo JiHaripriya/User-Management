@@ -1,0 +1,17 @@
+h4 {
+  padding-left: 7px;
+}
+
+tr,
+th {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.table td,
+.table th {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table thead th {
+  border-bottom: none !important;
+}

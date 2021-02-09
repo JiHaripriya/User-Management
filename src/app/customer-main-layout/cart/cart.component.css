@@ -1,0 +1,78 @@
+::ng-deep .modal {
+  position: fixed;
+  top: -30px !important;
+  z-index: 2050 !important;
+  height: 100% !important;
+}
+
+::ng-deep .modal-open {
+  padding-right:0px !important;
+}
+
+::ng-deep .modal-content {
+  position: fixed !important;
+  width: 30% !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  right: 0 !important;
+  height: 100%;
+}
+
+::ng-deep .modal.fade .modal-dialog {
+  transition: none;
+  transform: none !important;
+}
+
+::ng-deep .modal-body,
+.modal-header,
+.modal-footer {
+  background-color: #ffffff !important;
+}
+
+::ng-deep .btn,
+::ng-deep .btn-primary {
+  background: #000000 !important;
+}
+
+::ng-deep .btn-primary:focus {
+  box-shadow: none !important;
+}
+
+img {
+  transition: transform 0.9s ease;
+  -webkit-transition: transform 0.9s ease;
+  -o-transition: transform 0.9s ease;
+  -moz-transition: transform 0.9s ease;
+}
+
+img:hover {
+  transform: scale(1.06);
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0b3af7da !important;
+  border-color: #0b3af7da !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cart .row {
+  flex-wrap: nowrap !important;
+}
+
+input[type="number"]{
+  color: #000000 !important;
+  border: none;
+  border-bottom: 1px solid #000000;
+  width: 25%;
+}
+
+input[type="number"]:focus {
+  outline: none;
+}
+
+.remove:hover {
+  color: #0b3af7da;
+}

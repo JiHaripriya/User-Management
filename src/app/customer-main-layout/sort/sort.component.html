@@ -1,0 +1,73 @@
+<div
+  class="row p-3 ml-3"
+  style="
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #8f9da89a;
+  "
+>
+  <div class="col-md-3">
+    <span
+      class="p-2 mr-2"
+      placement="bottom"
+      ngbTooltip="3 column"
+      style="cursor: pointer"
+      (click)="onGridView()"
+      ><i class="fa fa-th fa-lg" aria-hidden="true"></i>
+    </span>
+    <span
+      class="p-2"
+      placement="bottom"
+      ngbTooltip="List View"
+      style="cursor: pointer"
+      (mousedown)="onListView()"
+      ><i class="fa fa-list fa-lg" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <!-- Sort Categories -->
+  <div class="col-md-4">
+    <div
+      ngbDropdown
+      class="d-flex justify-content-between sort-options border rounded"
+      style="width: inherit; cursor: pointer"
+    >
+      <div ngbDropdownToggle class="m-2" style="width: 100%">
+        <span style="font-size: smaller" [(ngModel)]="option" ngDefaultControl>{{
+          option
+        }}</span>
+      </div>
+      <div ngbDropdownMenu>
+        <div
+          style="cursor: pointer; outline: none; font-size: small"
+          class="pl-3 pr-3 pt-2 pb-2"
+          ngbDropdownItem
+          *ngIf="selected"
+          (click)="sortOption('Choose an option', 0)"
+        >
+          Clear Sort
+        </div>
+        <div
+          style="cursor: pointer; outline: none; font-size: small"
+          class="pl-3 pr-3 pt-2 pb-2"
+          ngbDropdownItem
+          (click)="sortOption('Sort by price: low to high', 1)"
+        >
+          Sort by price: low to high
+        </div>
+        <div
+          style="cursor: pointer; font-size: small"
+          ngbDropdownItem
+          class="pl-3 pr-3 pt-2 pb-2"
+          (click)="sortOption('Sort by price: high to low', 2)"
+        >
+          Sort by price: high to low
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 text-right">
+    <span style="font-size: small"> {{ results }} total results</span>
+  </div>
+</div>

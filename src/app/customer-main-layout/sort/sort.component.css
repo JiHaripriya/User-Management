@@ -1,0 +1,30 @@
+select,
+option {
+  color: #000000;
+  padding: 10px;
+  font-weight: 200 !important;
+  border: 1px solid #8f9da89a !important;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+}
+
+select:focus {
+  outline: none;
+}
+
+.sort-options .dropdown-menu {
+  min-width: 100% !important;
+}
+
+.sort-options .dropdown-menu.show {
+  top: 6px !important;
+  left: -8px !important;
+}
+
+.sort-options .m-2.dropdown-toggle {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}

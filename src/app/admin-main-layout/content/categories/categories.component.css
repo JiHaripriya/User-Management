@@ -1,0 +1,13 @@
+.disable-cursor {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.forms .form-control,
+.forms .form-control:focus {
+  height: calc(1.5em + 0.75rem + 2px) !important;
+}
+
+.forms .btn-primary {
+  height: 2.15rem !important;
+}

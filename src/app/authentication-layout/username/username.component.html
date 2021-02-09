@@ -1,0 +1,42 @@
+<particles
+  [style]="myStyle"
+  [width]="width"
+  [height]="height"
+  [params]="myParams"
+></particles>
+
+<div
+  class="col auth-form shadow rounded"
+  style="background: var(--secondary-color)"
+  *ngIf="visible"
+  [@slideInOut]
+>
+  <form class="col p-5" [formGroup]="usernameForm" (ngSubmit)="onSubmit()">
+    <div class="row pb-1 border-bottom"><h4>Login</h4></div>
+    <div class="row pt-4">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Email"
+        formControlName="email"
+        [ngClass]="{ 'border-danger': usernameForm.hasError('invalidEmail') }"
+      />
+    </div>
+    <div
+      class="row pt-2 text-danger"
+      *ngIf="usernameForm.hasError('invalidEmail')"
+      style="font-size: small"
+    >
+      {{ message | titlecase }}
+    </div>
+    <div class="row pt-4">
+      <button
+        class="btn btn-primary w-100 gradient-background"
+        [disabled]="!usernameForm.valid"
+        [ngClass]="{ 'disabled-button': !usernameForm.valid }"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+</div>

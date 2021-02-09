@@ -1,0 +1,29 @@
+.bg-primary {
+  background-color: var(--secondary-color) !important;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card-title {
+  margin-top: -10px;
+  font-size: 2.6rem;
+}
+
+.card-text {
+  font-size: smaller;
+}
+
+.blue-shadow {
+  box-shadow: 0 0.125rem 0.25rem #1d8bf87e !important;
+}
+
+.card-header {
+  padding: 0.25rem 0.75rem !important;
+  border-bottom: none !important;
+}
+
+img {
+    height: 55px;
+}
