@@ -17,6 +17,10 @@ body {
   background-color: var(--primary-color);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 input[type="date"],
 input[type="text"],
 input[type="tel"],

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
@@ -43,6 +43,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private categoryServices: CategoryServices,
     private cartServices: CartService
   ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.router.url.indexOf('?product') !== -1
+          ? (this.showDetails = true)
+          : (this.showDetails = false);
+      }
+    });
     if (this.router.url.indexOf('?') !== -1) {
       this.page = this.router.url
         .slice(0, this.router.url.indexOf('?'))

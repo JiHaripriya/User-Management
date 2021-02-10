@@ -10,17 +10,26 @@ import { Product } from 'src/app/shared/models/product.model';
 export class ProductDetailsComponent implements OnInit {
   product: Product;
 
-  constructor(private productServices: ProductServicesService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.product = Object.assign(JSON.parse(localStorage.getItem('product')), {
-      createdAt: new Date(
-        JSON.parse(localStorage.getItem('product')).createdAt
-      ).toDateString(),
-      updatedAt: new Date(JSON.parse(localStorage.getItem('product')).updatedAt)
-        .toTimeString()
-        .split(' G')[0],
+      createdAt:
+        new Date(
+          JSON.parse(localStorage.getItem('product')).createdAt
+        ).toDateString() +
+        ' ' +
+        new Date(JSON.parse(localStorage.getItem('product')).createdAt)
+          .toTimeString()
+          .split(' G')[0],
+      updatedAt:
+        new Date(
+          JSON.parse(localStorage.getItem('product')).updatedAt
+        ).toDateString() +
+        ' ' +
+        new Date(JSON.parse(localStorage.getItem('product')).updatedAt)
+          .toTimeString()
+          .split(' G')[0],
     });
-    // localStorage.removeItem('product');
   }
 }

@@ -1,40 +1,50 @@
-<div style="margin-top: 2.5rem">
-  <div class="row" style="margin-bottom: 1.5rem">
-    <h3>{{ product?.name | titlecase }}</h3>
-  </div>
-  <div class="row">
+<div style="margin-top: 4rem">
+  <div class="row" style="margin-bottom: 1.5rem; margin-left: 1.5rem">
     <div class="col-md-6">
       <img [src]="product.image" alt="" style="width: inherit" />
     </div>
-    <div class="col-md-6 justify-content-between border border-dark">
-      <p>₹{{ product?.price }}</p>
-      <p>
-        <i>{{ product?.description }}</i>
-      </p>
-      <p>Added on: {{ product?.createdAt }}</p>
-      <p>Last Updated on: {{ product?.updatedAt }}</p>
-      <span
-        *ngIf="product.subcategory_name"
-        class="p-2 text-light mr-2"
-        style="
-          background-color: #335af4da;
-          border-radius: 24px;
-          font-size: smaller;
-        "
-      >
-        <i>{{ product.category_name | titlecase }}</i></span
-      >
-      <span
-        *ngIf="product.subcategory_name"
-        class="p-2 text-light"
-        style="
-          background-color: #335af4da;
-          border-radius: 24px;
-          font-size: smaller;
-        "
-      >
-        <i>{{ product.subcategory_name | titlecase }}</i></span
-      >
+    <div class="col-md-6 justify-content-between">
+      <h3>{{ product?.name | titlecase }}</h3>
+      <p style="color: rgb(173, 173, 3)">₹{{ product?.price }}</p>
+      <p>{{ product?.description }}</p>
+      <div *ngIf="product?.quantity >= 0">
+        <p class="text-success">
+          Currently Instock: {{ product?.quantity }} left
+        </p>
+      </div>
+      <div *ngIf="product?.quantity === 0">
+        <p class="text-danger">Out of stock</p>
+      </div>
+      <div class="mb-3">
+        <span
+          *ngIf="product.subcategory_name"
+          class="p-2 mr-2"
+          style="
+            color: #335af4da;
+            border-radius: 6px;
+            border: 1px solid #335af4da;
+            font-size: smaller;
+          "
+        >
+          <i>{{ product.category_name | titlecase }}</i></span
+        >
+        <span
+          *ngIf="product.subcategory_name"
+          class="p-2"
+          style="
+            color: #335af4da;
+            border-radius: 6px;
+            border: 1px solid #335af4da;
+            font-size: smaller;
+          "
+        >
+          <i>{{ product.subcategory_name | titlecase }}</i></span
+        >
+      </div>
+      <div style="font-size: smaller">
+        <p>Added on: {{ product?.createdAt }}</p>
+        <p>Last Updated on: {{ product?.updatedAt }}</p>
+      </div>
     </div>
   </div>
 </div>
