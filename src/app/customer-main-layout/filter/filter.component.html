@@ -39,18 +39,30 @@
         >{{ category.name | uppercase }}</span
       >
       <i class="fa fa-plus" *ngIf="category.isCollapsed"></i>
-      <i class="fa fa-minus" *ngIf="!category.isCollapsed" (click)="clearFilter()" placement="bottom" ngbTooltip="Clear Filter"></i>
+      <i
+        class="fa fa-minus"
+        *ngIf="!category.isCollapsed"
+        (click)="clearFilter()"
+        placement="bottom"
+        ngbTooltip="Clear Filter"
+      ></i>
     </div>
     <div class="col-md-12 subcategories" *ngIf="!category.isCollapsed">
       <div
         class="mt-2"
         *ngFor="let subCategory of category.Subcategories"
-        (click)="loadSubcategoryProducts(category.name, subCategory.name, subCategory.id)"
+        (click)="
+          loadSubcategoryProducts(
+            category.name,
+            subCategory.name,
+            subCategory.id
+          )
+        "
       >
         <div
           class="mb-2 subcategory-name"
           style="font-size: 0.9rem; cursor: pointer"
-          [ngClass]="{'text-blue': selectedSubcategory === subCategory.id}"
+          [ngClass]="{ 'text-blue': selectedSubcategory === subCategory.id }"
         >
           {{ subCategory.name | titlecase }}
         </div>

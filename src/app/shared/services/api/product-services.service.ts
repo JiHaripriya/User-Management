@@ -22,7 +22,7 @@ export class ProductServicesService {
   sortedProducts = new Subject<any>();
   resetSortMenu = new Subject<boolean>();
   loadAllProducts = new Subject<boolean>();
-  
+
   constructor(
     private http: HttpClient,
     private categoryServices: CategoryServices

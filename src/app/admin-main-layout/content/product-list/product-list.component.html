@@ -32,7 +32,6 @@
     [ngClass]="{ 'pt-4': page === 'shop' }"
     *ngIf="products?.length > 0"
   >
-    <!-- Total number of users card shadow -->
     <div
       *ngFor="
         let product of products
@@ -87,7 +86,6 @@
                   ngbTooltip="Edit"
               /></a>
             </li>
-            <!-- <li *ngIf="page !== 'shop'"> -->
             <li>
               <a
                 ><img
@@ -178,7 +176,6 @@
 </div>
 
 <app-product-add-edit-form></app-product-add-edit-form>
-<app-product-details-form></app-product-details-form>
 
 <app-no-results *ngIf="products?.length === 0"></app-no-results>
 

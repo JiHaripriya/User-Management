@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
@@ -10,17 +10,9 @@ import { ProductServicesService } from 'src/app/shared/services/api/product-serv
 })
 export class ProductCategoryComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private productServices: ProductServicesService
   ) {}
-  images = ['01', '02', '03'].map(
-    (num) => `../../../assets/images/banner-${num}.jpg`
-  );
-
-  featureList = ['01', '02', '03', '01'].map(
-    (num) => `../../../assets/images/banner-${num}.jpg`
-  );
   productList;
 
   ngOnInit(): void {
@@ -41,8 +33,10 @@ export class ProductCategoryComponent implements OnInit {
     });
   }
 
-  gotToShop(category:string, subcategory: string) {
+  gotToShop(category: string, subcategory: string) {
     // Take to category wise product listing later
-    this.router.navigate(['user', 'shop'], {queryParams: {category: category, subcategory: subcategory}});
+    this.router.navigate(['user', 'shop'], {
+      queryParams: { category: category, subcategory: subcategory },
+    });
   }
 }

@@ -12,12 +12,18 @@ import { AuthService } from '../api/auth-service.service';
   providedIn: 'root',
 })
 export class LoginGuardService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.authService.isAuthenticated()) {
       let userDetails = JSON.parse(localStorage.getItem('userData'));
-      userDetails.role === 'user' ? this.router.navigateByUrl('/user') : this.router.navigateByUrl('/admin/dashboard');
+      userDetails.role === 'user'
+        ? this.router.navigateByUrl('/user')
+        : this.router.navigateByUrl('/admin/dashboard');
       return false;
     }
     return true;

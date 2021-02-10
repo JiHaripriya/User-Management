@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
@@ -9,7 +9,7 @@ import { GeneralNotificationsService } from 'src/app/shared/services/general-not
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
   userDetails: UserDetails[];
@@ -43,13 +43,11 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.userDetailsSubscription = this.userDetailsApi
         .fetchUserList()
         .subscribe((data) => {
-          this.userDetails = data
-            .filter(
-              (user) =>
-                user.email !==
-                JSON.parse(localStorage.getItem('userData')).email
-            );
-            // .reverse();
+          this.userDetails = data.filter(
+            (user) =>
+              user.email !== JSON.parse(localStorage.getItem('userData')).email
+          );
+          // .reverse();
           this.loading = false;
         });
     } else this.notifs.contactAdminNotification('Access Forbidden');

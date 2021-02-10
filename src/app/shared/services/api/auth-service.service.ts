@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { UserDetails } from '../../models/user-details.model';
@@ -9,7 +9,7 @@ import { UserDetails } from '../../models/user-details.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user = new BehaviorSubject<UserDetails>(null);
-  baseUrl = "http://user-dashboard.qburst.build:3002/user";
+  baseUrl = 'http://user-dashboard.qburst.build:3002/user';
 
   constructor(private http: HttpClient, private route: Router) {}
 
@@ -21,12 +21,9 @@ export class AuthService {
   }
 
   emailVerification(email: string) {
-    return this.http.post<any>(
-      `${this.baseUrl}/check`,
-      {
-        email: email,
-      }
-    );
+    return this.http.post<any>(`${this.baseUrl}/check`, {
+      email: email,
+    });
   }
 
   login(email: string, password: string) {
@@ -52,24 +49,29 @@ export class AuthService {
   }
 
   setOrForgotPassword(action: string, password: string, token: string) {
-    this.http.put(`http://user-dashboard.qburst.build:3002/user/password`, {
-      password: password
-    }, {
-      params: new HttpParams().set('action', action)
-        .set('token', token)
-    }).subscribe((res) => {
-      console.log("Password set");
-    });
+    this.http
+      .put(
+        `http://user-dashboard.qburst.build:3002/user/password`,
+        {
+          password: password,
+        },
+        {
+          params: new HttpParams().set('action', action).set('token', token),
+        }
+      )
+      .subscribe((res) => {
+        console.log('Password set');
+      });
   }
 
   autoLogin() {
     const userData: {
-      firstname: string,
-      lastname: string,
-      email: string,
-      role: string,
-      status: string,
-      token: string
+      firstname: string;
+      lastname: string;
+      email: string;
+      role: string;
+      status: string;
+      token: string;
     } = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
       return;
@@ -89,7 +91,7 @@ export class AuthService {
 
   logout() {
     this.http.post(`${this.baseUrl}/logout`, {}).subscribe((res) => {
-      console.log("Logged out");
+      console.log('Logged out');
     });
     this.user.next(null);
     localStorage.removeItem('userData');
@@ -105,7 +107,6 @@ export class AuthService {
     token: string,
     id: number
   ) {
-    // const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new UserDetails(
       firstname,
       lastname,

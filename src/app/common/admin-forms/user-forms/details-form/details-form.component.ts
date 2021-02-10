@@ -1,9 +1,14 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UserDetails } from 'src/app/shared/models/user-details.model';
-import { AuthService } from 'src/app/shared/services/api/auth-service.service';
 import { FormServiceService } from 'src/app/shared/services/admin/form-service.service';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
 
@@ -25,7 +30,6 @@ export class DetailsFormComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: NgbModal,
     private formService: FormServiceService,
-    private authService: AuthService,
     private userDetailsApi: UserDetailsService
   ) {}
 
@@ -110,5 +114,4 @@ export class DetailsFormComponent implements OnInit, OnDestroy {
     this.adduserSubscription.unsubscribe();
     this.edituserSubscription.unsubscribe();
   }
-
 }

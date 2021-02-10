@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AdminMainLayoutComponent } from './admin-main-layout/admin-main-layout.component';
 import { HeaderComponent } from './admin-main-layout/header/header.component';
 import { SidebarComponent } from './admin-main-layout/sidebar/sidebar.component';
-import { FooterComponent } from './admin-main-layout/footer/footer.component';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { ParticlesModule } from 'angular-particle';
 import { AuthInterceptorService } from './shared/services/api/auth-interceptor.service';
@@ -33,7 +32,6 @@ import { ContactComponent } from './customer-main-layout/contact/contact.compone
 import { CustomerHomeComponent } from './customer-main-layout/customer-home/customer-home.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProductAddEditFormComponent } from './common/admin-forms/product-forms/product-add-edit-form/product-add-edit-form.component';
-import { ProductDetailsFormComponent } from './common/admin-forms/product-forms/product-details-form/product-details-form.component';
 import { CartComponent } from './customer-main-layout/cart/cart.component';
 import { ShopComponent } from './customer-main-layout/shop/shop.component';
 import { ProductCategoryComponent } from './customer-main-layout/product-category/product-category.component';
@@ -56,7 +54,6 @@ import { ProductDetailsComponent } from './admin-main-layout/content/product-det
     AdminMainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent,
     DashboardComponent,
     UsersComponent,
     LoaderComponent,
@@ -72,7 +69,6 @@ import { ProductDetailsComponent } from './admin-main-layout/content/product-det
     ContactComponent,
     CustomerHomeComponent,
     ProductAddEditFormComponent,
-    ProductDetailsFormComponent,
     CartComponent,
     ShopComponent,
     ProductCategoryComponent,
@@ -82,7 +78,7 @@ import { ProductDetailsComponent } from './admin-main-layout/content/product-det
     CategoryFormComponent,
     SubcategoryFormComponent,
     DeleteItemsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,9 +91,15 @@ import { ProductDetailsComponent } from './admin-main-layout/content/product-det
     CommonModule,
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
-    NgxSliderModule
+    NgxSliderModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryServices } from 'src/app/shared/services/api/category-services.service';
 import { ProductServicesService } from 'src/app/shared/services/api/product-services.service';
 
 @Component({
@@ -15,8 +14,7 @@ export class SortComponent implements OnInit {
 
   constructor(
     private productServices: ProductServicesService,
-    private router: Router,
-    private categoryServices: CategoryServices
+    private router: Router
   ) {
     this.productServices.getAllProducts().subscribe((data) => {
       this.results = data.length;
@@ -28,13 +26,12 @@ export class SortComponent implements OnInit {
       (data) => (this.results = data)
     );
 
-    this.productServices.resetSortMenu.subscribe(
-      status => {
-        if(status) {
-          this.option = 'Choose an option';
-          this.selected = false;
-        }
-     })
+    this.productServices.resetSortMenu.subscribe((status) => {
+      if (status) {
+        this.option = 'Choose an option';
+        this.selected = false;
+      }
+    });
   }
 
   onListView() {

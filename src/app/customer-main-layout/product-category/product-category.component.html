@@ -16,13 +16,16 @@
           <div
             class="col-md-3 border border-light m-1 category-cards"
             *ngFor="let product of eachCategory.products"
-            (click)="gotToShop(eachCategory.products[0].category_name, eachCategory.subcategory_name)"
+            (click)="
+              gotToShop(
+                eachCategory.products[0].category_name,
+                eachCategory.subcategory_name
+              )
+            "
           >
             <img [src]="product.image" alt="" />
             <div class="category-content">
-              <p
-                class="category-name"
-              >
+              <p class="category-name">
                 {{ product.name }}
               </p>
               <div class="shop-now">

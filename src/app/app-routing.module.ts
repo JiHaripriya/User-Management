@@ -79,15 +79,15 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: CustomerHomeComponent
+        component: CustomerHomeComponent,
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
       },
       {
         path: 'shop',
-        component: ShopComponent
+        component: ShopComponent,
       },
     ],
   },

@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UserDetails } from 'src/app/shared/models/user-details.model';
 import { GeneralNotificationsService } from 'src/app/shared/services/general-notifications.service';
 import { UserDetailsService } from 'src/app/shared/services/api/user-details.service';
 

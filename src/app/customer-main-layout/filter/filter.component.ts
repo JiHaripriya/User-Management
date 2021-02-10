@@ -127,7 +127,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   clearFilter() {
-    this.router.navigate([], {queryParams: null});
+    this.router.navigate([], { queryParams: null });
     this.productServices.loadAllProducts.next(true);
   }
 
