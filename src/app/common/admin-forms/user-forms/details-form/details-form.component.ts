@@ -96,7 +96,7 @@ export class DetailsFormComponent implements OnInit, OnDestroy {
         ? Object.assign(this.addUserForm.value, {
             status: 'pending',
             role: 'user',
-            link: 'http://localhost:4200/setPassword',
+            // link: 'http://localhost:4200/setPassword',
           })
         : this.addUserForm.value;
 

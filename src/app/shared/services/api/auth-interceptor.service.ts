@@ -18,10 +18,14 @@ export class AuthInterceptorService implements HttpInterceptor {
           return next.handle(req);
         }
 
-        const modifiedReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${user.token}` },
+        let modifiedReq = req.clone({
+          url: req.url.replace('http://', 'https://')
         });
 
+        modifiedReq = req.clone({
+          setHeaders: { Authorization: `Bearer ${user.token}` },
+        });
+        
         return next.handle(modifiedReq);
       })
     );
